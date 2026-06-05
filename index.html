@@ -33,9 +33,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
 .xp-pill{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--amber);font-family:'DM Mono',monospace}
 .level-pill{background:linear-gradient(135deg,var(--accent),var(--teal));border-radius:20px;padding:4px 12px;font-size:12px;color:#fff;font-weight:600;font-family:'Syne',sans-serif}
-.search-inp{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;color:var(--text);font-size:13px;outline:none;width:160px;transition:all .2s;font-family:'DM Sans',sans-serif}
-.search-inp:focus{border-color:var(--accent);width:200px}
+.search-inp{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;color:var(--text);font-size:13px;outline:none;width:180px;transition:all .2s;font-family:'DM Sans',sans-serif}
+.search-inp:focus{border-color:var(--accent);width:220px}
 .search-inp::placeholder{color:var(--text3)}
+.sr-section{padding:6px 14px 4px;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text3);font-family:'Syne',sans-serif;border-top:1px solid var(--border);margin-top:2px}
+.sr-section:first-child{border-top:none;margin-top:0}
+.sr-item{display:flex;align-items:flex-start;gap:10px;padding:9px 14px;cursor:pointer;transition:background .15s;border-radius:0}
+.sr-item:hover,.sr-item.sr-active{background:rgba(108,99,255,.1)}
+.sr-item-icon{width:26px;height:26px;background:var(--bg4);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px}
+.sr-item-body{flex:1;min-width:0}
+.sr-item-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sr-item-sub{font-size:11.5px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sr-item-sub mark{background:rgba(108,99,255,.25);color:var(--accent2);border-radius:2px;padding:0 2px;font-style:normal}
+.sr-empty{padding:20px 14px;text-align:center;font-size:13px;color:var(--text3)}
+.sr-kbd{font-size:10px;color:var(--text3);margin-left:auto;flex-shrink:0;padding:2px 5px;background:var(--bg4);border-radius:4px;border:1px solid var(--border)}
 
 /* SIDEBAR */
 .sidebar{
@@ -305,8 +316,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <!-- TOPBAR -->
 <header class="topbar">
   <div class="logo"><div class="logo-icon">📊</div>Google Ads Academy</div>
-  <input class="search-inp" id="searchInp" placeholder="Cari materi...">
+  <div style="position:relative" id="searchWrap">
+    <input class="search-inp" id="searchInp" placeholder="🔍 Cari materi..." autocomplete="off"
+      oninput="handleSearch(this.value)" onkeydown="searchKeyNav(event)"
+      onfocus="if(this.value.length>1)handleSearch(this.value)"
+      onblur="setTimeout(()=>closeSearch(),200)">
+    <div id="searchDrop" style="display:none;position:absolute;top:calc(100% + 6px);left:0;width:380px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);box-shadow:var(--shadow);z-index:200;max-height:420px;overflow-y:auto"></div>
+  </div>
   <div class="topbar-right">
+    <div id="saveInd" style="font-size:11px;color:var(--text3);display:none;align-items:center;gap:4px">💾 Tersimpan</div>
     <div class="xp-pill">⚡ <span id="xpNum">0</span> XP</div>
     <div class="level-pill" id="lvlPill">Beginner</div>
   </div>
@@ -351,6 +369,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="nav-lbl">Tools</div>
     <div class="nav-item" id="nav-sim" onclick="go('sim')"><div class="nav-icon">🎮</div>Campaign Simulator</div>
     <div class="nav-item" id="nav-quiz" onclick="go('quiz')"><div class="nav-icon">📝</div>Quiz Master</div>
+    <div class="nav-item" onclick="resetState()" style="color:var(--red);margin-top:8px;border-top:1px solid var(--border);padding-top:10px"><div class="nav-icon" style="background:rgba(255,92,122,.1)">🔄</div>Reset Progress</div>
   </div>
 </nav>
 
@@ -2203,10 +2222,52 @@ Next month priorities</pre>
 
 <script>
 // ── STATE ──
-const S={xp:0,mDone:new Set(),lvlDone:{},qRight:0};
+// ── STORAGE ──
+const STORE_KEY='gads_academy_v1';
+function saveState(){
+  try{
+    localStorage.setItem(STORE_KEY,JSON.stringify({
+      xp:S.xp,
+      mDone:Array.from(S.mDone),
+      lvlDone:S.lvlDone,
+      qRight:S.qRight,
+      answeredQ:S.answeredQ
+    }));
+    // Show save indicator briefly
+    const ind=document.getElementById('saveInd');
+    if(ind){ind.style.display='flex';clearTimeout(ind._t);ind._t=setTimeout(()=>ind.style.display='none',1500)}
+  }catch(e){}
+}
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY);
+    if(!raw)return;
+    const d=JSON.parse(raw);
+    S.xp=d.xp||0;
+    S.mDone=new Set(d.mDone||[]);
+    S.lvlDone=d.lvlDone||{};
+    S.qRight=d.qRight||0;
+    S.answeredQ=d.answeredQ||{};
+  }catch(e){}
+}
+function resetState(){
+  if(!confirm('Reset semua progress? XP, modul selesai, dan quiz akan direset ke 0.'))return;
+  localStorage.removeItem(STORE_KEY);
+  S.xp=0;S.mDone=new Set();S.lvlDone={};S.qRight=0;S.answeredQ={};
+  // reset all visual states
+  document.querySelectorAll('.mod-step').forEach(el=>el.classList.remove('done','cur'));
+  document.querySelectorAll('.m-card').forEach(el=>el.classList.remove('done'));
+  document.querySelectorAll('[id^="cs-m"]').forEach(el=>el.textContent='🔓');
+  document.querySelectorAll('.nav-prog').forEach(el=>{el.textContent='';el.className='nav-prog'});
+  refreshUI();
+  showBadge('🔄','Progress Direset','Mulai dari awal lagi!');
+}
+
+// ── STATE ──
+const S={xp:0,mDone:new Set(),lvlDone:{},qRight:0,answeredQ:{}};
 const LVL=[{x:0,n:'Beginner'},{x:250,n:'Intermediate'},{x:700,n:'Advanced'},{x:1400,n:'Expert'},{x:2200,n:'Master 🏆'}];
 function getLevel(){for(let i=LVL.length-1;i>=0;i--)if(S.xp>=LVL[i].x)return LVL[i].n;return'Beginner'}
-function addXP(n){S.xp+=n;refreshUI()}
+function addXP(n){S.xp+=n;saveState();refreshUI()}
 function refreshUI(){
   document.getElementById('xpNum').textContent=S.xp;
   document.getElementById('sXP').textContent=S.xp;
@@ -2244,10 +2305,11 @@ function setLevel(mod,lv,el){
 function answerQ(qid,el,correct,fb){
   const con=document.getElementById(qid);
   if(con.querySelector('.ok')||con.querySelector('.ng'))return;
-  con.querySelectorAll('.quiz-opt').forEach(o=>{o.style.pointerEvents='none';if(o===el)o.classList.add(correct?'ok':'ng')});
+  con.querySelectorAll('.quiz-opt').forEach((o,i)=>{o.style.pointerEvents='none';if(o===el)o.classList.add(correct?'ok':'ng')});
   const f=document.getElementById(qid+'-fb');
   if(f){f.classList.add('show',correct?'ok-fb':'ng-fb');f.textContent=fb}
-  if(correct){addXP(10);S.qRight++;refreshUI()}
+  if(correct){addXP(10);S.qRight++;S.answeredQ[qid]=true;saveState();refreshUI()}
+  else{S.answeredQ[qid]=false;saveState()}
 }
 
 // ── LEVEL COMPLETE ──
@@ -2256,6 +2318,7 @@ function doneLevel(mod,lv,num){
   if(S.lvlDone[k])return;
   S.lvlDone[k]=true;
   addXP(50);
+  saveState();
   const st=document.getElementById(mod+'s'+num);
   if(st)st.classList.add('done');
   updateModProg(mod);
@@ -2273,6 +2336,7 @@ function doneModule(mod){
   if(S.mDone.has(mod))return;
   S.mDone.add(mod);
   addXP(150);
+  saveState();
   ['beg','int','adv','exp'].forEach((l,i)=>{
     const k=mod+'_'+l;
     if(!S.lvlDone[k]){S.lvlDone[k]=true;const st=document.getElementById(mod+'s'+(i+1));if(st)st.classList.add('done')}
@@ -2427,8 +2491,9 @@ function showResult(){
   document.getElementById('qzEmoji').textContent=emojis[Math.min(Math.floor(s/4),5)];
   const msgs=['Jangan menyerah! Baca lagi materinya ya.','Lumayan! Beberapa konsep sudah mulai masuk.','Bagus! Kamu memahami dasar-dasarnya.','Keren! Pemahaman yang solid.','Luar biasa! Hampir sempurna.','PERFECT! Kamu sudah jadi Ads Expert! 🎉'];
   document.getElementById('qzMsg').textContent=msgs[Math.min(Math.floor(s/4),5)];
-  const xp=s*5;document.getElementById('qzXP').textContent='+'+xp+' XP';
-  addXP(xp);
+  const xp=s*5;
+  document.getElementById('qzXP').textContent='+'+xp+' XP';
+  addXP(xp); // addXP already calls saveState
 }
 function restartQuiz(){
   document.getElementById('qzDone').style.display='none';
@@ -2436,8 +2501,215 @@ function restartQuiz(){
   document.getElementById('qzStart').style.display='block';
 }
 
-// ── SCROLL TOP ──
-document.getElementById('mainEl').addEventListener('scroll',function(){
+// ══════════════════════════════════
+// ── SEARCH SYSTEM ──
+// ══════════════════════════════════
+const SEARCH_INDEX=[
+  // ── MODULES ──
+  {page:'m1',icon:'💰',title:'ROAS — Return on Ad Spend',cat:'Modul',tags:['roas','return ad spend','revenue','profit','4x','gross roas','net roas','clv','attribution','scale','multiplier','profitabilitas']},
+  {page:'m1',icon:'💰',title:'ROAS: Formula — Revenue ÷ Ad Spend',cat:'Modul · M1',tags:['formula roas','hitung roas','roas calculation','total revenue','total spend']},
+  {page:'m1',icon:'💰',title:'ROAS: Net vs Gross ROAS',cat:'Modul · M1 · Expert',tags:['net roas','gross roas','cogs','cost of goods','profitabilitas sebenarnya']},
+  {page:'m1',icon:'💰',title:'ROAS: Attribution Model (Time-Decay, Last-Click)',cat:'Modul · M1 · Expert',tags:['attribution','last click','first click','time decay','linear','multi touch','touchpoint']},
+  {page:'m1',icon:'💰',title:'ROAS: Customer Lifetime Value (CLV)',cat:'Modul · M1 · Expert',tags:['clv','customer lifetime value','repeat service','referral','long term']},
+  {page:'m2',icon:'🎯',title:'CPA — Cost Per Acquisition',cat:'Modul',tags:['cpa','cost per acquisition','cost per lead','biaya per lead','efisiensi']},
+  {page:'m2',icon:'🎯',title:'CPA: Formula — Ad Spend ÷ Conversions',cat:'Modul · M2',tags:['formula cpa','hitung cpa','cpa calculation','conversions']},
+  {page:'m2',icon:'🎯',title:'CPA: Acceptable CPA Threshold',cat:'Modul · M2 · Advanced',tags:['acceptable cpa','cpa threshold','batas cpa','target cpa','profitable']},
+  {page:'m2',icon:'🎯',title:'CPA: Target CPA vs Target ROAS Bidding',cat:'Modul · M2 · Advanced',tags:['target cpa bidding','target roas bidding','smart bidding','otomatis','strategi bid']},
+  {page:'m2',icon:'🎯',title:'CPA: Blended CPA Trap',cat:'Modul · M2 · Advanced',tags:['blended cpa','blended average','hide inefficiency','per campaign','underperform']},
+  {page:'m2',icon:'🎯',title:'CPA: Lead Quality vs Low CPA',cat:'Modul · M2 · Expert',tags:['lead quality','qualified lead','junk lead','close rate','kualitas lead']},
+  {page:'m3',icon:'📈',title:'Conversion Rate — % Clicks jadi Leads',cat:'Modul',tags:['conversion rate','conv rate','cr','persentase konversi','landing page','form']},
+  {page:'m3',icon:'📈',title:'Conversion Rate: Formula — Conv ÷ Clicks × 100%',cat:'Modul · M3',tags:['formula conversion rate','hitung conv rate','cpa = cpc / conv rate']},
+  {page:'m3',icon:'📈',title:'Conversion Rate: Funnel Bottleneck Analysis',cat:'Modul · M3 · Advanced',tags:['funnel','bottleneck','form completion','bounce','drop off','stage']},
+  {page:'m3',icon:'📈',title:'Conversion Rate: Landing Page Optimization (CRO)',cat:'Modul · M3 · Expert',tags:['cro','landing page','optimasi','headline','cta','form design','trust signal','page speed','mobile']},
+  {page:'m4',icon:'🖱️',title:'CTR — Click-Through Rate',cat:'Modul',tags:['ctr','click through rate','klik','iklan','impressions','relevansi iklan']},
+  {page:'m4',icon:'🖱️',title:'CTR: Formula — Clicks ÷ Impressions × 100%',cat:'Modul · M4',tags:['formula ctr','hitung ctr','impressions','clicks']},
+  {page:'m4',icon:'🖱️',title:'CTR: Ad Extensions (Phone, Location, Callout)',cat:'Modul · M4 · Advanced',tags:['ad extension','ekstensi iklan','phone extension','location','callout','sitelink','ctr naik']},
+  {page:'m4',icon:'🖱️',title:'CTR: Ad Fatigue & Rotasi Creative',cat:'Modul · M4 · Expert',tags:['ad fatigue','kelelahan iklan','rotasi','creative refresh','declining ctr','ctr turun']},
+  {page:'m4',icon:'🖱️',title:'CTR → QS → CPC: Efek Domino',cat:'Modul · M4 · Expert',tags:['efek domino','ctr quality score','cascade','cpc turun','cpa turun']},
+  {page:'m5',icon:'📱',title:'Device & Geographic Breakdown',cat:'Modul',tags:['device','geographic','geo','segmentasi','mobile','desktop','jakarta','bandung','surabaya']},
+  {page:'m5',icon:'📱',title:'Device: Mobile vs Desktop Performance',cat:'Modul · M5',tags:['mobile performance','desktop performance','conv rate mobile','conv rate desktop','perbedaan device']},
+  {page:'m5',icon:'📱',title:'Device: Bid Adjustment per Device',cat:'Modul · M5 · Intermediate',tags:['bid adjustment','penyesuaian bid','mobile bid','desktop bid','device adjustment']},
+  {page:'m5',icon:'📱',title:'Geographic: Tiering Strategy (Jakarta/Bandung/Surabaya)',cat:'Modul · M5 · Intermediate',tags:['geo tiering','tier 1','tier 2','tier 3','jakarta','bandung','surabaya','lokasi','wilayah']},
+  {page:'m5',icon:'📱',title:'Device × Location Profitability Matrix',cat:'Modul · M5 · Advanced',tags:['profitability matrix','kombinasi device lokasi','alokasi budget','jakarta desktop']},
+  {page:'m5',icon:'📱',title:'Mobile Optimization Strategy',cat:'Modul · M5 · Expert',tags:['mobile optimization','form mobile','page speed mobile','cta mobile','ux mobile','3 fields']},
+  {page:'m6',icon:'💵',title:'Cost Metrics — CPC, Cost & Budget',cat:'Modul',tags:['cpc','cost per click','budget','biaya','pengeluaran','cost management']},
+  {page:'m6',icon:'💵',title:'CPC: Formula — Cost ÷ Clicks',cat:'Modul · M6',tags:['formula cpc','hitung cpc','cost per click calculation']},
+  {page:'m6',icon:'💵',title:'CPC: Cara Google Menentukan CPC (Auction)',cat:'Modul · M6 · Intermediate',tags:['auction','lelang','google auction','how cpc works','quality score cpc','max bid']},
+  {page:'m6',icon:'💵',title:'Budget: ROAS-Based Allocation (Bukan Equal Split)',cat:'Modul · M6 · Advanced',tags:['budget allocation','alokasi budget','roas based','tidak equal','weighted','optimal budget']},
+  {page:'m6',icon:'💵',title:'Budget: Scaling Strategy (+10-20%/week)',cat:'Modul · M6 · Expert',tags:['scaling','scale budget','naik budget','incremental','sweet spot','diminishing returns']},
+  {page:'m7',icon:'⭐',title:'Quality Score — Rating 1-10 dari Google',cat:'Modul',tags:['quality score','qs','rating google','skor kualitas','1-10']},
+  {page:'m7',icon:'⭐',title:'QS: 3 Komponen (Ad Rel, Exp CTR, Landing Page)',cat:'Modul · M7 · Intermediate',tags:['ad relevance','expected ctr','landing page experience','komponen qs','3 komponen']},
+  {page:'m7',icon:'⭐',title:'QS: Dampak pada CPC ($27K/year)',cat:'Modul · M7 · Intermediate',tags:['qs cpc','quality score cpc','diskon cpc','penalty cpc','27000','hemat']},
+  {page:'m7',icon:'⭐',title:'QS: Tier Management System (1-3 Delete, 4-5 Fix)',cat:'Modul · M7 · Advanced',tags:['qs tier','tier 1','tier 2','tier 3','tier 4','delete keyword','pause keyword','qs management']},
+  {page:'m7',icon:'⭐',title:'QS: Cara Fix per Komponen',cat:'Modul · M7 · Advanced',tags:['fix ad relevance','fix expected ctr','fix landing page','improve qs','perbaiki qs']},
+  {page:'m8',icon:'🔍',title:'Search Term Analysis — Apa yang Orang Cari',cat:'Modul',tags:['search term','kata kunci pencarian','actual search','query','apa yang dicari','negative keyword']},
+  {page:'m8',icon:'🔍',title:'Search Term: Negative Keywords Strategy',cat:'Modul · M8',tags:['negative keyword','kata kunci negatif','-free','-tips','-jobs','-salary','broad negative','phrase negative','exact negative']},
+  {page:'m8',icon:'🔍',title:'Search Term: Hitung Potensi Penghematan',cat:'Modul · M8 · Advanced',tags:['penghematan','waste','buang uang','irrelevant clicks','savings calculation']},
+  {page:'m8',icon:'🔍',title:'Search Term: Gold Mine & Quality Scoring (1-25)',cat:'Modul · M8 · Expert',tags:['gold mine','search term quality score','scoring 1-25','high conversion term','low volume high intent']},
+  {page:'m9',icon:'👁️',title:'Impression Share — % Pasar yang Lihat Iklanmu',cat:'Modul',tags:['impression share','is','visibilitas','market share','pasar','kompetitor','dominasi']},
+  {page:'m9',icon:'👁️',title:'IS: Formula & 3 Penyebab IS Rendah',cat:'Modul · M9',tags:['formula is','lost is rank','lost is budget','lost is other','disapproval','is rendah']},
+  {page:'m9',icon:'👁️',title:'IS: Priority Matrix (Fix Rank via QS dulu)',cat:'Modul · M9 · Advanced',tags:['is priority','fix rank','fix budget','urutan perbaikan is','qs improve is']},
+  {page:'m9',icon:'👁️',title:'IS vs Budget ROI (27× Return)',cat:'Modul · M9 · Expert',tags:['is roi','budget is','27x return','naik budget is','revenue gain is']},
+
+  // ── KB PAGES ──
+  {page:'kb1',icon:'📄',title:'KB: ROAS — File Lengkap (Level 1-3 + Practice)',cat:'Knowledge Base',tags:['kb roas','file roas','referensi roas','bahan bacaan roas']},
+  {page:'kb2',icon:'📄',title:'KB: CPA — File Lengkap',cat:'Knowledge Base',tags:['kb cpa','file cpa','referensi cpa','bahan bacaan cpa']},
+  {page:'kb3',icon:'📄',title:'KB: Conversion Rate — File Lengkap',cat:'Knowledge Base',tags:['kb conversion rate','file conversion rate']},
+  {page:'kb4',icon:'📄',title:'KB: CTR — File Lengkap',cat:'Knowledge Base',tags:['kb ctr','file ctr']},
+  {page:'kb5',icon:'📄',title:'KB: Device & Geographic — File Lengkap',cat:'Knowledge Base',tags:['kb device','kb geo','file device geographic']},
+  {page:'kb6',icon:'📄',title:'KB: Cost Metrics — File Lengkap',cat:'Knowledge Base',tags:['kb cost','kb cpc','file cost metrics']},
+  {page:'kb7',icon:'📄',title:'KB: Quality Score — File Lengkap',cat:'Knowledge Base',tags:['kb quality score','kb qs','file quality score']},
+  {page:'kb8',icon:'📄',title:'KB: Search Term — File Lengkap',cat:'Knowledge Base',tags:['kb search term','file search term']},
+  {page:'kb9',icon:'📄',title:'KB: Impression Share — File Lengkap',cat:'Knowledge Base',tags:['kb impression share','kb is','file impression share']},
+  {page:'kb10',icon:'📘',title:'Strategic Frameworks — Advanced Decision Making',cat:'Knowledge Base',tags:['strategic framework','decision making','framework','advanced strategy','cross metric','roas framework','cpa framework']},
+  {page:'kb11',icon:'📗',title:'Quick Reference & Decision Tools',cat:'Knowledge Base',tags:['quick reference','decision tree','cheat sheet','decision tools','when to pause','when to delete','emergency guide']},
+  {page:'kb12',icon:'📙',title:'Implementation Checklists & Action Plans',cat:'Knowledge Base',tags:['checklist','action plan','daily checklist','weekly checklist','monthly checklist','campaign launch','crisis response']},
+  {page:'kb13',icon:'📕',title:'Practice Questions & Answers (45 Soal)',cat:'Knowledge Base',tags:['practice','soal latihan','questions answers','latihan soal','45 soal']},
+
+  // ── TOOLS ──
+  {page:'sim',icon:'🎮',title:'Campaign Simulator — Virtual $1,000 Budget',cat:'Tools',tags:['simulator','simulasi','virtual budget','campaign simulation','alokasi budget','coba-coba']},
+  {page:'quiz',icon:'📝',title:'Quiz Master — 20 Soal Random',cat:'Tools',tags:['quiz','kuis','20 soal','test','ujian','latihan','random questions']},
+
+  // ── CONCEPTS ──
+  {page:'kb10',icon:'📘',title:'Diminishing Returns — ROAS turun saat scale',cat:'Konsep',tags:['diminishing returns','roas turun','scale','saturasi','audience saturation','sweet spot']},
+  {page:'kb10',icon:'📘',title:'Blended Metric Trap — Average menyembunyikan masalah',cat:'Konsep',tags:['blended','average','trap','menyembunyikan','hidden problem','per campaign']},
+  {page:'kb11',icon:'📗',title:'Sunk Cost Fallacy — Jangan terjebak biaya masa lalu',cat:'Konsep',tags:['sunk cost','sunk cost fallacy','jangan menyerah','past investment','opportunity cost']},
+  {page:'kb10',icon:'📘',title:'Sequential Optimization — Urutan Fix yang Benar',cat:'Konsep',tags:['sequential','urutan optimasi','fase','phase 1 2 3','cross metric','QS dulu','urutan yang benar']},
+  {page:'m7',icon:'⭐',title:'Quality Score → CPC → CPA → ROAS: Cascade Effect',cat:'Konsep',tags:['cascade','efek berantai','domino','qs cpc','cpa roas','semua terhubung']},
+];
+
+// Search state
+let srActive=-1;
+let srResults=[];
+
+function handleSearch(q){
+  q=q.trim();
+  const drop=document.getElementById('searchDrop');
+  if(q.length<2){drop.style.display='none';srActive=-1;return}
+
+  const ql=q.toLowerCase();
+  // Score each item
+  const scored=SEARCH_INDEX.map(item=>{
+    let score=0;
+    const titleL=item.title.toLowerCase();
+    const catL=item.cat.toLowerCase();
+    // Exact title match = highest
+    if(titleL===ql)score+=100;
+    else if(titleL.startsWith(ql))score+=60;
+    else if(titleL.includes(ql))score+=40;
+    // Category match
+    if(catL.includes(ql))score+=20;
+    // Tags match
+    item.tags.forEach(t=>{
+      if(t===ql)score+=50;
+      else if(t.startsWith(ql))score+=30;
+      else if(t.includes(ql))score+=15;
+    });
+    return{...item,score};
+  }).filter(i=>i.score>0).sort((a,b)=>b.score-a.score).slice(0,12);
+
+  srResults=scored;
+  srActive=-1;
+
+  if(scored.length===0){
+    drop.innerHTML='<div class="sr-empty">Tidak ditemukan untuk "<strong>'+escHtml(q)+'</strong>"<br><span style="font-size:11px;margin-top:4px;display:block">Coba: roas, cpa, ctr, quality score, search term...</span></div>';
+    drop.style.display='block';
+    return;
+  }
+
+  // Group by cat
+  const groups={};
+  scored.forEach(item=>{
+    const g=item.cat.split(' · ')[0];
+    if(!groups[g])groups[g]=[];
+    groups[g].push(item);
+  });
+
+  let html='';
+  let idx=0;
+  Object.entries(groups).forEach(([grp,items])=>{
+    html+=`<div class="sr-section">${escHtml(grp)}</div>`;
+    items.forEach(item=>{
+      const hilite=hiliteMatch(item.title,q);
+      const sub=hiliteMatch(item.cat,q);
+      html+=`<div class="sr-item" data-idx="${idx}" data-page="${item.page}" onmousedown="doSearch('${item.page}')" onmouseover="setSrActive(${idx})">
+        <div class="sr-item-icon">${item.icon}</div>
+        <div class="sr-item-body">
+          <div class="sr-item-title">${hilite}</div>
+          <div class="sr-item-sub">${sub}</div>
+        </div>
+      </div>`;
+      idx++;
+    });
+  });
+
+  // Footer hint
+  html+=`<div style="padding:8px 14px 10px;font-size:11px;color:var(--text3);border-top:1px solid var(--border);display:flex;justify-content:space-between"><span>↑↓ navigate</span><span>Enter untuk buka</span><span>Esc untuk tutup</span></div>`;
+
+  drop.innerHTML=html;
+  drop.style.display='block';
+}
+
+function hiliteMatch(text,q){
+  if(!q)return escHtml(text);
+  const escaped=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return escHtml(text).replace(new RegExp('('+escaped+')', 'gi'),'<mark>$1</mark>');
+}
+
+function escHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function setSrActive(idx){
+  srActive=idx;
+  document.querySelectorAll('.sr-item').forEach((el,i)=>{
+    el.classList.toggle('sr-active',i===idx);
+  });
+}
+
+function searchKeyNav(e){
+  const drop=document.getElementById('searchDrop');
+  if(drop.style.display==='none')return;
+  if(e.key==='ArrowDown'){
+    e.preventDefault();
+    srActive=Math.min(srActive+1,srResults.length-1);
+    setSrActive(srActive);
+    // scroll into view
+    const el=drop.querySelector(`[data-idx="${srActive}"]`);
+    if(el)el.scrollIntoView({block:'nearest'});
+  } else if(e.key==='ArrowUp'){
+    e.preventDefault();
+    srActive=Math.max(srActive-1,0);
+    setSrActive(srActive);
+    const el=drop.querySelector(`[data-idx="${srActive}"]`);
+    if(el)el.scrollIntoView({block:'nearest'});
+  } else if(e.key==='Enter'){
+    e.preventDefault();
+    if(srActive>=0&&srResults[srActive]){
+      doSearch(srResults[srActive].page);
+    } else if(srResults.length>0){
+      doSearch(srResults[0].page);
+    }
+  } else if(e.key==='Escape'){
+    closeSearch();
+  }
+}
+
+function doSearch(pageId){
+  closeSearch();
+  go(pageId);
+  // Briefly highlight the page
+  setTimeout(()=>{
+    const pg=document.getElementById('page-'+pageId);
+    if(pg){pg.style.outline='2px solid var(--accent)';setTimeout(()=>pg.style.outline='',800)}
+  },100);
+}
+
+function closeSearch(){
+  document.getElementById('searchDrop').style.display='none';
+  srActive=-1;
+}
+// ── END SEARCH SYSTEM ──
   document.getElementById('scrTop').classList.toggle('vis',this.scrollTop>300);
 });
 
@@ -2502,8 +2774,26 @@ function calcIS(){
   addXP(5);
 }
 
-// ── INIT ──
+// ── INIT: restore state from localStorage ──
+loadState();
 refreshUI();
+
+// Restore module step visuals
+['m1','m2','m3','m4','m5','m6','m7','m8','m9'].forEach(mod=>{
+  ['beg','int','adv','exp'].forEach((lv,i)=>{
+    if(S.lvlDone[mod+'_'+lv]){
+      const st=document.getElementById(mod+'s'+(i+1));
+      if(st)st.classList.add('done');
+    }
+  });
+  updateModProg(mod);
+  if(S.mDone.has(mod)){
+    const cc=document.getElementById('cc-'+mod);
+    if(cc)cc.classList.add('done');
+    const cs=document.getElementById('cs-'+mod);
+    if(cs)cs.textContent='✅';
+  }
+});
 </script>
 </body>
 </html>
