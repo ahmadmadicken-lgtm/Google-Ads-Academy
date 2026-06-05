@@ -3030,6 +3030,9 @@ function buildGlossary(){
 
 // glossary triggered inside main go() above
 // ── END GLOSSARY ──
+
+// ── SCROLL TOP ──
+document.getElementById('mainEl').addEventListener('scroll',function(){
   document.getElementById('scrTop').classList.toggle('vis',this.scrollTop>300);
 });
 
