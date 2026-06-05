@@ -15,6 +15,58 @@
   --blue:#4dbfff;--teal:#36e8d8;--pink:#ff7fd6;
   --r:12px;--r2:18px;--shadow:0 8px 32px rgba(0,0,0,0.5);
 }
+
+/* LIGHT MODE */
+body.light{
+  --bg:#f4f4f8;--bg2:#ffffff;--bg3:#eeeef4;--bg4:#e2e2ea;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);
+  --text:#18181f;--text2:#4a4a6a;--text3:#9090aa;
+  --accent:#5a50ee;--accent2:#6c63ff;
+  --green:#0daf82;--amber:#d48a00;--red:#e0274a;
+  --blue:#1a9fe0;--teal:#0fb8a8;--pink:#d45ab0;
+  --shadow:0 8px 32px rgba(0,0,0,0.12);
+}
+body.light .logo-icon{background:linear-gradient(135deg,var(--accent),var(--teal))}
+body.light .hero{background:linear-gradient(180deg,rgba(90,80,238,.06) 0%,transparent 100%)}
+body.light .hero-title{background:linear-gradient(135deg,#18181f 0%,var(--accent2) 55%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+body.light .mod-title{background:linear-gradient(135deg,#18181f,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+body.light .level-pill{background:linear-gradient(135deg,var(--accent),var(--teal))}
+body.light .prog-fill{background:linear-gradient(90deg,var(--accent),var(--teal))}
+body.light .done-btn{background:linear-gradient(135deg,var(--green),var(--teal));color:#fff}
+body.light .topbar{background:rgba(244,244,248,0.96)}
+body.light .sidebar{background:#fafafa}
+body.light .calc-btn{background:var(--accent)}
+body.light .nbtn.pri{background:var(--accent)}
+body.light .flip-b{background:rgba(90,80,238,.08);border-color:rgba(90,80,238,.22)}
+body.light .fml{background:rgba(90,80,238,.06);border-color:rgba(90,80,238,.2)}
+body.light .banner.info{background:rgba(26,159,224,.07);border-color:rgba(26,159,224,.2)}
+body.light .banner.ok{background:rgba(13,175,130,.07);border-color:rgba(13,175,130,.2)}
+body.light .banner.warn{background:rgba(212,138,0,.07);border-color:rgba(212,138,0,.2)}
+body.light .hl{background:rgba(90,80,238,.05)}
+body.light .code{background:#eeeef4;border-color:rgba(0,0,0,.1)}
+body.light pre{background:#eeeef4!important;border-color:rgba(0,0,0,.1)!important}
+body.light .quiz-opt{background:#f0f0f6}
+body.light .quiz-opt:hover{background:#e8e8f2}
+body.light .anal{background:#f0f0f6}
+body.light .sc{background:#f0f0f6}
+body.light .calc{background:#f0f0f6}
+body.light .toc-box{background:#f8f8fc}
+body.light .kb-content pre{background:#eeeef4;border-color:rgba(0,0,0,.1);color:var(--text2)}
+body.light .kb-content code{background:#e2e2ea;color:var(--teal)}
+body.light .kb-content blockquote{background:rgba(90,80,238,.05)}
+body.light #searchDrop{background:#fff;border-color:rgba(0,0,0,.14)}
+body.light .sr-item:hover,.body.light .sr-item.sr-active{background:rgba(90,80,238,.08)}
+body.light .badge-pop{background:#fff}
+body.light .scroll-top{background:#f0f0f6}
+
+/* TOGGLE BUTTON */
+.theme-toggle{
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--border2);
+  background:var(--bg3);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:15px;transition:all .2s;flex-shrink:0;
+  color:var(--text2);user-select:none;
+}
+.theme-toggle:hover{background:var(--bg4);border-color:var(--accent);color:var(--text)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
@@ -297,7 +349,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* SIMULATOR */
 .sim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:18px}
 
-/* PRINT STYLES */
+/* NOTE TAKING */
+.note-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r2);padding:18px 20px;margin-top:20px;margin-bottom:4px}
+.note-box-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.note-box-title{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);display:flex;align-items:center;gap:6px}
+.note-box-meta{font-size:11px;color:var(--text3);transition:.2s}
+.note-area{width:100%;min-height:90px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:12px 14px;color:var(--text);font-size:13.5px;font-family:'DM Sans',sans-serif;line-height:1.65;resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box}
+.note-area:focus{border-color:var(--accent)}
+.note-area::placeholder{color:var(--text3)}
+body.light .note-area{background:var(--bg3)}
+.note-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.note-chip{padding:3px 10px;border-radius:20px;font-size:11px;background:var(--bg4);color:var(--text3);border:1px solid var(--border);cursor:pointer;transition:all .15s;user-select:none}
+.note-chip:hover{background:rgba(108,99,255,.1);color:var(--accent2);border-color:rgba(108,99,255,.25)}
 @media print{
   .sidebar,.topbar,.scroll-top,.badge-pop,.done-btn,.nbtn,.calc-btn,#searchWrap,.nav-btns,#saveInd{display:none!important}
   .shell{display:block}
@@ -345,6 +408,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
   <div class="topbar-right">
     <div id="saveInd" style="font-size:11px;color:var(--text3);display:none;align-items:center;gap:4px">💾 Tersimpan</div>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
     <div class="xp-pill">⚡ <span id="xpNum">0</span> XP</div>
     <div class="level-pill" id="lvlPill">Beginner</div>
   </div>
@@ -388,6 +452,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="nav-sec">
     <div class="nav-lbl">Tools</div>
     <div class="nav-item" id="nav-sim" onclick="go('sim')"><div class="nav-icon">🎮</div>Campaign Simulator</div>
+    <div class="nav-item" id="nav-compare" onclick="go('compare')"><div class="nav-icon">⚖️</div>Comparison Tool</div>
     <div class="nav-item" id="nav-quiz" onclick="go('quiz')"><div class="nav-icon">📝</div>Quiz Master</div>
     <div class="nav-item" id="nav-cheat" onclick="go('cheat')"><div class="nav-icon">📋</div>Cheat Sheet</div>
     <div class="nav-item" id="nav-glossary" onclick="go('glossary')"><div class="nav-icon">📖</div>Glosarium</div>
@@ -440,6 +505,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="m-card" onclick="go('quiz')"><div class="card-num">TOOL</div><div class="card-ttl">Quiz Master 📝</div><div class="card-dsc">20 pertanyaan random dari semua materi. Uji pemahaman kamu!</div><div class="card-foot"><div class="tags"><span class="tag a">Quiz</span></div></div></div>
     <div class="m-card" onclick="go('cheat')"><div class="card-num">TOOL</div><div class="card-ttl">Cheat Sheet 📋</div><div class="card-dsc">Semua formula, benchmark, dan decision rules dalam satu halaman ringkas. Print-friendly!</div><div class="card-foot"><div class="tags"><span class="tag p">Formula</span><span class="tag">Print</span></div></div></div>
     <div class="m-card" onclick="go('glossary')"><div class="card-num">TOOL</div><div class="card-ttl">Glosarium 📖</div><div class="card-dsc">Kamus 50+ istilah Google Ads dari A–Z. Bingung dengan jargon? Cari di sini!</div><div class="card-foot"><div class="tags"><span class="tag g">Kamus</span></div></div></div>
+    <div class="m-card" onclick="go('compare')"><div class="card-num">TOOL</div><div class="card-ttl">Comparison Tool ⚖️</div><div class="card-dsc">Input 2 campaign → bandingkan ROAS, CPA, CTR, Conv Rate side-by-side dengan visual scoring.</div><div class="card-foot"><div class="tags"><span class="tag p">Analisis</span><span class="tag g">Visual</span></div></div></div>
   </div>
 </div>
 
@@ -2175,6 +2241,88 @@ Next month priorities</pre>
   <div class="nav-btns"><button class="nbtn" onclick="go('kb12')">← Checklists</button><button class="nbtn pri" onclick="go('quiz')">Coba Quiz Master →</button></div>
 </div></div>
 
+<!-- ═══ COMPARISON TOOL ═══ -->
+<div class="page" id="page-compare"><div class="mod-page">
+  <div class="mod-title">⚖️ Campaign Comparison Tool</div>
+  <div class="mod-sub">Bandingkan 2 campaign side-by-side — temukan mana yang lebih efisien</div>
+
+  <!-- INPUT SECTION -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px" id="cmpInputGrid">
+
+    <!-- Campaign A -->
+    <div class="blk" style="padding:20px;border-color:rgba(108,99,255,.35)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <div style="width:12px;height:12px;border-radius:50%;background:var(--accent);flex-shrink:0"></div>
+        <input id="cmp_a_name" value="Campaign A" style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--text);background:transparent;border:none;outline:none;width:100%" placeholder="Nama Campaign A">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div><label class="f-lbl">Ad Spend ($)</label><input class="f-inp" id="cmp_a_spend" type="number" value="1000" min="0"></div>
+        <div><label class="f-lbl">Revenue ($)</label><input class="f-inp" id="cmp_a_rev" type="number" value="4200" min="0"></div>
+        <div><label class="f-lbl">Impressions</label><input class="f-inp" id="cmp_a_imp" type="number" value="12000" min="0"></div>
+        <div><label class="f-lbl">Clicks</label><input class="f-inp" id="cmp_a_clicks" type="number" value="480" min="0"></div>
+        <div><label class="f-lbl">Conversions</label><input class="f-inp" id="cmp_a_conv" type="number" value="72" min="0"></div>
+        <div><label class="f-lbl">Quality Score</label><input class="f-inp" id="cmp_a_qs" type="number" value="7" min="1" max="10"></div>
+      </div>
+    </div>
+
+    <!-- Campaign B -->
+    <div class="blk" style="padding:20px;border-color:rgba(54,232,216,.35)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <div style="width:12px;height:12px;border-radius:50%;background:var(--teal);flex-shrink:0"></div>
+        <input id="cmp_b_name" value="Campaign B" style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--text);background:transparent;border:none;outline:none;width:100%" placeholder="Nama Campaign B">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div><label class="f-lbl">Ad Spend ($)</label><input class="f-inp" id="cmp_b_spend" type="number" value="800" min="0"></div>
+        <div><label class="f-lbl">Revenue ($)</label><input class="f-inp" id="cmp_b_rev" type="number" value="2100" min="0"></div>
+        <div><label class="f-lbl">Impressions</label><input class="f-inp" id="cmp_b_imp" type="number" value="9000" min="0"></div>
+        <div><label class="f-lbl">Clicks</label><input class="f-inp" id="cmp_b_clicks" type="number" value="270" min="0"></div>
+        <div><label class="f-lbl">Conversions</label><input class="f-inp" id="cmp_b_conv" type="number" value="27" min="0"></div>
+        <div><label class="f-lbl">Quality Score</label><input class="f-inp" id="cmp_b_qs" type="number" value="5" min="1" max="10"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="runComparison()" style="margin-bottom:24px;padding:11px 28px;font-size:14px">⚖️ Bandingkan Sekarang</button>
+
+  <!-- RESULTS -->
+  <div id="cmpResults" style="display:none">
+
+    <!-- OVERALL WINNER BANNER -->
+    <div id="cmpWinner" style="border-radius:var(--r2);padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:14px"></div>
+
+    <!-- METRIC CARDS COMPARISON -->
+    <div style="display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:20px" id="cmpCards"></div>
+
+    <!-- BAR CHART VISUAL -->
+    <div class="blk" style="padding:22px;margin-bottom:16px">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--text);margin-bottom:18px">📊 Visual Perbandingan</h3>
+      <div id="cmpBars" style="display:flex;flex-direction:column;gap:16px"></div>
+    </div>
+
+    <!-- RECOMMENDATIONS -->
+    <div class="blk" style="padding:22px;margin-bottom:16px">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--text);margin-bottom:14px">💡 Rekomendasi Strategis</h3>
+      <div id="cmpRecs" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+
+    <!-- SCORE TABLE -->
+    <div class="blk" style="padding:22px">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--text);margin-bottom:14px">🏆 Score Card Lengkap</h3>
+      <table class="tbl" id="cmpTable">
+        <thead><tr>
+          <th>Metrik</th>
+          <th id="cmpThA">Campaign A</th>
+          <th id="cmpThB">Campaign B</th>
+          <th>Winner</th>
+          <th>Selisih</th>
+        </tr></thead>
+        <tbody id="cmpTbody"></tbody>
+      </table>
+    </div>
+
+  </div>
+</div></div>
+
 <!-- ═══ CHEAT SHEET ═══ -->
 <div class="page" id="page-cheat"><div class="mod-page">
   <div class="mod-title">📋 Cheat Sheet</div>
@@ -2462,9 +2610,10 @@ function saveState(){
       mDone:Array.from(S.mDone),
       lvlDone:S.lvlDone,
       qRight:S.qRight,
-      answeredQ:S.answeredQ
+      answeredQ:S.answeredQ,
+      notes:S.notes,
+      theme:document.body.classList.contains('light')?'light':'dark'
     }));
-    // Show save indicator briefly
     const ind=document.getElementById('saveInd');
     if(ind){ind.style.display='flex';clearTimeout(ind._t);ind._t=setTimeout(()=>ind.style.display='none',1500)}
   }catch(e){}
@@ -2479,23 +2628,46 @@ function loadState(){
     S.lvlDone=d.lvlDone||{};
     S.qRight=d.qRight||0;
     S.answeredQ=d.answeredQ||{};
+    S.notes=d.notes||{};
+    if(d.theme==='light')applyTheme('light');
   }catch(e){}
 }
+
+// ── THEME ──
+function applyTheme(mode){
+  const isLight=mode==='light';
+  document.body.classList.toggle('light',isLight);
+  const btn=document.getElementById('themeToggle');
+  if(btn)btn.textContent=isLight?'☀️':'🌙';
+}
+function toggleTheme(){
+  const isNowLight=!document.body.classList.contains('light');
+  applyTheme(isNowLight?'light':'dark');
+  saveState();
+  // small bounce animation on button
+  const btn=document.getElementById('themeToggle');
+  if(btn){
+    btn.style.transform='scale(1.3) rotate(20deg)';
+    setTimeout(()=>btn.style.transform='',250);
+  }
+}
 function resetState(){
-  if(!confirm('Reset semua progress? XP, modul selesai, dan quiz akan direset ke 0.'))return;
+  if(!confirm('Reset semua progress? XP, modul selesai, quiz, dan catatan akan direset ke 0.'))return;
   localStorage.removeItem(STORE_KEY);
-  S.xp=0;S.mDone=new Set();S.lvlDone={};S.qRight=0;S.answeredQ={};
-  // reset all visual states
+  S.xp=0;S.mDone=new Set();S.lvlDone={};S.qRight=0;S.answeredQ={};S.notes={};
   document.querySelectorAll('.mod-step').forEach(el=>el.classList.remove('done','cur'));
   document.querySelectorAll('.m-card').forEach(el=>el.classList.remove('done'));
   document.querySelectorAll('[id^="cs-m"]').forEach(el=>el.textContent='🔓');
   document.querySelectorAll('.nav-prog').forEach(el=>{el.textContent='';el.className='nav-prog'});
+  // clear all note textareas
+  document.querySelectorAll('.note-area').forEach(el=>{el.value='';});
+  document.querySelectorAll('.note-box-meta').forEach(el=>el.textContent='');
   refreshUI();
   showBadge('🔄','Progress Direset','Mulai dari awal lagi!');
 }
 
 // ── STATE ──
-const S={xp:0,mDone:new Set(),lvlDone:{},qRight:0,answeredQ:{}};
+const S={xp:0,mDone:new Set(),lvlDone:{},qRight:0,answeredQ:{},notes:{}};
 const LVL=[{x:0,n:'Beginner'},{x:250,n:'Intermediate'},{x:700,n:'Advanced'},{x:1400,n:'Expert'},{x:2200,n:'Master 🏆'}];
 function getLevel(){for(let i=LVL.length-1;i>=0;i--)if(S.xp>=LVL[i].x)return LVL[i].n;return'Beginner'}
 function addXP(n){S.xp+=n;saveState();refreshUI()}
@@ -2799,6 +2971,8 @@ const SEARCH_INDEX=[
   {page:'kb13',icon:'📕',title:'Practice Questions & Answers (45 Soal)',cat:'Knowledge Base',tags:['practice','soal latihan','questions answers','latihan soal','45 soal']},
 
   // ── TOOLS ──
+  {page:'compare',icon:'⚖️',title:'Comparison Tool — Bandingkan 2 Campaign',cat:'Tools',tags:['comparison','compare','bandingkan','perbandingan','side by side','2 campaign','vs','versus','analisis campaign']},
+  {page:'compare',icon:'⚖️',title:'Comparison Tool: ROAS, CPA, CTR, Conv Rate Side-by-Side',cat:'Tools',tags:['roas comparison','cpa comparison','ctr comparison','conv rate comparison','visual','bar chart','score card']},
   {page:'sim',icon:'🎮',title:'Campaign Simulator — Virtual $1,000 Budget',cat:'Tools',tags:['simulator','simulasi','virtual budget','campaign simulation','alokasi budget','coba-coba']},
   {page:'quiz',icon:'📝',title:'Quiz Master — 20 Soal Random',cat:'Tools',tags:['quiz','kuis','20 soal','test','ujian','latihan','random questions']},
   {page:'cheat',icon:'📋',title:'Cheat Sheet — Semua Formula & Benchmark',cat:'Tools',tags:['cheat sheet','ringkasan','formula','benchmark','semua metrik','print','cetak','quick reference formula']},
@@ -2948,7 +3122,328 @@ function closeSearch(){
 // ── END SEARCH SYSTEM ──
 
 // ══════════════════════════════════
-// ── GLOSSARY ──
+// ── COMPARISON TOOL ──
+// ══════════════════════════════════
+function runComparison(){
+  // Read inputs
+  const aName = document.getElementById('cmp_a_name').value||'Campaign A';
+  const bName = document.getElementById('cmp_b_name').value||'Campaign B';
+  const a={
+    spend: +document.getElementById('cmp_a_spend').value||0,
+    rev:   +document.getElementById('cmp_a_rev').value||0,
+    imp:   +document.getElementById('cmp_a_imp').value||0,
+    clicks:+document.getElementById('cmp_a_clicks').value||0,
+    conv:  +document.getElementById('cmp_a_conv').value||0,
+    qs:    +document.getElementById('cmp_a_qs').value||0,
+  };
+  const b={
+    spend: +document.getElementById('cmp_b_spend').value||0,
+    rev:   +document.getElementById('cmp_b_rev').value||0,
+    imp:   +document.getElementById('cmp_b_imp').value||0,
+    clicks:+document.getElementById('cmp_b_clicks').value||0,
+    conv:  +document.getElementById('cmp_b_conv').value||0,
+    qs:    +document.getElementById('cmp_b_qs').value||0,
+  };
+
+  // Calculate derived metrics
+  function calc(d){
+    return {
+      roas:   d.spend? +(d.rev/d.spend).toFixed(2): 0,
+      cpa:    d.conv?  +(d.spend/d.conv).toFixed(2): 0,
+      ctr:    d.imp?   +((d.clicks/d.imp)*100).toFixed(2): 0,
+      cr:     d.clicks?+((d.conv/d.clicks)*100).toFixed(2): 0,
+      cpc:    d.clicks?+(d.spend/d.clicks).toFixed(2): 0,
+      cpp:    d.conv?  +(d.rev/d.conv).toFixed(2): 0, // revenue per conv
+      qs:     d.qs,
+      spend:  d.spend,
+      rev:    d.rev,
+      conv:   d.conv,
+    };
+  }
+  const am=calc(a), bm=calc(b);
+
+  // Metric definitions: {key, label, unit, higherIsBetter, format, benchmark}
+  const metrics=[
+    {key:'roas',  label:'ROAS',             unit:'×',  hib:true,  fmt:v=>v+'×',   bench:{good:3,warn:2}},
+    {key:'cpa',   label:'CPA',              unit:'$',  hib:false, fmt:v=>'$'+v,   bench:{good:30,warn:60}},
+    {key:'ctr',   label:'CTR',              unit:'%',  hib:true,  fmt:v=>v+'%',   bench:{good:5,warn:2}},
+    {key:'cr',    label:'Conv Rate',        unit:'%',  hib:true,  fmt:v=>v+'%',   bench:{good:10,warn:5}},
+    {key:'cpc',   label:'CPC',              unit:'$',  hib:false, fmt:v=>'$'+v,   bench:{good:5,warn:10}},
+    {key:'qs',    label:'Quality Score',    unit:'',   hib:true,  fmt:v=>v+'/10', bench:{good:7,warn:5}},
+    {key:'conv',  label:'Total Conversions',unit:'',   hib:true,  fmt:v=>v,       bench:null},
+    {key:'rev',   label:'Total Revenue',    unit:'$',  hib:true,  fmt:v=>'$'+v.toLocaleString(), bench:null},
+  ];
+
+  // Score each campaign per metric
+  let aScore=0, bScore=0;
+  metrics.forEach(m=>{
+    const av=am[m.key], bv=bm[m.key];
+    if(av===0&&bv===0)return;
+    const aWins = m.hib ? av>bv : av<bv;
+    const bWins = m.hib ? bv>av : bv<av;
+    if(aWins)aScore++;
+    else if(bWins)bScore++;
+  });
+
+  // Update table headers
+  document.getElementById('cmpThA').textContent=aName;
+  document.getElementById('cmpThB').textContent=bName;
+
+  // Winner banner
+  const winner = aScore>bScore?aName:bScore>aScore?bName:'Seri';
+  const winnerColor = aScore>bScore?'var(--accent)':bScore>aScore?'var(--teal)':'var(--amber)';
+  const winnerEmoji = aScore>bScore?'🏆':bScore>aScore?'🏆':'🤝';
+  document.getElementById('cmpWinner').style.background=
+    aScore>bScore?'rgba(108,99,255,.1)':bScore>aScore?'rgba(54,232,216,.1)':'rgba(255,179,71,.1)';
+  document.getElementById('cmpWinner').style.border=`1px solid ${winnerColor}`;
+  document.getElementById('cmpWinner').innerHTML=`
+    <div style="font-size:36px">${winnerEmoji}</div>
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:${winnerColor};margin-bottom:3px">
+        ${winner==='Seri'?'Kedua Campaign Seimbang':'Pemenang: '+winner}
+      </div>
+      <div style="font-size:13px;color:var(--text2)">
+        ${aName}: <strong style="color:var(--accent)">${aScore} metrik unggul</strong> &nbsp;|&nbsp;
+        ${bName}: <strong style="color:var(--teal)">${bScore} metrik unggul</strong>
+        ${winner!=='Seri'?` — Rekomendasikan shift lebih banyak budget ke <strong>${winner}</strong>`:''}
+      </div>
+    </div>`;
+
+  // Metric cards
+  const cardsEl=document.getElementById('cmpCards');
+  cardsEl.innerHTML='';
+  metrics.forEach(m=>{
+    const av=am[m.key], bv=bm[m.key];
+    if(av===0&&bv===0)return;
+    const aWins=m.hib?av>=bv:av<=bv;
+    const diff=av&&bv? (Math.abs(av-bv)/Math.min(av,bv)*100).toFixed(1):0;
+    const diffLabel=diff>0?`${diff}% selisih`:'sama';
+
+    // Bar widths
+    const maxV=m.hib?Math.max(av,bv):Math.max(av,bv);
+    const aBarW=maxV?Math.round((av/maxV)*100):50;
+    const bBarW=maxV?Math.round((bv/maxV)*100):50;
+
+    const card=document.createElement('div');
+    card.className='blk';
+    card.style.cssText='padding:16px 20px';
+    card.innerHTML=`
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text)">${m.label}</div>
+        <div style="font-size:11px;color:var(--text3)">${diffLabel}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <!-- A -->
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+            <span style="font-size:11px;color:var(--accent2)">${aName}</span>
+            <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:${aWins?'var(--green)':'var(--text2)'}">${m.fmt(av)}</span>
+          </div>
+          <div style="height:6px;background:var(--bg4);border-radius:3px;overflow:hidden">
+            <div style="height:100%;width:${aBarW}%;background:${aWins?'var(--accent)':'rgba(108,99,255,.3)'};border-radius:3px;transition:width .6s ease"></div>
+          </div>
+          ${m.bench?`<div style="font-size:10px;margin-top:4px;color:${getBenchColor(av,m.bench,m.hib)}">${getBenchLabel(av,m.bench,m.hib)}</div>`:''}
+        </div>
+        <!-- B -->
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+            <span style="font-size:11px;color:var(--teal)">${bName}</span>
+            <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:${!aWins||av===bv?'var(--green)':'var(--text2)'}">${m.fmt(bv)}</span>
+          </div>
+          <div style="height:6px;background:var(--bg4);border-radius:3px;overflow:hidden">
+            <div style="height:100%;width:${bBarW}%;background:${!aWins||av===bv?'var(--teal)':'rgba(54,232,216,.3)'};border-radius:3px;transition:width .6s ease"></div>
+          </div>
+          ${m.bench?`<div style="font-size:10px;margin-top:4px;color:${getBenchColor(bv,m.bench,m.hib)}">${getBenchLabel(bv,m.bench,m.hib)}</div>`:''}
+        </div>
+      </div>`;
+    cardsEl.appendChild(card);
+  });
+
+  // Bar chart visual (radar-style horizontal bars for each metric)
+  const barsEl=document.getElementById('cmpBars');
+  barsEl.innerHTML='';
+  const barMetrics=[
+    {key:'roas',label:'ROAS',max:8,hib:true},
+    {key:'ctr',label:'CTR %',max:15,hib:true},
+    {key:'cr',label:'Conv Rate %',max:25,hib:true},
+    {key:'qs',label:'Quality Score',max:10,hib:true},
+  ];
+  barMetrics.forEach(m=>{
+    const av=am[m.key], bv=bm[m.key];
+    const aW=Math.min(Math.round((av/m.max)*100),100);
+    const bW=Math.min(Math.round((bv/m.max)*100),100);
+    const aWins=av>=bv;
+    barsEl.innerHTML+=`
+      <div>
+        <div style="font-size:11.5px;color:var(--text3);margin-bottom:6px;font-weight:500">${m.label}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="width:70px;font-size:11px;color:var(--accent2);text-align:right;flex-shrink:0">${aName}</div>
+          <div style="flex:1;height:18px;background:var(--bg4);border-radius:4px;overflow:hidden;position:relative">
+            <div style="position:absolute;inset:0;display:flex;align-items:center">
+              <div style="height:100%;width:${aW}%;background:${aWins?'var(--accent)':'rgba(108,99,255,.35)'};border-radius:4px;transition:width .7s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:6px">
+                <span style="font-size:10px;font-family:'DM Mono',monospace;color:#fff;white-space:nowrap">${av}${m.key==='roas'?'×':'%'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="width:70px;font-size:11px;color:var(--teal);text-align:right;flex-shrink:0">${bName}</div>
+          <div style="flex:1;height:18px;background:var(--bg4);border-radius:4px;overflow:hidden;position:relative">
+            <div style="position:absolute;inset:0;display:flex;align-items:center">
+              <div style="height:100%;width:${bW}%;background:${!aWins?'var(--teal)':'rgba(54,232,216,.35)'};border-radius:4px;transition:width .7s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:6px">
+                <span style="font-size:10px;font-family:'DM Mono',monospace;color:#fff;white-space:nowrap">${bv}${m.key==='roas'?'×':'%'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  // Recommendations
+  const recsEl=document.getElementById('cmpRecs');
+  const recs=[];
+  const roasDiff=am.roas&&bm.roas?((Math.abs(am.roas-bm.roas)/Math.min(am.roas,bm.roas))*100).toFixed(0):0;
+  const cpaDiff=am.cpa&&bm.cpa?((Math.abs(am.cpa-bm.cpa)/Math.min(am.cpa,bm.cpa))*100).toFixed(0):0;
+
+  if(am.roas>bm.roas && roasDiff>20)
+    recs.push({ico:'💰',color:'var(--green)',msg:`<strong>${aName}</strong> ROAS lebih tinggi ${roasDiff}% dari ${bName}. Pertimbangkan shift budget ${Math.min(20,Math.round(roasDiff/5))}–${Math.min(30,Math.round(roasDiff/3))}% ke campaign ini.`});
+  else if(bm.roas>am.roas && roasDiff>20)
+    recs.push({ico:'💰',color:'var(--green)',msg:`<strong>${bName}</strong> ROAS lebih tinggi ${roasDiff}% dari ${aName}. Pertimbangkan shift budget ke campaign ini.`});
+
+  if(am.cpa>bm.cpa && cpaDiff>25)
+    recs.push({ico:'🎯',color:'var(--amber)',msg:`CPA ${aName} (${am.fmt||'$'+am.cpa}) ${cpaDiff}% lebih mahal dari ${bName}. Periksa keyword dan landing page ${aName}.`});
+  else if(bm.cpa>am.cpa && cpaDiff>25)
+    recs.push({ico:'🎯',color:'var(--amber)',msg:`CPA ${bName} ($${bm.cpa}) ${cpaDiff}% lebih mahal. Periksa keyword dan landing page ${bName}.`});
+
+  if(am.ctr<2||bm.ctr<2)
+    recs.push({ico:'🖱️',color:'var(--blue)',msg:`CTR ${am.ctr<bm.ctr?aName:bName} di bawah 2% — sangat rendah. Perbaiki ad copy, tambahkan ad extensions (phone, callout, location).`});
+
+  if(am.cr<5||bm.cr<5)
+    recs.push({ico:'📈',color:'var(--accent2)',msg:`Conv Rate ${am.cr<bm.cr?aName:bName} di bawah 5%. Optimasi landing page: percepat loading, sederhanakan form (max 3–5 field), perjelas CTA.`});
+
+  if(am.qs<6||bm.qs<6)
+    recs.push({ico:'⭐',color:'var(--amber)',msg:`Quality Score ${am.qs<bm.qs?aName:bName} (${Math.min(am.qs,bm.qs)}/10) perlu diperbaiki. Fix komponen terlemah: Ad Relevance, Expected CTR, atau Landing Page Experience.`});
+
+  if(am.roas>=4&&bm.roas>=4)
+    recs.push({ico:'🚀',color:'var(--green)',msg:`Kedua campaign memiliki ROAS ≥ 4.0 — excellent! Pertimbangkan naikan budget keduanya +10–20%/minggu secara bertahap.`});
+
+  if(recs.length===0)
+    recs.push({ico:'✅',color:'var(--text2)',msg:'Performance kedua campaign terlihat seimbang. Monitor weekly dan buat keputusan berdasarkan data 30 hari penuh.'});
+
+  recsEl.innerHTML=recs.map(r=>`
+    <div style="display:flex;gap:10px;padding:12px 14px;background:var(--bg3);border-radius:9px;border-left:3px solid ${r.color}">
+      <span style="font-size:16px;flex-shrink:0">${r.ico}</span>
+      <span style="font-size:13.5px;color:var(--text2);line-height:1.6">${r.msg}</span>
+    </div>`).join('');
+
+  // Score table
+  const tbody=document.getElementById('cmpTbody');
+  tbody.innerHTML='';
+  metrics.forEach(m=>{
+    const av=am[m.key], bv=bm[m.key];
+    if(av===0&&bv===0)return;
+    const aWins=m.hib?av>bv:av<bv;
+    const bWins=m.hib?bv>av:bv<av;
+    const diff=av&&bv?((Math.abs(av-bv)/Math.min(av,bv))*100).toFixed(1)+'%':'—';
+    const winnerText=aWins?`<span style="color:var(--accent2)">✦ ${aName}</span>`:bWins?`<span style="color:var(--teal)">✦ ${bName}</span>`:'<span style="color:var(--text3)">Seri</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><strong>${m.label}</strong></td>
+      <td style="font-family:'DM Mono',monospace;color:${aWins?'var(--green)':'var(--text2)'}">${m.fmt(av)}</td>
+      <td style="font-family:'DM Mono',monospace;color:${bWins?'var(--green)':'var(--text2)'}">${m.fmt(bv)}</td>
+      <td>${winnerText}</td>
+      <td style="font-size:12px;color:var(--text3)">${diff}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('cmpResults').style.display='block';
+  document.getElementById('cmpResults').scrollIntoView({behavior:'smooth',block:'start'});
+  addXP(15);
+}
+
+function getBenchColor(v,bench,hib){
+  if(!bench)return'var(--text3)';
+  if(hib)return v>=bench.good?'var(--green)':v>=bench.warn?'var(--amber)':'var(--red)';
+  return v<=bench.good?'var(--green)':v<=bench.warn?'var(--amber)':'var(--red)';
+}
+function getBenchLabel(v,bench,hib){
+  if(!bench)return'';
+  const color=getBenchColor(v,bench,hib);
+  const label=color==='var(--green)'?'✓ Good':color==='var(--amber)'?'⚠ Average':'✗ Poor';
+  return label;
+}
+// ── END COMPARISON TOOL ──
+
+// ══════════════════════════════════
+// ── NOTE TAKING SYSTEM ──
+// ══════════════════════════════════
+const NOTE_CHIPS={
+  m1:['ROAS bagus karena...','Perlu perbaiki ROAS di...','Key insight:','Action plan:','Net ROAS kira-kira:'],
+  m2:['CPA target saya:','Acceptable CPA bisnis saya:','Blended CPA sekarang:','Action:','Quality lead rate:'],
+  m3:['Conv Rate saat ini:','Bottleneck terbesar:','LP yang perlu diperbaiki:','A/B test idea:','Target conv rate:'],
+  m4:['CTR sekarang:','Extension yang perlu ditambah:','Headline terbaik:','Ad fatigue mulai di week:','Target CTR:'],
+  m5:['Device terbaik saya:','Lokasi paling profitable:','Bid adj. yang akan saya set:','Lokasi exclude:','Mobile perlu fix:'],
+  m6:['CPC rata-rata saya:','Budget bulanan:','Alokasi Tax__% Genset__%:','CPC target:','Budget pace:'],
+  m7:['QS keyword utama:','Komponen terlemah:','Target QS:','Keyword yang didelete:','LP yang perlu fix:'],
+  m8:['Negative KW ditambah:','Gold mine term:','Estimasi waste/bulan:','Jadwal review:','Search term terbaik:'],
+  m9:['IS sekarang:','Lost IS (Rank):','Lost IS (Budget):','Target IS:','Budget tambahan:'],
+};
+const MOD_LABELS={m1:'ROAS',m2:'CPA',m3:'Conv Rate',m4:'CTR',m5:'Device & Geo',m6:'Cost Metrics',m7:'Quality Score',m8:'Search Term',m9:'Impression Share'};
+
+function renderNoteBox(modId){
+  const chips=(NOTE_CHIPS[modId]||[]).map(c=>
+    `<span class="note-chip" onclick="insertChip('note-${modId}','${c.replace(/'/g,"\\'")}')">${c}</span>`
+  ).join('');
+  const saved=(S.notes&&S.notes[modId])||'';
+  const wc=saved.trim()?saved.trim().split(/\s+/).length:0;
+  const safeVal=saved.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return `<div class="note-box" id="notebox-${modId}">
+    <div class="note-box-head">
+      <div class="note-box-title">📝 Catatan — ${MOD_LABELS[modId]}</div>
+      <div class="note-box-meta" id="notemeta-${modId}">${wc>0?wc+' kata':''}</div>
+    </div>
+    <textarea class="note-area" id="note-${modId}" placeholder="Tulis catatan, insight, atau action item kamu di sini…" oninput="saveNote('${modId}',this.value)">${safeVal}</textarea>
+    <div class="note-chips">${chips}</div>
+  </div>`;
+}
+
+function saveNote(modId,val){
+  if(!S.notes)S.notes={};
+  S.notes[modId]=val;
+  saveState();
+  const meta=document.getElementById('notemeta-'+modId);
+  if(!meta)return;
+  const wc=val.trim()?val.trim().split(/\s+/).length:0;
+  meta.textContent=wc>0?wc+' kata · 💾':'';
+  clearTimeout(meta._t);
+  meta._t=setTimeout(()=>{meta.textContent=wc>0?wc+' kata':''},2000);
+}
+
+function insertChip(taId,text){
+  const ta=document.getElementById(taId);
+  if(!ta)return;
+  const mod=taId.replace('note-','');
+  const sep=ta.value&&!ta.value.endsWith('\n')?'\n':'';
+  ta.value+=sep+text+' ';
+  ta.focus();
+  ta.selectionStart=ta.selectionEnd=ta.value.length;
+  saveNote(mod,ta.value);
+}
+
+function injectAllNoteBoxes(){
+  ['m1','m2','m3','m4','m5','m6','m7','m8','m9'].forEach(mod=>{
+    if(document.getElementById('notebox-'+mod))return;
+    const expSec=document.getElementById(mod+'-exp');
+    if(!expSec)return;
+    const doneBtn=expSec.querySelector('.done-btn');
+    if(!doneBtn)return;
+    const div=document.createElement('div');
+    div.innerHTML=renderNoteBox(mod);
+    expSec.insertBefore(div.firstElementChild,doneBtn);
+  });
+}
+// ── END NOTE TAKING ──
+
 // ══════════════════════════════════
 const GLOSSARY=[
   {term:'Ad Extension',def:'Tambahan informasi pada iklan Google (telepon, lokasi, callout, sitelinks). Membuat iklan lebih besar & CTR naik 70–130%.',related:'CTR, Quality Score'},
@@ -3117,6 +3612,9 @@ refreshUI();
     if(cs)cs.textContent='✅';
   }
 });
+
+// Inject note boxes into all modules
+injectAllNoteBoxes();
 </script>
 </body>
 </html>
