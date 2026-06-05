@@ -1,0 +1,2509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Ads Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0f;--bg2:#111118;--bg3:#18181f;--bg4:#22222e;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#e4e4f0;--text2:#9494b0;--text3:#55556a;
+  --accent:#6c63ff;--accent2:#908aff;
+  --green:#1fd6a0;--amber:#ffb347;--red:#ff5c7a;
+  --blue:#4dbfff;--teal:#36e8d8;--pink:#ff7fd6;
+  --r:12px;--r2:18px;--shadow:0 8px 32px rgba(0,0,0,0.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* LAYOUT */
+.shell{display:grid;grid-template-columns:252px 1fr;grid-template-rows:54px 1fr;min-height:100vh}
+
+/* TOPBAR */
+.topbar{
+  grid-column:1/-1;background:rgba(10,10,15,0.96);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);display:flex;align-items:center;
+  padding:0 20px;gap:12px;position:sticky;top:0;z-index:100
+}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo-icon{width:28px;height:28px;background:linear-gradient(135deg,var(--accent),var(--teal));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.xp-pill{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--amber);font-family:'DM Mono',monospace}
+.level-pill{background:linear-gradient(135deg,var(--accent),var(--teal));border-radius:20px;padding:4px 12px;font-size:12px;color:#fff;font-weight:600;font-family:'Syne',sans-serif}
+.search-inp{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;color:var(--text);font-size:13px;outline:none;width:160px;transition:all .2s;font-family:'DM Sans',sans-serif}
+.search-inp:focus{border-color:var(--accent);width:200px}
+.search-inp::placeholder{color:var(--text3)}
+
+/* SIDEBAR */
+.sidebar{
+  background:var(--bg2);border-right:1px solid var(--border);
+  overflow-y:auto;padding:16px 0;position:sticky;top:54px;height:calc(100vh - 54px)
+}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.nav-sec{margin-bottom:6px}
+.nav-lbl{padding:5px 16px;font-size:10px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--text3);font-family:'Syne',sans-serif}
+.nav-item{
+  display:flex;align-items:center;gap:9px;padding:8px 16px;cursor:pointer;
+  border-left:3px solid transparent;transition:all .18s;font-size:13px;color:var(--text2);user-select:none
+}
+.nav-item:hover{background:var(--bg3);color:var(--text);border-left-color:rgba(108,99,255,.4)}
+.nav-item.active{background:rgba(108,99,255,.1);color:var(--text);border-left-color:var(--accent);font-weight:500}
+.nav-icon{width:18px;height:18px;background:var(--bg4);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.nav-item.active .nav-icon{background:rgba(108,99,255,.3)}
+.nav-prog{margin-left:auto;font-size:10px;color:var(--text3);font-family:'DM Mono',monospace}
+.nav-prog.done{color:var(--green)}
+
+/* MAIN */
+.main{overflow-y:auto;background:var(--bg)}
+.main::-webkit-scrollbar{width:5px}
+.main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+.hero{padding:44px 40px 28px;background:linear-gradient(180deg,rgba(108,99,255,.05) 0%,transparent 100%);border-bottom:1px solid var(--border)}
+.hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:34px;line-height:1.1;margin-bottom:10px;background:linear-gradient(135deg,#fff 0%,var(--accent2) 55%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{color:var(--text2);font-size:14.5px;max-width:460px;line-height:1.65;margin-bottom:24px}
+.prog-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:18px 22px;max-width:440px}
+.prog-labels{display:flex;justify-content:space-between;margin-bottom:8px;font-size:12.5px;color:var(--text2)}
+.prog-track{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--teal));border-radius:3px;transition:width .5s ease}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:28px 40px 8px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px}
+.stat-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.stat-val{font-family:'DM Mono',monospace;font-size:22px;color:var(--text)}
+.stat-unit{font-size:11px;color:var(--text3);margin-left:3px}
+
+/* CARDS GRID */
+.cards-grid{padding:24px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:14px}
+.cards-title{padding:16px 40px 4px;font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:var(--text)}
+.cards-sub{padding:0 40px 4px;font-size:12.5px;color:var(--text3)}
+.m-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:20px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden}
+.m-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);opacity:0;transition:.22s}
+.m-card:hover{border-color:rgba(108,99,255,.4);background:var(--bg3);transform:translateY(-2px)}
+.m-card:hover::before{opacity:1}
+.m-card.done::before{opacity:1;background:var(--green)}
+.card-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:6px}
+.card-ttl{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:5px;color:var(--text)}
+.card-dsc{font-size:12.5px;color:var(--text2);line-height:1.5;margin-bottom:12px}
+.card-foot{display:flex;align-items:center;justify-content:space-between}
+.tags{display:flex;gap:5px}
+.tag{padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:500;background:var(--bg4);color:var(--text3);border:1px solid var(--border)}
+.tag.g{background:rgba(31,214,160,.08);color:var(--green);border-color:rgba(31,214,160,.2)}
+.tag.a{background:rgba(255,179,71,.08);color:var(--amber);border-color:rgba(255,179,71,.2)}
+.tag.p{background:rgba(108,99,255,.08);color:var(--accent2);border-color:rgba(108,99,255,.2)}
+
+/* MODULE PAGE */
+.mod-page{padding:36px 40px}
+.breadcrumb{font-size:11.5px;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.breadcrumb span{cursor:pointer;transition:.15s}
+.breadcrumb span:hover{color:var(--text)}
+.mod-title{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;margin-bottom:6px;background:linear-gradient(135deg,var(--text),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.mod-sub{color:var(--text2);font-size:14px;margin-bottom:24px}
+
+/* PROGRESS BAR MODULE */
+.mod-prog{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.mod-steps{display:flex;gap:5px;flex:1}
+.mod-step{flex:1;height:4px;background:var(--bg4);border-radius:2px;transition:background .3s}
+.mod-step.done{background:var(--green)}
+.mod-step.cur{background:var(--accent)}
+.prog-lbl{font-size:11.5px;color:var(--text3);white-space:nowrap}
+
+/* LEVEL TABS */
+.lvl-tabs{display:flex;gap:3px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:3px;margin-bottom:22px;width:fit-content}
+.lvl-tab{padding:6px 16px;border-radius:7px;font-size:12.5px;font-weight:500;cursor:pointer;color:var(--text2);transition:all .18s;display:flex;align-items:center;gap:5px;user-select:none}
+.lvl-tab:hover{color:var(--text)}
+.lvl-tab.active{background:var(--bg4);color:var(--text)}
+.lvl-tab.active.beg{background:rgba(31,214,160,.12);color:var(--green)}
+.lvl-tab.active.int{background:rgba(255,179,71,.12);color:var(--amber)}
+.lvl-tab.active.adv{background:rgba(108,99,255,.12);color:var(--accent2)}
+.lvl-tab.active.exp{background:rgba(255,127,214,.12);color:var(--pink)}
+
+/* CONTENT SECTIONS */
+.cs{display:none}
+.cs.active{display:block}
+
+/* BLOCKS */
+.blk{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:24px;margin-bottom:16px}
+.blk h3{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--text);margin-bottom:13px;display:flex;align-items:center;gap:7px}
+.blk h3 .ic{width:26px;height:26px;background:var(--bg4);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.blk p{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:10px}
+.blk ul{padding-left:0;list-style:none}
+.blk li{padding:5px 0 5px 18px;position:relative;color:var(--text2);font-size:13.5px;line-height:1.5}
+.blk li::before{content:'▸';position:absolute;left:0;color:var(--accent)}
+
+/* ANALOGY */
+.anal{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.anal-emoji{font-size:26px;margin-bottom:8px}
+.anal h4{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:6px}
+.anal p{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:6px}
+
+/* FORMULA BOX */
+.fml{background:rgba(108,99,255,.07);border:1px solid rgba(108,99,255,.22);border-radius:var(--r);padding:18px 22px;margin:14px 0}
+.fml-lbl{font-size:10px;color:var(--accent2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-family:'DM Mono',monospace}
+.fml-text{font-size:17px;color:var(--text);font-family:'DM Mono',monospace;font-weight:500}
+.fml-sub{font-size:12px;color:var(--text2);margin-top:6px;font-family:'DM Mono',monospace}
+
+/* CALC */
+.calc{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:22px;margin-top:18px}
+.calc-ttl{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:16px}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:13px}
+.f-lbl{display:block;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;font-weight:500}
+.f-inp{width:100%;background:var(--bg4);border:1px solid var(--border2);border-radius:7px;padding:9px 11px;color:var(--text);font-size:14px;font-family:'DM Mono',monospace;transition:.18s;outline:none}
+.f-inp:focus{border-color:var(--accent)}
+.calc-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif}
+.calc-btn:hover{background:var(--accent2);transform:translateY(-1px)}
+.calc-res{background:rgba(31,214,160,.07);border:1px solid rgba(31,214,160,.18);border-radius:9px;padding:14px 18px;margin-top:12px;display:none}
+.calc-res.show{display:block}
+.calc-res-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px}
+.calc-res-val{font-family:'DM Mono',monospace;font-size:22px;color:var(--green);font-weight:500}
+.calc-res-msg{font-size:13px;color:var(--text2);margin-top:6px;line-height:1.5}
+
+/* SCENARIO CARDS */
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:14px 0}
+.sc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.sc.good{border-color:rgba(31,214,160,.28)}
+.sc.warn{border-color:rgba(255,179,71,.28)}
+.sc.bad{border-color:rgba(255,92,122,.28)}
+.sc-ind{font-size:18px;margin-bottom:6px}
+.sc-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;margin-bottom:5px}
+.sc-val.good{color:var(--green)}.sc-val.warn{color:var(--amber)}.sc-val.bad{color:var(--red)}
+.sc-ttl{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+.sc-dsc{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin:13px 0}
+.tbl th{text-align:left;padding:9px 11px;background:var(--bg4);color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.7px;font-weight:600;border-bottom:1px solid var(--border)}
+.tbl td{padding:9px 11px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,.018);color:var(--text)}
+
+/* QUIZ */
+.quiz-q{font-family:'Syne',sans-serif;font-weight:600;font-size:15px;color:var(--text);margin-bottom:15px}
+.quiz-opts{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:9px;padding:11px 14px;
+  cursor:pointer;font-size:13.5px;color:var(--text2);transition:all .18s;user-select:none;
+  display:flex;align-items:center;gap:10px
+}
+.quiz-opt::before{content:attr(data-l);width:22px;height:22px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;color:var(--text3);text-align:center;line-height:22px}
+.quiz-opt:hover{border-color:var(--accent);color:var(--text)}
+.quiz-opt.sel{border-color:var(--accent);background:rgba(108,99,255,.1);color:var(--text)}
+.quiz-opt.sel::before{background:var(--accent);color:#fff}
+.quiz-opt.ok{border-color:var(--green);background:rgba(31,214,160,.08);color:var(--green)}
+.quiz-opt.ok::before{background:var(--green);color:#fff}
+.quiz-opt.ng{border-color:var(--red);background:rgba(255,92,122,.08);color:var(--red)}
+.quiz-opt.ng::before{background:var(--red);color:#fff}
+.quiz-fb{margin-top:12px;padding:12px 14px;border-radius:9px;font-size:13px;line-height:1.5;display:none}
+.quiz-fb.show{display:block}
+.quiz-fb.ok-fb{background:rgba(31,214,160,.08);border:1px solid rgba(31,214,160,.22);color:var(--green)}
+.quiz-fb.ng-fb{background:rgba(255,92,122,.08);border:1px solid rgba(255,92,122,.22);color:#f06080}
+
+/* FLIP CARDS */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0}
+.flip{height:150px;cursor:pointer;perspective:700px}
+.flip-inner{width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d;position:relative}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-f,.flip-b{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r);padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid var(--border2)}
+.flip-f{background:var(--bg3);font-family:'Syne',sans-serif;font-weight:600;font-size:13px;color:var(--text)}
+.flip-b{background:rgba(108,99,255,.1);border-color:rgba(108,99,255,.28);transform:rotateY(180deg);font-size:12.5px;color:var(--text);line-height:1.55}
+.flip-hint{font-size:10px;color:var(--text3);margin-top:7px}
+
+/* HIGHLIGHT / BANNERS */
+.hl{background:rgba(108,99,255,.05);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:11px 0;font-size:13.5px;color:var(--text2);line-height:1.6}
+.banner{padding:12px 16px;border-radius:var(--r);margin:12px 0;font-size:13px;display:flex;gap:8px;line-height:1.5}
+.banner.info{background:rgba(77,191,255,.07);border:1px solid rgba(77,191,255,.18);color:var(--blue)}
+.banner.ok{background:rgba(31,214,160,.07);border:1px solid rgba(31,214,160,.18);color:var(--green)}
+.banner.warn{background:rgba(255,179,71,.07);border:1px solid rgba(255,179,71,.18);color:var(--amber)}
+
+/* CODE BLOCK */
+.code{background:var(--bg3);border:1px solid var(--border2);border-radius:9px;padding:16px 18px;margin:12px 0;font-family:'DM Mono',monospace;font-size:12.5px;color:var(--text2);line-height:1.7;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+
+/* COMPLETE BTN */
+.done-btn{background:linear-gradient(135deg,var(--green),var(--teal));color:var(--bg);border:none;border-radius:9px;padding:12px 26px;font-size:14.5px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;display:inline-flex;align-items:center;gap:7px;margin-top:24px}
+.done-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,214,160,.28)}
+
+/* NAV BUTTONS */
+.nav-btns{display:flex;gap:10px;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.nbtn{padding:9px 18px;border-radius:8px;font-size:13.5px;font-weight:500;cursor:pointer;transition:all .18s;border:1px solid var(--border2);color:var(--text2);background:var(--bg3);font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px}
+.nbtn:hover{background:var(--bg4);color:var(--text)}
+.nbtn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+.nbtn.pri:hover{background:var(--accent2)}
+
+/* KB PAGE */
+.kb-page{padding:36px 40px}
+.kb-head{margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.kb-title{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;color:var(--text);margin-bottom:7px}
+.kb-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;background:rgba(108,99,255,.1);border:1px solid rgba(108,99,255,.22);border-radius:20px;font-size:11.5px;color:var(--accent2)}
+.toc-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px 22px;margin-bottom:24px;max-width:380px}
+.toc-ttl{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin-bottom:10px}
+.toc-list{list-style:none}
+.toc-list li{padding:3px 0}
+.toc-list a{font-size:12.5px;color:var(--text2);text-decoration:none;transition:.15s}
+.toc-list a:hover{color:var(--accent2)}
+.kb-content{max-width:800px;line-height:1.8}
+.kb-content h1{font-family:'Syne',sans-serif;font-weight:800;font-size:21px;color:var(--text);margin:28px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent)}
+.kb-content h1:first-child{margin-top:0}
+.kb-content h2{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:var(--text);margin:22px 0 10px;display:flex;align-items:center;gap:7px}
+.kb-content h2::before{content:'';display:inline-block;width:3px;height:16px;background:var(--accent);border-radius:2px;flex-shrink:0}
+.kb-content h3{font-family:'Syne',sans-serif;font-weight:600;font-size:14px;color:var(--text);margin:16px 0 7px}
+.kb-content h4{font-size:13.5px;font-weight:600;color:var(--amber);margin:12px 0 5px}
+.kb-content p{color:var(--text2);font-size:14px;margin-bottom:10px;line-height:1.78}
+.kb-content ul,.kb-content ol{padding-left:20px;margin-bottom:12px}
+.kb-content li{color:var(--text2);font-size:13.5px;line-height:1.7;margin-bottom:3px}
+.kb-content strong{color:var(--text);font-weight:600}
+.kb-content pre{background:var(--bg3);border:1px solid var(--border2);border-radius:9px;padding:16px 18px;margin:12px 0;font-family:'DM Mono',monospace;font-size:12.5px;color:var(--text2);line-height:1.7;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+.kb-content code{font-family:'DM Mono',monospace;background:var(--bg4);border-radius:4px;padding:2px 5px;font-size:12.5px;color:var(--teal)}
+.kb-content table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.kb-content th{background:var(--bg4);padding:9px 12px;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border2);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.kb-content td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.kb-content tr:last-child td{border-bottom:none}
+.kb-content tr:hover td{background:rgba(255,255,255,.015)}
+.kb-content blockquote{border-left:3px solid var(--accent);padding:10px 16px;background:rgba(108,99,255,.05);border-radius:0 7px 7px 0;margin:12px 0;color:var(--text2);font-size:13.5px;line-height:1.6}
+.kb-content hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+
+/* BADGE POPUP */
+.badge-pop{position:fixed;bottom:-160px;right:28px;background:var(--bg2);border:2px solid var(--accent);border-radius:var(--r2);padding:18px 22px;z-index:999;transition:bottom .4s cubic-bezier(.16,1,.3,1);max-width:300px;box-shadow:var(--shadow)}
+.badge-pop.show{bottom:28px}
+.badge-pop-ico{font-size:28px;margin-bottom:6px}
+.badge-pop-ttl{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--accent2);margin-bottom:3px}
+.badge-pop-msg{font-size:12.5px;color:var(--text2)}
+
+/* SCROLL TOP */
+.scroll-top{position:fixed;bottom:18px;left:270px;width:32px;height:32px;background:var(--bg3);border:1px solid var(--border2);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:13px;transition:all .2s;opacity:0;z-index:50}
+.scroll-top.vis{opacity:1}
+.scroll-top:hover{background:var(--accent);color:#fff}
+
+/* SIMULATOR */
+.sim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:18px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .hero,.mod-page,.kb-page{padding:24px 18px}
+  .cards-grid{padding:20px 18px}
+  .stats-row{grid-template-columns:repeat(2,1fr);padding:20px 18px 6px}
+  .cards-title,.cards-sub{padding-left:18px;padding-right:18px}
+  .hero-title{font-size:26px}
+  .scroll-top{left:12px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="logo"><div class="logo-icon">📊</div>Google Ads Academy</div>
+  <input class="search-inp" id="searchInp" placeholder="Cari materi...">
+  <div class="topbar-right">
+    <div class="xp-pill">⚡ <span id="xpNum">0</span> XP</div>
+    <div class="level-pill" id="lvlPill">Beginner</div>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="nav-sec">
+    <div class="nav-lbl">Menu Utama</div>
+    <div class="nav-item active" id="nav-dash" onclick="go('dash')"><div class="nav-icon">🏠</div>Dashboard</div>
+    <div class="nav-item" id="nav-roadmap" onclick="go('roadmap')"><div class="nav-icon">🗺️</div>Roadmap</div>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-lbl">9 Modul Metrik</div>
+    <div class="nav-item" id="nav-m1" onclick="go('m1')"><div class="nav-icon">💰</div>M1 — ROAS<span class="nav-prog" id="np-m1"></span></div>
+    <div class="nav-item" id="nav-m2" onclick="go('m2')"><div class="nav-icon">🎯</div>M2 — CPA<span class="nav-prog" id="np-m2"></span></div>
+    <div class="nav-item" id="nav-m3" onclick="go('m3')"><div class="nav-icon">📈</div>M3 — Conv Rate<span class="nav-prog" id="np-m3"></span></div>
+    <div class="nav-item" id="nav-m4" onclick="go('m4')"><div class="nav-icon">🖱️</div>M4 — CTR<span class="nav-prog" id="np-m4"></span></div>
+    <div class="nav-item" id="nav-m5" onclick="go('m5')"><div class="nav-icon">📱</div>M5 — Device & Geo<span class="nav-prog" id="np-m5"></span></div>
+    <div class="nav-item" id="nav-m6" onclick="go('m6')"><div class="nav-icon">💵</div>M6 — Cost Metrics<span class="nav-prog" id="np-m6"></span></div>
+    <div class="nav-item" id="nav-m7" onclick="go('m7')"><div class="nav-icon">⭐</div>M7 — Quality Score<span class="nav-prog" id="np-m7"></span></div>
+    <div class="nav-item" id="nav-m8" onclick="go('m8')"><div class="nav-icon">🔍</div>M8 — Search Term<span class="nav-prog" id="np-m8"></span></div>
+    <div class="nav-item" id="nav-m9" onclick="go('m9')"><div class="nav-icon">👁️</div>M9 — Impr. Share<span class="nav-prog" id="np-m9"></span></div>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-lbl">Knowledge Base</div>
+    <div class="nav-item" id="nav-kb1" onclick="go('kb1')"><div class="nav-icon">📄</div>KB — ROAS</div>
+    <div class="nav-item" id="nav-kb2" onclick="go('kb2')"><div class="nav-icon">📄</div>KB — CPA</div>
+    <div class="nav-item" id="nav-kb3" onclick="go('kb3')"><div class="nav-icon">📄</div>KB — Conv Rate</div>
+    <div class="nav-item" id="nav-kb4" onclick="go('kb4')"><div class="nav-icon">📄</div>KB — CTR</div>
+    <div class="nav-item" id="nav-kb5" onclick="go('kb5')"><div class="nav-icon">📄</div>KB — Device & Geo</div>
+    <div class="nav-item" id="nav-kb6" onclick="go('kb6')"><div class="nav-icon">📄</div>KB — Cost Metrics</div>
+    <div class="nav-item" id="nav-kb7" onclick="go('kb7')"><div class="nav-icon">📄</div>KB — Quality Score</div>
+    <div class="nav-item" id="nav-kb8" onclick="go('kb8')"><div class="nav-icon">📄</div>KB — Search Term</div>
+    <div class="nav-item" id="nav-kb9" onclick="go('kb9')"><div class="nav-icon">📄</div>KB — Impr. Share</div>
+    <div class="nav-item" id="nav-kb10" onclick="go('kb10')"><div class="nav-icon">📘</div>Strategic Frameworks</div>
+    <div class="nav-item" id="nav-kb11" onclick="go('kb11')"><div class="nav-icon">📗</div>Quick Reference</div>
+    <div class="nav-item" id="nav-kb12" onclick="go('kb12')"><div class="nav-icon">📙</div>Impl. Checklists</div>
+    <div class="nav-item" id="nav-kb13" onclick="go('kb13')"><div class="nav-icon">📕</div>Practice Questions</div>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-lbl">Tools</div>
+    <div class="nav-item" id="nav-sim" onclick="go('sim')"><div class="nav-icon">🎮</div>Campaign Simulator</div>
+    <div class="nav-item" id="nav-quiz" onclick="go('quiz')"><div class="nav-icon">📝</div>Quiz Master</div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main" id="mainEl">
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="page active" id="page-dash">
+  <div class="hero">
+    <div class="hero-title">Google Ads Academy 🚀</div>
+    <p class="hero-sub">Kuasai 9 metrik penting dari nol — mulai dari analogi sederhana sampai strategi expert. Belajar sambil praktik, santai tapi serius.</p>
+    <div class="prog-wrap">
+      <div class="prog-labels"><span>Progress Keseluruhan</span><span id="ovPct">0%</span></div>
+      <div class="prog-track"><div class="prog-fill" id="ovBar" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-lbl">Modul Selesai</div><div class="stat-val"><span id="sMod">0</span><span class="stat-unit">/ 9</span></div></div>
+    <div class="stat-card"><div class="stat-lbl">XP Terkumpul</div><div class="stat-val"><span id="sXP">0</span><span class="stat-unit">XP</span></div></div>
+    <div class="stat-card"><div class="stat-lbl">Quiz Benar</div><div class="stat-val"><span id="sQ">0</span></div></div>
+    <div class="stat-card"><div class="stat-lbl">Level</div><div class="stat-val" style="font-size:15px" id="sLvl">Beginner</div></div>
+  </div>
+
+  <div class="cards-title">9 Modul Pembelajaran</div>
+  <div class="cards-sub">Klik modul untuk mulai. Setiap modul ada 4 level: Beginner → Expert.</div>
+  <div class="cards-grid">
+    <div class="m-card" id="cc-m1" onclick="go('m1')"><div class="card-num">METRIC 01</div><div class="card-ttl">ROAS</div><div class="card-dsc">Return on Ad Spend — metrik utama profitabilitas. Berapa revenue per $1 iklan?</div><div class="card-foot"><div class="tags"><span class="tag g">Fundamental</span><span class="tag a">Prioritas 1</span></div><span id="cs-m1">🔓</span></div></div>
+    <div class="m-card" id="cc-m2" onclick="go('m2')"><div class="card-num">METRIC 02</div><div class="card-ttl">CPA</div><div class="card-dsc">Cost Per Acquisition — biaya untuk dapat 1 lead atau pelanggan baru.</div><div class="card-foot"><div class="tags"><span class="tag g">Fundamental</span><span class="tag a">Efisiensi</span></div><span id="cs-m2">🔓</span></div></div>
+    <div class="m-card" id="cc-m3" onclick="go('m3')"><div class="card-num">METRIC 03</div><div class="card-ttl">Conversion Rate</div><div class="card-dsc">Berapa % visitors jadi leads? Ukur kualitas landing page & audience.</div><div class="card-foot"><div class="tags"><span class="tag p">Funnel</span><span class="tag a">Landing Page</span></div><span id="cs-m3">🔓</span></div></div>
+    <div class="m-card" id="cc-m4" onclick="go('m4')"><div class="card-num">METRIC 04</div><div class="card-ttl">CTR</div><div class="card-dsc">Click-Through Rate — % orang yang lihat iklan lalu klik. Ukur kualitas ad copy.</div><div class="card-foot"><div class="tags"><span class="tag p">Ad Quality</span><span class="tag">Impressions</span></div><span id="cs-m4">🔓</span></div></div>
+    <div class="m-card" id="cc-m5" onclick="go('m5')"><div class="card-num">METRIC 05</div><div class="card-ttl">Device & Geo</div><div class="card-dsc">Analisis performance per perangkat & lokasi. Temukan peluang tersembunyi!</div><div class="card-foot"><div class="tags"><span class="tag p">Segmentasi</span><span class="tag">Bid Adj.</span></div><span id="cs-m5">🔓</span></div></div>
+    <div class="m-card" id="cc-m6" onclick="go('m6')"><div class="card-num">METRIC 06</div><div class="card-ttl">Cost Metrics</div><div class="card-dsc">CPC, total cost & budget management. Kemana uangmu pergi?</div><div class="card-foot"><div class="tags"><span class="tag a">Budget</span><span class="tag">CPC</span></div><span id="cs-m6">🔓</span></div></div>
+    <div class="m-card" id="cc-m7" onclick="go('m7')"><div class="card-num">METRIC 07</div><div class="card-ttl">Quality Score</div><div class="card-dsc">Rating 1-10 dari Google. QS tinggi = CPC murah + posisi lebih baik!</div><div class="card-foot"><div class="tags"><span class="tag g">Quality</span><span class="tag">Ranking</span></div><span id="cs-m7">🔓</span></div></div>
+    <div class="m-card" id="cc-m8" onclick="go('m8')"><div class="card-num">METRIC 08</div><div class="card-ttl">Search Term</div><div class="card-dsc">Orang search apa sebelum klik iklanmu? Temukan pemborosan & peluang!</div><div class="card-foot"><div class="tags"><span class="tag p">Keywords</span><span class="tag">Neg KW</span></div><span id="cs-m8">🔓</span></div></div>
+    <div class="m-card" id="cc-m9" onclick="go('m9')"><div class="card-num">METRIC 09</div><div class="card-ttl">Impression Share</div><div class="card-dsc">Berapa % pasar yang lihat iklanmu? Ukur dominasi vs kompetitor.</div><div class="card-foot"><div class="tags"><span class="tag p">Visibility</span><span class="tag">Market Share</span></div><span id="cs-m9">🔓</span></div></div>
+  </div>
+
+  <div class="cards-title">Referensi & Tools</div>
+  <div class="cards-sub">File knowledge base asli, lengkap tanpa dipotong + tools interaktif.</div>
+  <div class="cards-grid">
+    <div class="m-card" onclick="go('kb10')"><div class="card-num">FILE 1A</div><div class="card-ttl">Strategic Frameworks</div><div class="card-dsc">Advanced decision-making untuk optimize campaign secara strategis.</div><div class="card-foot"><div class="tags"><span class="tag p">Strategy</span><span class="tag a">Advanced</span></div></div></div>
+    <div class="m-card" onclick="go('kb11')"><div class="card-num">FILE 1B</div><div class="card-ttl">Quick Reference & Decision Tools</div><div class="card-dsc">Decision trees, checklists, framework untuk keputusan cepat.</div><div class="card-foot"><div class="tags"><span class="tag g">Tools</span></div></div></div>
+    <div class="m-card" onclick="go('kb12')"><div class="card-num">FILE 3</div><div class="card-ttl">Implementation Checklists</div><div class="card-dsc">Daily, weekly, monthly checklists & action plans siap pakai.</div><div class="card-foot"><div class="tags"><span class="tag">Checklist</span></div></div></div>
+    <div class="m-card" onclick="go('kb13')"><div class="card-num">FILE 2</div><div class="card-ttl">Practice Questions</div><div class="card-dsc">45 soal latihan komprehensif dengan jawaban detail untuk 9 metrik.</div><div class="card-foot"><div class="tags"><span class="tag a">Practice</span></div></div></div>
+    <div class="m-card" onclick="go('sim')"><div class="card-num">TOOL</div><div class="card-ttl">Campaign Simulator 🎮</div><div class="card-dsc">Virtual $1,000 budget. Alokasikan, jalankan, lihat hasilnya!</div><div class="card-foot"><div class="tags"><span class="tag g">Interaktif</span></div></div></div>
+    <div class="m-card" onclick="go('quiz')"><div class="card-num">TOOL</div><div class="card-ttl">Quiz Master 📝</div><div class="card-dsc">20 pertanyaan random dari semua materi. Uji pemahaman kamu!</div><div class="card-foot"><div class="tags"><span class="tag a">Quiz</span></div></div></div>
+  </div>
+</div>
+
+<!-- ═══ ROADMAP ═══ -->
+<div class="page" id="page-roadmap">
+<div class="mod-page">
+  <div class="mod-title">🗺️ Roadmap Belajar</div>
+  <div class="mod-sub">Perjalanan dari Beginner ke Google Ads Expert</div>
+  <div class="blk">
+    <h3><span class="ic">🗺️</span>Learning Journey — 5 Tahap</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:6px">
+      <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:34px;height:34px;background:rgba(31,214,160,.15);border:2px solid var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;color:var(--green);font-family:'Syne',sans-serif">1</div><div><div style="font-weight:600;color:var(--text);margin-bottom:3px">Foundation: ROAS & CPA (M1–M2)</div><div style="font-size:13px;color:var(--text2)">Pahami revenue metrics dan efisiensi biaya. Ini fondasi semua keputusan ads.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:34px;height:34px;background:rgba(255,179,71,.15);border:2px solid var(--amber);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;color:var(--amber);font-family:'Syne',sans-serif">2</div><div><div style="font-weight:600;color:var(--text);margin-bottom:3px">Funnel: Conv Rate & CTR (M3–M4)</div><div style="font-size:13px;color:var(--text2)">Pahami perjalanan user: lihat iklan → klik → convert. Optimasi tiap tahap.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:34px;height:34px;background:rgba(108,99,255,.15);border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;color:var(--accent2);font-family:'Syne',sans-serif">3</div><div><div style="font-weight:600;color:var(--text);margin-bottom:3px">Segmentation: Device, Geo & Cost (M5–M6)</div><div style="font-size:13px;color:var(--text2)">Breakdown per segment untuk temukan inefficiency, alokasikan budget cerdas.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:34px;height:34px;background:rgba(255,127,214,.15);border:2px solid var(--pink);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;color:var(--pink);font-family:'Syne',sans-serif">4</div><div><div style="font-weight:600;color:var(--text);margin-bottom:3px">Quality: QS & Search Terms (M7–M8)</div><div style="font-size:13px;color:var(--text2)">Perbaiki kualitas fundamental. Kurangi pemborosan, naikkan relevansi.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:34px;height:34px;background:rgba(54,232,216,.15);border:2px solid var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;color:var(--teal);font-family:'Syne',sans-serif">5</div><div><div style="font-weight:600;color:var(--text);margin-bottom:3px">Visibility: Impression Share (M9)</div><div style="font-size:13px;color:var(--text2)">Dominasi market share dan maximize visibility. Complete the picture!</div></div></div>
+    </div>
+  </div>
+  <div class="blk">
+    <h3><span class="ic">💬</span>Sistem Level Bahasa</h3>
+    <table class="tbl"><thead><tr><th>Level</th><th>Bahasa</th><th>Contoh Kalimat</th></tr></thead><tbody>
+      <tr><td><span style="color:var(--green)">🌱 Beginner</span></td><td>Analogi sehari-hari</td><td>"Kayak jualan kopi, dari $100 dapat $300..."</td></tr>
+      <tr><td><span style="color:var(--amber)">📚 Intermediate</span></td><td>Semi-teknis + formula</td><td>"ROAS = Revenue / Spend. Dari data Google Ads..."</td></tr>
+      <tr><td><span style="color:var(--accent2)">🚀 Advanced</span></td><td>Industri standar</td><td>"Target CPA bidding, diminishing returns, bid adjustment..."</td></tr>
+      <tr><td><span style="color:var(--pink)">🏆 Expert</span></td><td>Full jargon + strategy</td><td>"Multi-touch attribution, CLV modeling, incremental ROAS..."</td></tr>
+    </tbody></table>
+  </div>
+</div>
+</div>
+
+<!-- ═══ MODULE 1: ROAS ═══ -->
+<div class="page" id="page-m1">
+<div class="mod-page">
+  <div class="breadcrumb"><span onclick="go('dash')">🏠 Dashboard</span> › <span style="color:var(--text)">M1 — ROAS</span></div>
+  <div class="mod-title">💰 ROAS — Return on Ad Spend</div>
+  <div class="mod-sub">Metrik #1 — The North Star of Google Ads</div>
+  <div class="mod-prog">
+    <span class="prog-lbl">Progress:</span>
+    <div class="mod-steps"><div class="mod-step" id="m1s1"></div><div class="mod-step" id="m1s2"></div><div class="mod-step" id="m1s3"></div><div class="mod-step" id="m1s4"></div></div>
+    <span class="prog-lbl" id="m1prog">0 / 4</span>
+  </div>
+  <div class="lvl-tabs">
+    <div class="lvl-tab beg active" id="t-m1-beg" onclick="setLevel('m1','beg',this)">🌱 Beginner</div>
+    <div class="lvl-tab int" id="t-m1-int" onclick="setLevel('m1','int',this)">📚 Intermediate</div>
+    <div class="lvl-tab adv" id="t-m1-adv" onclick="setLevel('m1','adv',this)">🚀 Advanced</div>
+    <div class="lvl-tab exp" id="t-m1-exp" onclick="setLevel('m1','exp',this)">🏆 Expert</div>
+  </div>
+
+  <!-- BEG -->
+  <div class="cs active" id="m1-beg">
+    <div class="blk">
+      <h3><span class="ic">🎯</span>Apa itu ROAS? (Versi Paling Mudah)</h3>
+      <p>ROAS itu simpelnya: <strong>dari setiap $1 yang kamu pakai untuk iklan, berapa $ yang kamu dapat balik?</strong></p>
+    </div>
+    <div class="anal"><div class="anal-emoji">☕</div><h4>Analogi: Toko Kopi</h4><p>Kamu beli biji kopi seharga <strong>$100</strong>. Setelah jual kopi, kamu dapat revenue <strong>$300</strong>.</p><p>Dari $100 kamu dapat $300 → <strong>ROAS = 3:1</strong></p></div>
+    <div class="anal"><div class="anal-emoji">📢</div><h4>Di Google Ads:</h4><p>Kamu invest <strong>$1,000 untuk iklan</strong>. Leads yang datang convert jadi <strong>$4,000 revenue</strong>.</p><p>Berarti <strong>ROAS = 4:1</strong> (atau 400%)</p></div>
+    <div class="blk">
+      <h3><span class="ic">📊</span>Interpretasi ROAS</h3>
+      <div class="sc-grid">
+        <div class="sc good"><div class="sc-ind">✅</div><div class="sc-val good">4:1</div><div class="sc-ttl">Sangat Bagus!</div><div class="sc-dsc">Setiap $1 iklan → $4 revenue. Campaign profitable, bisa di-scale!</div></div>
+        <div class="sc warn"><div class="sc-ind">⚠️</div><div class="sc-val warn">1:1</div><div class="sc-ttl">Break Even</div><div class="sc-dsc">Input = output. Tidak rugi tapi tidak untung. Perlu dioptimasi.</div></div>
+        <div class="sc bad"><div class="sc-ind">❌</div><div class="sc-val bad">0.5:1</div><div class="sc-ttl">Rugi!</div><div class="sc-dsc">Habis $1, dapat $0.50 saja. Campaign harus di-pause atau diperbaiki.</div></div>
+      </div>
+    </div>
+    <div class="blk">
+      <h3><span class="ic">🧠</span>Test Pemahaman</h3>
+      <div id="q-m1-1"><div class="quiz-q">Kalau ROAS kamu adalah 3.5 — artinya apa?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m1-1',this,false,'Bukan! CPA adalah cost per acquisition, metrik yang berbeda.')">Setiap $1 iklan, CPA kamu $3.50</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m1-1',this,true,'🎉 Betul! ROAS 3.5 = setiap $1 iklan menghasilkan $3.50 revenue. Makin tinggi makin profitable!')">Setiap $1 iklan, kamu dapat $3.50 revenue</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m1-1',this,false,'Bukan! CTR adalah click-through rate, metrik yang berbeda.')">CTR kamu adalah 3.5%</div>
+      </div><div class="quiz-fb" id="q-m1-1-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m1','beg',1)">✅ Selesai Beginner → Lanjut Intermediate</button>
+  </div>
+
+  <!-- INT -->
+  <div class="cs" id="m1-int">
+    <div class="blk">
+      <h3><span class="ic">📐</span>Formula ROAS</h3>
+      <div class="fml"><div class="fml-lbl">Formula Utama</div><div class="fml-text">ROAS = Total Revenue ÷ Total Ad Spend</div><div class="fml-sub">Contoh: $4,000 ÷ $1,000 = ROAS 4.0</div></div>
+      <p>Data yang dibutuhkan:</p>
+      <ul><li><strong>Total Ad Spend</strong> → dari Google Ads dashboard</li><li><strong>Total Revenue</strong> → dari GA4 atau CRM kamu</li></ul>
+    </div>
+    <div class="calc">
+      <div class="calc-ttl">🧮 ROAS Calculator</div>
+      <div class="calc-grid">
+        <div><label class="f-lbl">Total Ad Spend ($)</label><input class="f-inp" id="roas_s" type="number" value="1000"></div>
+        <div><label class="f-lbl">Total Revenue ($)</label><input class="f-inp" id="roas_r" type="number" value="4000"></div>
+      </div>
+      <button class="calc-btn" onclick="calcROAS()">Hitung ROAS</button>
+      <div class="calc-res" id="roas_res"><div class="calc-res-lbl">Hasil ROAS</div><div class="calc-res-val" id="roas_v">—</div><div class="calc-res-msg" id="roas_m">—</div></div>
+    </div>
+    <div class="blk" style="margin-top:16px">
+      <h3><span class="ic">📊</span>Data Points yang Diperlukan</h3>
+      <table class="tbl"><thead><tr><th>Data Point</th><th>Source</th><th>Role dalam ROAS</th></tr></thead><tbody>
+        <tr><td><strong>Ad Spend</strong></td><td>Google Ads</td><td>Denominator (pembagi)</td></tr>
+        <tr><td><strong>Conversions</strong></td><td>GA4</td><td>Jumlah leads/sales</td></tr>
+        <tr><td><strong>Revenue per Conv.</strong></td><td>GA4 / CRM</td><td>Untuk hitung total revenue</td></tr>
+        <tr><td><strong>Total Revenue</strong></td><td>Kalkulasi</td><td>Numerator (pembilang)</td></tr>
+      </tbody></table>
+    </div>
+    <div class="blk">
+      <h3><span class="ic">🧠</span>Quiz</h3>
+      <div id="q-m1-2"><div class="quiz-q">Spend $2,000, Revenue $7,000. Berapa ROAS?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m1-2',this,false,'Coba lagi! Rumus: Revenue ÷ Spend = $7,000 ÷ $2,000.')">0.29</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m1-2',this,true,'✅ Benar! $7,000 ÷ $2,000 = 3.5. ROAS yang sangat bagus!')">3.5</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m1-2',this,false,'Hampir! Kamu terbalik: $7,000/$2,000 = 3.5, bukan 5.')">5.0</div>
+      </div><div class="quiz-fb" id="q-m1-2-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m1','int',2)">✅ Selesai Intermediate → Lanjut Advanced</button>
+  </div>
+
+  <!-- ADV -->
+  <div class="cs" id="m1-adv">
+    <div class="blk">
+      <h3><span class="ic">🎯</span>ROAS untuk Strategic Decisions</h3>
+      <div class="sc-grid">
+        <div class="sc warn"><div class="sc-val warn">2.0</div><div class="sc-ttl">Profitable, tapi ada inefficiency</div><div class="sc-dsc"><strong>Action:</strong> Optimize dulu sebelum scale.</div></div>
+        <div class="sc good"><div class="sc-val good">4.0</div><div class="sc-ttl">Very Profitable — Scale!</div><div class="sc-dsc"><strong>Action:</strong> Naikan budget. Setiap +$1,000 → +$4,000 revenue.</div></div>
+        <div class="sc bad"><div class="sc-val bad">0.8</div><div class="sc-ttl">Rugi — Pause!</div><div class="sc-dsc"><strong>Action:</strong> Pause campaign, analisis masalah.</div></div>
+      </div>
+    </div>
+    <div class="blk">
+      <h3><span class="ic">🔄</span>Multi-Campaign ROAS Analysis</h3>
+      <div class="banner warn">⚠️ Blended ROAS bisa menyembunyikan underperformance. Selalu analisis PER CAMPAIGN!</div>
+      <table class="tbl"><thead><tr><th>Campaign</th><th>Spend</th><th>Revenue</th><th>ROAS</th><th>Status</th></tr></thead><tbody>
+        <tr><td>Tax Consultant</td><td>$600</td><td>$2,400</td><td>4.0</td><td><span style="color:var(--green)">✅ Excellent</span></td></tr>
+        <tr><td>Genset</td><td>$400</td><td>$1,200</td><td>3.0</td><td><span style="color:var(--amber)">⚠️ Good</span></td></tr>
+        <tr><td><strong>Blended</strong></td><td><strong>$1,000</strong></td><td><strong>$3,600</strong></td><td><strong>3.6</strong></td><td>—</td></tr>
+      </tbody></table>
+      <div class="hl"><strong>Strategic Q:</strong> Haruskah shift budget dari Genset ke Tax? Tergantung apakah Tax sudah saturated atau masih punya room to grow. Test dulu!</div>
+    </div>
+    <div class="blk">
+      <h3><span class="ic">⏱️</span>ROAS Berubah Over Time</h3>
+      <table class="tbl"><thead><tr><th>Waktu</th><th>ROAS</th><th>Alasan</th></tr></thead><tbody>
+        <tr><td>Week 1</td><td><span style="color:var(--green)">5.0</span></td><td>Best audience reached first, high intent</td></tr>
+        <tr><td>Week 2</td><td><span style="color:var(--green)">4.0</span></td><td>Audience saturation mulai</td></tr>
+        <tr><td>Week 3</td><td><span style="color:var(--amber)">3.5</span></td><td>Diminishing returns</td></tr>
+        <tr><td>Week 4</td><td><span style="color:var(--amber)">3.0</span></td><td>Plateau, butuh fresh creative</td></tr>
+      </tbody></table>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m1','adv',3)">✅ Selesai Advanced → Lanjut Expert</button>
+  </div>
+
+  <!-- EXP -->
+  <div class="cs" id="m1-exp">
+    <div class="blk">
+      <h3><span class="ic">🎓</span>Net ROAS vs Gross ROAS</h3>
+      <div class="fml"><div class="fml-lbl">Gross ROAS (yang Google Ads tunjukkan)</div><div class="fml-text">Revenue ÷ Ad Spend = 4.0</div></div>
+      <div class="fml" style="background:rgba(31,214,160,.06);border-color:rgba(31,214,160,.22)"><div class="fml-lbl" style="color:var(--green)">Net ROAS (yang benar-benar penting)</div><div class="fml-text">(Revenue − COGS) ÷ Ad Spend = 2.0</div><div class="fml-sub">Revenue $4,000 − COGS $2,000 = $2,000 profit / $1,000 spend</div></div>
+      <div class="banner warn">⚠️ Gross ROAS 4.0 terlihat hebat, tapi Net ROAS 2.0 adalah realita profitability. Untuk bisnis dengan COGS tinggi, selalu hitung Net ROAS!</div>
+    </div>
+    <div class="blk">
+      <h3><span class="ic">🔗</span>Multi-Touch Attribution & ROAS</h3>
+      <p>Satu conversion bisa menyentuh banyak touchpoints. Attribution model menentukan siapa yang dapat "credit":</p>
+      <table class="tbl"><thead><tr><th>Model</th><th>First Click (Ad)</th><th>Organic</th><th>Retargeting</th></tr></thead><tbody>
+        <tr><td>Last-Click</td><td>0%</td><td>0%</td><td>100% ($400)</td></tr>
+        <tr><td>First-Click</td><td>100% ($400)</td><td>0%</td><td>0%</td></tr>
+        <tr><td>Linear</td><td>33% ($133)</td><td>33% ($133)</td><td>33% ($133)</td></tr>
+        <tr><td><strong>Time-Decay ⭐</strong></td><td>20% ($80)</td><td>30% ($120)</td><td>50% ($200)</td></tr>
+      </tbody></table>
+      <div class="hl">Untuk service consulting dengan long decision cycle, <strong>Time-Decay</strong> adalah model paling akurat.</div>
+    </div>
+    <div class="blk">
+      <h3><span class="ic">💎</span>Customer Lifetime Value & ROAS</h3>
+      <div class="anal"><h4>Contoh: Tax Consultant Client</h4><p>Initial consultation: $400 (revenue day 1)</p><p>Month 2: Repeat service → +$200</p><p>Month 3: Refer 2 friends → +$800</p><p><strong style="color:var(--green)">Total CLV: $1,400 (3.5× dari nilai initial!)</strong></p></div>
+      <div class="hl">Jangan optimize hanya berdasarkan immediate conversions. Track CLV untuk tahu true profitability campaign-mu.</div>
+    </div>
+    <button class="done-btn" onclick="doneModule('m1')">🏆 Module ROAS Selesai! +150 XP</button>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go('kb1')">📄 Baca File Asli ROAS</button>
+      <button class="nbtn pri" onclick="go('m2')">Lanjut M2: CPA →</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ MODULE 2: CPA ═══ -->
+<div class="page" id="page-m2">
+<div class="mod-page">
+  <div class="breadcrumb"><span onclick="go('dash')">🏠</span> › <span style="color:var(--text)">M2 — CPA</span></div>
+  <div class="mod-title">🎯 CPA — Cost Per Acquisition</div>
+  <div class="mod-sub">Metrik #2 — The Efficiency Meter</div>
+  <div class="mod-prog"><span class="prog-lbl">Progress:</span><div class="mod-steps"><div class="mod-step" id="m2s1"></div><div class="mod-step" id="m2s2"></div><div class="mod-step" id="m2s3"></div><div class="mod-step" id="m2s4"></div></div><span class="prog-lbl" id="m2prog">0 / 4</span></div>
+  <div class="lvl-tabs">
+    <div class="lvl-tab beg active" id="t-m2-beg" onclick="setLevel('m2','beg',this)">🌱 Beginner</div>
+    <div class="lvl-tab int" id="t-m2-int" onclick="setLevel('m2','int',this)">📚 Intermediate</div>
+    <div class="lvl-tab adv" id="t-m2-adv" onclick="setLevel('m2','adv',this)">🚀 Advanced</div>
+    <div class="lvl-tab exp" id="t-m2-exp" onclick="setLevel('m2','exp',this)">🏆 Expert</div>
+  </div>
+  <div class="cs active" id="m2-beg">
+    <div class="anal"><div class="anal-emoji">🥐</div><h4>Analogi: Toko Roti Cari Pelanggan</h4><p>Cetak + bagikan <strong>1,000 leaflet</strong>, total biaya <strong>$200</strong>. Hasilnya: <strong>20 orang datang ke toko</strong>.</p><p><strong>CPA = $200 ÷ 20 = $10 per pelanggan</strong></p></div>
+    <div class="blk"><h3><span class="ic">🤔</span>CPA $20 — Bagus atau Jelek?</h3>
+      <table class="tbl"><thead><tr><th>Service Value</th><th>CPA $20</th><th>Alasan</th></tr></thead><tbody>
+        <tr><td>$500+</td><td><span style="color:var(--green)">✅ SANGAT BAGUS</span></td><td>Profit $480+ per lead</td></tr>
+        <tr><td>$50</td><td><span style="color:var(--amber)">⚠️ Lumayan</span></td><td>Profit hanya $30 per lead</td></tr>
+        <tr><td>$25</td><td><span style="color:var(--red)">❌ RUGI</span></td><td>Profit $5 — terlalu tipis!</td></tr>
+      </tbody></table>
+      <div class="banner info">💡 CPA harus selalu dibandingkan dengan <strong>revenue per conversion</strong> untuk tahu apakah profitable!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">🧠</span>Quiz</h3>
+      <div id="q-m2-1"><div class="quiz-q">Spend $500, dapat 25 leads. Berapa CPA?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m2-1',this,false,'Terbalik! CPA = Spend ÷ Conversions, bukan sebaliknya.')">$0.05</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m2-1',this,true,'✅ Benar! $500 ÷ 25 = $20 per lead.')">$20 per lead</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m2-1',this,false,'Coba lagi! $500 ÷ 25 = $20, bukan $50.')">$50 per lead</div>
+      </div><div class="quiz-fb" id="q-m2-1-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m2','beg',1)">✅ Selesai Beginner</button>
+  </div>
+  <div class="cs" id="m2-int">
+    <div class="blk"><h3><span class="ic">📐</span>Formula CPA</h3><div class="fml"><div class="fml-lbl">Formula</div><div class="fml-text">CPA = Total Ad Spend ÷ Total Conversions</div><div class="fml-sub">$1,000 ÷ 40 conversions = $25 per conversion</div></div></div>
+    <div class="calc"><div class="calc-ttl">🧮 CPA Calculator</div><div class="calc-grid"><div><label class="f-lbl">Total Ad Spend ($)</label><input class="f-inp" id="cpa_s" type="number" value="1000"></div><div><label class="f-lbl">Total Conversions</label><input class="f-inp" id="cpa_c" type="number" value="40"></div></div><button class="calc-btn" onclick="calcCPA()">Hitung CPA</button><div class="calc-res" id="cpa_res"><div class="calc-res-lbl">CPA per Lead</div><div class="calc-res-val" id="cpa_v">—</div><div class="calc-res-msg" id="cpa_m">—</div></div></div>
+    <div class="blk" style="margin-top:16px"><h3><span class="ic">🔗</span>Hubungan CPA ↔ ROAS</h3>
+      <div class="code">ROAS 4.0 = Spend $1,000 → Revenue $4,000
+Revenue dari 40 conversions: $4,000 ÷ 40 = $100/conv
+
+Yang kita tahu sekarang:
+  Revenue per conversion : $100
+  CPA (cost per conv)    : $25  ($1,000 ÷ 40)
+  Profit per conversion  : $75  ($100 - $25)
+  Margin %               : 75%</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m2','int',2)">✅ Selesai Intermediate</button>
+  </div>
+  <div class="cs" id="m2-adv">
+    <div class="blk"><h3><span class="ic">🎯</span>Menentukan Target CPA</h3>
+      <div class="fml"><div class="fml-lbl">Acceptable CPA Formula</div><div class="fml-text">Acceptable CPA = Revenue/Lead − Operational Cost</div><div class="fml-sub">Tax: $100 avg revenue − $20 ops = max CPA $80</div></div>
+      <div class="banner ok">✅ Selama CPA kamu di bawah threshold ini, campaign masih profitable!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">⚖️</span>Target CPA vs Target ROAS Bidding</h3>
+      <table class="tbl"><thead><tr><th>Strategy</th><th>Cara Kerja</th><th>Terbaik Untuk</th></tr></thead><tbody>
+        <tr><td><strong>Target CPA</strong></td><td>Bid agresif untuk conversions di CPA yang kamu set</td><td>Butuh lead flow konsisten</td></tr>
+        <tr><td><strong>Target ROAS</strong></td><td>Hanya bid untuk high-value conversions</td><td>Profitability > volume</td></tr>
+      </tbody></table>
+    </div>
+    <div class="blk"><h3><span class="ic">⚠️</span>Blended CPA Trap!</h3>
+      <div class="code">Campaign A (Tax):    CPA = $15  ✅ Great!
+Campaign B (Genset): CPA = $45  ❌ Underperforming!
+
+Blended CPA = $1,000 / 49 = $20.40  ← Terlihat OK!
+Padahal Campaign B sedang struggling.
+
+SOLUSI: Selalu cek CPA per campaign, BUKAN hanya blended!</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m2','adv',3)">✅ Selesai Advanced</button>
+  </div>
+  <div class="cs" id="m2-exp">
+    <div class="blk"><h3><span class="ic">🏆</span>CPA vs Lead Quality</h3>
+      <table class="tbl"><thead><tr><th>Campaign</th><th>CPA</th><th>Qualified</th><th>Close Rate</th><th>Cost/Customer</th><th>Winner</th></tr></thead><tbody>
+        <tr><td>X</td><td>$10</td><td>50%</td><td>5%</td><td>$200</td><td>❌</td></tr>
+        <tr><td>Y</td><td>$20</td><td>90%</td><td>40%</td><td>$50</td><td>✅ 4× lebih efisien!</td></tr>
+      </tbody></table>
+      <div class="hl"><strong>Expert insight:</strong> Low CPA ≠ Good CPA. Campaign Y dengan CPA 2× lebih mahal justru 4× lebih efisien per paying customer!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">📅</span>Seasonal CPA Variation</h3>
+      <table class="tbl"><thead><tr><th>Periode</th><th>CPA Est.</th><th>Alasan</th><th>Strategi</th></tr></thead><tbody>
+        <tr><td>Jan–Mar (Tax Season)</td><td><span style="color:var(--amber)">$35–40</span></td><td>High demand + kompetisi tinggi</td><td>Budget lebih, wajar CPA naik</td></tr>
+        <tr><td>Apr–Agu (Off-Season)</td><td><span style="color:var(--green)">$15–20</span></td><td>Low competition, CPC murah</td><td>Spend agresif, CPC murah!</td></tr>
+        <tr><td>Sep–Des</td><td><span style="color:var(--text2)">$25–30</span></td><td>Normal season</td><td>Standard budget</td></tr>
+      </tbody></table>
+    </div>
+    <button class="done-btn" onclick="doneModule('m2')">🏆 Module CPA Selesai! +150 XP</button>
+    <div class="nav-btns"><button class="nbtn" onclick="go('m1')">← M1</button><button class="nbtn" onclick="go('kb2')">📄 File Asli</button><button class="nbtn pri" onclick="go('m3')">M3: Conv Rate →</button></div>
+  </div>
+</div>
+</div>
+
+<!-- MODULES 3–9 placeholders (will be added in Stage 2) -->
+<!-- ═══ MODULE 3: CONVERSION RATE ═══ -->
+<div class="page" id="page-m3"><div class="mod-page">
+  <div class="breadcrumb"><span onclick="go('dash')">🏠</span> › <span style="color:var(--text)">M3 — Conversion Rate</span></div>
+  <div class="mod-title">📈 Conversion Rate</div>
+  <div class="mod-sub">Metrik #3 — Berapa % clicks yang jadi leads?</div>
+  <div class="mod-prog"><span class="prog-lbl">Progress:</span><div class="mod-steps"><div class="mod-step" id="m3s1"></div><div class="mod-step" id="m3s2"></div><div class="mod-step" id="m3s3"></div><div class="mod-step" id="m3s4"></div></div><span class="prog-lbl" id="m3prog">0 / 4</span></div>
+  <div class="lvl-tabs">
+    <div class="lvl-tab beg active" id="t-m3-beg" onclick="setLevel('m3','beg',this)">🌱 Beginner</div>
+    <div class="lvl-tab int" id="t-m3-int" onclick="setLevel('m3','int',this)">📚 Intermediate</div>
+    <div class="lvl-tab adv" id="t-m3-adv" onclick="setLevel('m3','adv',this)">🚀 Advanced</div>
+    <div class="lvl-tab exp" id="t-m3-exp" onclick="setLevel('m3','exp',this)">🏆 Expert</div>
+  </div>
+  <div class="cs active" id="m3-beg">
+    <div class="anal"><div class="anal-emoji">🎂</div><h4>Analogi: Toko Kue</h4><p>Hari ini ada <strong>100 pengunjung</strong> ke tokomu. Dari 100 orang, hanya <strong>10 orang yang beli</strong>.</p><p><strong>Conversion Rate = 10/100 × 100% = 10%</strong></p><p>Dari setiap 100 orang yang datang, 10% jadi pembeli.</p></div>
+    <div class="blk"><h3><span class="ic">📊</span>Benchmark per Jenis</h3>
+      <table class="tbl"><thead><tr><th>Jenis</th><th>Conv Rate</th><th>Keterangan</th></tr></thead><tbody>
+        <tr><td>Service consulting (form)</td><td><span style="color:var(--amber)">5–10%</span></td><td>Medium friction, need trust</td></tr>
+        <tr><td>Free download / email</td><td><span style="color:var(--green)">15–30%</span></td><td>Low friction, easy action</td></tr>
+        <tr><td>E-commerce</td><td><span style="color:var(--text2)">2–3%</span></td><td>Typical, requires trust</td></tr>
+        <tr><td>High urgency offer</td><td><span style="color:var(--green)">10–15%</span></td><td>Clear CTA + urgency</td></tr>
+      </tbody></table>
+    </div>
+    <div class="blk"><h3><span class="ic">🧠</span>Quiz</h3>
+      <div id="q-m3-1"><div class="quiz-q">500 clicks, 50 conversions. Berapa conversion rate?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m3-1',this,false,'Bukan! Rumus: (Conv/Clicks)×100% = (50/500)×100%')">5%</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m3-1',this,true,'✅ Benar! (50/500)×100% = 10%. Conversion rate yang solid!')">10%</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m3-1',this,false,'Terlalu tinggi! (50/500)×100% = 10%, bukan 50%.')">50%</div>
+      </div><div class="quiz-fb" id="q-m3-1-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m3','beg',1)">✅ Selesai Beginner</button>
+  </div>
+  <div class="cs" id="m3-int">
+    <div class="blk"><h3><span class="ic">📐</span>Formula + Hubungan dengan CPA</h3>
+      <div class="fml"><div class="fml-lbl">Formula</div><div class="fml-text">Conv Rate (%) = (Conversions ÷ Clicks) × 100%</div></div>
+      <div class="fml" style="background:rgba(31,214,160,.06);border-color:rgba(31,214,160,.2)"><div class="fml-lbl" style="color:var(--green)">Hubungan Conv Rate & CPA</div><div class="fml-text">CPA = CPC ÷ Conv Rate</div><div class="fml-sub">CPC $4, Conv Rate 16% → CPA = $4 / 0.16 = $25</div></div>
+      <div class="banner info">💡 Naikkan Conv Rate = turunkan CPA tanpa perlu turunkan bid!</div>
+    </div>
+    <div class="calc"><div class="calc-ttl">🧮 Conv Rate & CPA Calculator</div>
+      <div class="calc-grid">
+        <div><label class="f-lbl">Total Clicks</label><input class="f-inp" id="cr_cl" type="number" value="250"></div>
+        <div><label class="f-lbl">Total Conversions</label><input class="f-inp" id="cr_cv" type="number" value="40"></div>
+        <div><label class="f-lbl">CPC ($)</label><input class="f-inp" id="cr_cpc" type="number" value="4"></div>
+      </div>
+      <button class="calc-btn" onclick="calcCR()">Hitung</button>
+      <div class="calc-res" id="cr_res"><div class="calc-res-lbl">Hasil</div><div class="calc-res-val" id="cr_v">—</div><div class="calc-res-msg" id="cr_m">—</div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m3','int',2)">✅ Selesai Intermediate</button>
+  </div>
+  <div class="cs" id="m3-adv">
+    <div class="blk"><h3><span class="ic">🔧</span>Funnel Bottleneck Analysis</h3>
+      <div class="code">Funnel breakdown:
+  Visitors          : 1,000
+  Scroll headline   :   800  (80%)
+  Start form        :   400  (50%)  ← Bottleneck!
+  Submit form       :   100  (25%)  ← Bottleneck besar!
+  Qualified lead    :    80  (80%)
+
+Overall Conv Rate = 100/1,000 = 10%
+
+Fix form completion: 25% → 35% = +40% more leads!
+Fix headline only:  80% → 85% = only +6% more leads.
+PRIORITY: Fix yang terbesar dulu!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">📱</span>Conv Rate per Device & Waktu</h3>
+      <table class="tbl"><thead><tr><th>Segment</th><th>Conv Rate</th><th>Bid Strategy</th></tr></thead><tbody>
+        <tr><td>Desktop</td><td><span style="color:var(--green)">18–22%</span></td><td>+20% bid — best performer</td></tr>
+        <tr><td>Mobile</td><td><span style="color:var(--amber)">6–10%</span></td><td>Optimize dulu, lalu adjust bid</td></tr>
+        <tr><td>Selasa–Kamis 9–18</td><td><span style="color:var(--green)">22–24%</span></td><td>+30% bid — peak productivity</td></tr>
+        <tr><td>Weekend</td><td><span style="color:var(--text2)">8–12%</span></td><td>−30% bid — lower intent</td></tr>
+      </tbody></table>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m3','adv',3)">✅ Selesai Advanced</button>
+  </div>
+  <div class="cs" id="m3-exp">
+    <div class="blk"><h3><span class="ic">🏆</span>Landing Page Optimization — Flip Cards</h3>
+      <div class="flip-grid">
+        <div class="flip" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-f">📝 Headline & Copy<div class="flip-hint">Klik untuk tips</div></div><div class="flip-b">Match dengan keyword intent. Benefit-focused bukan feature. Contoh: "Hemat 50% Pajak" bukan "Layanan Konsultasi Pajak".</div></div></div>
+        <div class="flip" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-f">⚡ Page Speed<div class="flip-hint">Klik untuk tips</div></div><div class="flip-b">Target &lt;2 detik. Compress gambar, defer JS. Setiap +1 detik loading = −7% conversions!</div></div></div>
+        <div class="flip" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-f">📋 Form Design<div class="flip-hint">Klik untuk tips</div></div><div class="flip-b">Maksimal 3–5 fields. Logical order (nama → telp → email). Progress bar untuk multi-step. Error message yang helpful.</div></div></div>
+        <div class="flip" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-f">🎯 CTA Button<div class="flip-hint">Klik untuk tips</div></div><div class="flip-b">Visible above fold. Warna kontras dari background. Text action-oriented: "Konsultasi Gratis" bukan "Submit". Satu CTA utama per halaman.</div></div></div>
+        <div class="flip" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-f">🛡️ Trust Signals<div class="flip-hint">Klik untuk tips</div></div><div class="flip-b">Testimonial client. Sertifikasi & penghargaan. Jumlah klien/tahun pengalaman. Foto tim nyata. Security badges (HTTPS).</div></div></div>
+        <div class="flip" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-f">📱 Mobile UX<div class="flip-hint">Klik untuk tips</div></div><div class="flip-b">Test di real device. CTA button min 44px (jempol-friendly). Form auto-fill support. Keyboard type sesuai (tel, email). No horizontal scroll.</div></div></div>
+      </div>
+    </div>
+    <div class="blk"><h3><span class="ic">💡</span>Quality vs Quantity Trade-off</h3>
+      <div class="hl"><strong>High Conv Rate ≠ Selalu Bagus!</strong> Landing page "Get Free Tips" bisa Conv Rate 25% tapi 0% qualified. Landing page "Book Consultation" Conv Rate 8% tapi 90% qualified. Optimize untuk <strong>quality conversions</strong>, bukan volume!</div>
+    </div>
+    <button class="done-btn" onclick="doneModule('m3')">🏆 Module Conv Rate Selesai! +150 XP</button>
+    <div class="nav-btns"><button class="nbtn" onclick="go('m2')">← M2</button><button class="nbtn" onclick="go('kb3')">📄 File Asli</button><button class="nbtn pri" onclick="go('m4')">M4: CTR →</button></div>
+  </div>
+</div></div>
+
+<!-- ═══ MODULE 4: CTR ═══ -->
+<div class="page" id="page-m4"><div class="mod-page">
+  <div class="breadcrumb"><span onclick="go('dash')">🏠</span> › <span style="color:var(--text)">M4 — CTR</span></div>
+  <div class="mod-title">🖱️ CTR — Click-Through Rate</div>
+  <div class="mod-sub">Metrik #4 — Berapa % orang yang lihat iklan lalu klik?</div>
+  <div class="mod-prog"><span class="prog-lbl">Progress:</span><div class="mod-steps"><div class="mod-step" id="m4s1"></div><div class="mod-step" id="m4s2"></div><div class="mod-step" id="m4s3"></div><div class="mod-step" id="m4s4"></div></div><span class="prog-lbl" id="m4prog">0 / 4</span></div>
+  <div class="lvl-tabs">
+    <div class="lvl-tab beg active" id="t-m4-beg" onclick="setLevel('m4','beg',this)">🌱 Beginner</div>
+    <div class="lvl-tab int" id="t-m4-int" onclick="setLevel('m4','int',this)">📚 Intermediate</div>
+    <div class="lvl-tab adv" id="t-m4-adv" onclick="setLevel('m4','adv',this)">🚀 Advanced</div>
+    <div class="lvl-tab exp" id="t-m4-exp" onclick="setLevel('m4','exp',this)">🏆 Expert</div>
+  </div>
+  <div class="cs active" id="m4-beg">
+    <div class="anal"><div class="anal-emoji">🏬</div><h4>Analogi: Poster di Mall</h4><p>Postermu dilihat <strong>1,000 orang</strong> yang lewat. Hanya <strong>50 orang tertarik</strong> dan menghampirimu.</p><p><strong>CTR = 50/1,000 × 100% = 5%</strong></p><p>Di Google Ads: dari 10,000 orang yang melihat iklanmu, 5% klik = 500 orang ke website kamu.</p></div>
+    <div class="blk"><h3><span class="ic">📊</span>Benchmark CTR by Keyword Type</h3>
+      <table class="tbl"><thead><tr><th>Jenis Keyword</th><th>CTR Typical</th><th>Keterangan</th></tr></thead><tbody>
+        <tr><td>Branded (nama brand kamu)</td><td><span style="color:var(--green)">10–30%</span></td><td>Orang sudah kenal kamu</td></tr>
+        <tr><td>High-intent service</td><td><span style="color:var(--green)">5–15%</span></td><td>Aktif cari solusi</td></tr>
+        <tr><td>General keyword</td><td><span style="color:var(--amber)">2–5%</span></td><td>Medium intent</td></tr>
+        <tr><td>Display/banner ads</td><td><span style="color:var(--text2)">0.5–2%</span></td><td>Passive audience</td></tr>
+      </tbody></table>
+    </div>
+    <div class="blk"><h3><span class="ic">🧠</span>Quiz</h3>
+      <div id="q-m4-1"><div class="quiz-q">Iklanmu muncul 8,000 kali dan diklik 320 kali. Berapa CTR?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m4-1',this,false,'Bukan! CTR = (Clicks/Impressions)×100% = (320/8,000)×100%')">25%</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m4-1',this,false,'Hampir! (320/8,000)×100% = 4%, bukan 3.2%')">3.2%</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m4-1',this,true,'✅ Benar! (320/8,000)×100% = 4%. CTR yang bagus untuk high-intent keyword!')">4%</div>
+      </div><div class="quiz-fb" id="q-m4-1-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m4','beg',1)">✅ Selesai Beginner</button>
+  </div>
+  <div class="cs" id="m4-int">
+    <div class="blk"><h3><span class="ic">📐</span>Formula CTR</h3>
+      <div class="fml"><div class="fml-lbl">Formula</div><div class="fml-text">CTR (%) = (Clicks ÷ Impressions) × 100%</div><div class="fml-sub">500 clicks / 10,000 impressions = 5%</div></div>
+    </div>
+    <div class="calc"><div class="calc-ttl">🧮 CTR Calculator</div>
+      <div class="calc-grid">
+        <div><label class="f-lbl">Impressions</label><input class="f-inp" id="ctr_i" type="number" value="10000"></div>
+        <div><label class="f-lbl">Clicks</label><input class="f-inp" id="ctr_c" type="number" value="500"></div>
+      </div>
+      <button class="calc-btn" onclick="calcCTR()">Hitung CTR</button>
+      <div class="calc-res" id="ctr_res"><div class="calc-res-lbl">CTR</div><div class="calc-res-val" id="ctr_v">—</div><div class="calc-res-msg" id="ctr_m">—</div></div>
+    </div>
+    <div class="blk" style="margin-top:16px"><h3><span class="ic">🔗</span>CTR dalam Full Funnel</h3>
+      <div class="code">8,000 Impressions
+  ↓ [CTR 4%]
+320 Clicks
+  ↓ [Conv Rate 10%]
+32 Leads
+
+Combined rate: 4% × 10% = 0.4% dari impressions → leads
+
+Untuk tingkatkan leads, bisa improve CTR ATAU Conv Rate.
+Improve keduanya = maximum impact!</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m4','int',2)">✅ Selesai Intermediate</button>
+  </div>
+  <div class="cs" id="m4-adv">
+    <div class="blk"><h3><span class="ic">📈</span>Faktor yang Meningkatkan CTR</h3>
+      <div class="sc-grid">
+        <div class="sc good"><div class="sc-ttl">📝 Ad Copy Kuat</div><div class="sc-dsc">Headline benefit-driven. Contoh: "Hemat 50% Tax — Konsultasi Gratis" vs "Tax Consultant Jakarta". CTR naik 2–3×!</div></div>
+        <div class="sc good"><div class="sc-ttl">📌 Ad Extensions</div><div class="sc-dsc">Phone, location, callout, sitelinks. Iklan jadi lebih besar & visible. CTR naik 70–130%!</div></div>
+        <div class="sc warn"><div class="sc-ttl">🎯 Keyword Match</div><div class="sc-dsc">Exact Match CTR 7%+. Phrase Match 4%. Broad Match 2%. Makin spesifik makin tinggi CTR.</div></div>
+        <div class="sc warn"><div class="sc-ttl">📍 Ad Position</div><div class="sc-dsc">Pos 1: CTR 5–8%. Pos 2–3: CTR 3–5%. Pos 4+: CTR 1–2%. Bid untuk posisi 1–3!</div></div>
+      </div>
+    </div>
+    <div class="blk"><h3><span class="ic">⚠️</span>Peringatan: High CTR ≠ Good CTR</h3>
+      <div class="code">Ad A (agresif, janji besar): CTR 8%, Conv Rate 4%
+  → 0.32% dari impr jadi leads
+
+Ad B (relevan, honest):     CTR 3%, Conv Rate 20%
+  → 0.60% dari impr jadi leads
+
+Ad B menghasilkan 87% lebih banyak leads meski CTR lebih rendah!
+Optimize untuk QUALIFIED clicks, bukan sekadar clicks.</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m4','adv',3)">✅ Selesai Advanced</button>
+  </div>
+  <div class="cs" id="m4-exp">
+    <div class="blk"><h3><span class="ic">🏆</span>CTR → Quality Score → CPC: Efek Domino</h3>
+      <div class="code">CTR tinggi
+  → "Above Average" Expected CTR (QS component)
+  → Quality Score naik (misal 5 → 7)
+  → CPC turun (misal $5 → $3.75, -25%)
+  → CPA turun (lebih murah per lead)
+  → ROAS naik (lebih profitable)
+
+Satu perbaikan CTR bisa cascade ke semua metrik!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">📅</span>Ad Fatigue & CTR Trend</h3>
+      <table class="tbl"><thead><tr><th>Week</th><th>CTR</th><th>Alasan</th><th>Action</th></tr></thead><tbody>
+        <tr><td>Week 1</td><td><span style="color:var(--green)">6%</span></td><td>Fresh, novelty</td><td>Monitor</td></tr>
+        <tr><td>Week 2</td><td><span style="color:var(--green)">5.5%</span></td><td>Normal decline</td><td>Monitor</td></tr>
+        <tr><td>Week 3</td><td><span style="color:var(--amber)">4.5%</span></td><td>Audience mulai bosan</td><td>Test new variant</td></tr>
+        <tr><td>Week 4</td><td><span style="color:var(--red)">3.2%</span></td><td>Ad fatigue</td><td>Refresh creative!</td></tr>
+      </tbody></table>
+      <div class="hl">Rotate ad creative setiap 3–4 minggu untuk mencegah ad fatigue. Test minimal 3 variasi aktif sekaligus.</div>
+    </div>
+    <button class="done-btn" onclick="doneModule('m4')">🏆 Module CTR Selesai! +150 XP</button>
+    <div class="nav-btns"><button class="nbtn" onclick="go('m3')">← M3</button><button class="nbtn" onclick="go('kb4')">📄 File Asli</button><button class="nbtn pri" onclick="go('m5')">M5: Device & Geo →</button></div>
+  </div>
+</div></div>
+
+<!-- ═══ MODULE 5: DEVICE & GEO ═══ -->
+<div class="page" id="page-m5"><div class="mod-page">
+  <div class="breadcrumb"><span onclick="go('dash')">🏠</span> › <span style="color:var(--text)">M5 — Device & Geo</span></div>
+  <div class="mod-title">📱 Device & Geographic Breakdown</div>
+  <div class="mod-sub">Metrik #5 — Temukan peluang tersembunyi lewat segmentasi</div>
+  <div class="mod-prog"><span class="prog-lbl">Progress:</span><div class="mod-steps"><div class="mod-step" id="m5s1"></div><div class="mod-step" id="m5s2"></div><div class="mod-step" id="m5s3"></div><div class="mod-step" id="m5s4"></div></div><span class="prog-lbl" id="m5prog">0 / 4</span></div>
+  <div class="lvl-tabs">
+    <div class="lvl-tab beg active" id="t-m5-beg" onclick="setLevel('m5','beg',this)">🌱 Beginner</div>
+    <div class="lvl-tab int" id="t-m5-int" onclick="setLevel('m5','int',this)">📚 Intermediate</div>
+    <div class="lvl-tab adv" id="t-m5-adv" onclick="setLevel('m5','adv',this)">🚀 Advanced</div>
+    <div class="lvl-tab exp" id="t-m5-exp" onclick="setLevel('m5','exp',this)">🏆 Expert</div>
+  </div>
+  <div class="cs active" id="m5-beg">
+    <div class="banner warn">⚠️ Rata-rata CPA $25 bisa menyembunyikan fakta: Mobile CPA $45 (buruk!) vs Desktop CPA $15 (hebat!). Selalu analisis per segment!</div>
+    <div class="blk"><h3><span class="ic">📱</span>Kenapa Device Berbeda?</h3>
+      <table class="tbl"><thead><tr><th>Device</th><th>Perilaku User</th><th>Conv Rate Tipikal</th></tr></thead><tbody>
+        <tr><td>📱 Mobile</td><td>On-the-go, terburu-buru, layar kecil</td><td><span style="color:var(--amber)">3–8%</span></td></tr>
+        <tr><td>🖥️ Desktop</td><td>Duduk santai, fokus, mudah isi form</td><td><span style="color:var(--green)">10–20%</span></td></tr>
+        <tr><td>📊 Tablet</td><td>Hybrid — lebih nyaman dari mobile</td><td><span style="color:var(--amber)">6–15%</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="blk"><h3><span class="ic">🧠</span>Quiz</h3>
+      <div id="q-m5-1"><div class="quiz-q">Overall CPA kamu $30. Tapi Desktop CPA $18, Mobile CPA $52. Apa yang harus dilakukan?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m5-1',this,false,'Bukan! Overall $30 terlihat oke, tapi Mobile $52 sangat tinggi — perlu dioptimasi!')">Tidak perlu apa-apa, CPA $30 sudah bagus</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m5-1',this,true,'✅ Betul! Mobile underperforming. Optimize mobile experience atau reduce mobile bids. Desktop sudah bagus, scale it!')">Optimize mobile experience, scale desktop</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m5-1',this,false,'Pause semua terlalu drastis. Desktop CPA $18 sangat bagus — jangan di-pause!')">Pause semua campaign</div>
+      </div><div class="quiz-fb" id="q-m5-1-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m5','beg',1)">✅ Selesai Beginner</button>
+  </div>
+  <div class="cs" id="m5-int">
+    <div class="calc"><div class="calc-ttl">🧮 Device Bid Adjustment Calculator</div>
+      <p style="font-size:12.5px;color:var(--text2);margin-bottom:14px">Masukkan CPA per device → dapat rekomendasi bid adjustment:</p>
+      <div class="calc-grid">
+        <div><label class="f-lbl">Desktop CPA ($)</label><input class="f-inp" id="dev_d" type="number" value="18"></div>
+        <div><label class="f-lbl">Mobile CPA ($)</label><input class="f-inp" id="dev_m" type="number" value="45"></div>
+        <div><label class="f-lbl">Tablet CPA ($)</label><input class="f-inp" id="dev_t" type="number" value="28"></div>
+      </div>
+      <button class="calc-btn" onclick="calcDevice()">Rekomendasikan Bid</button>
+      <div class="calc-res" id="dev_res"><div class="calc-res-lbl">Rekomendasi</div><div class="calc-res-val" id="dev_v" style="font-size:14px;line-height:1.9">—</div></div>
+    </div>
+    <div class="blk" style="margin-top:16px"><h3><span class="ic">🌍</span>Geographic Tiering</h3>
+      <table class="tbl"><thead><tr><th>Tier</th><th>Market</th><th>Strategy</th><th>Bid Adj.</th></tr></thead><tbody>
+        <tr><td>1 — Mature</td><td>Jakarta</td><td>Maximize market share</td><td><span style="color:var(--green)">+30–50%</span></td></tr>
+        <tr><td>2 — Growth</td><td>Bandung</td><td>Build presence, test</td><td><span style="color:var(--amber)">0 / +10%</span></td></tr>
+        <tr><td>3 — Emerging</td><td>Surabaya</td><td>Test dengan special offer</td><td><span style="color:var(--red)">−30–50%</span></td></tr>
+        <tr><td>4 — Excluded</td><td>Far markets</td><td>Jangan iklan</td><td>Excluded</td></tr>
+      </tbody></table>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m5','int',2)">✅ Selesai Intermediate</button>
+  </div>
+  <div class="cs" id="m5-adv">
+    <div class="blk"><h3><span class="ic">🔢</span>Profitability Matrix: Device × Location</h3>
+      <table class="tbl"><thead><tr><th>Segment</th><th>CPA Est.</th><th>Conv Rate</th><th>Alokasi</th></tr></thead><tbody>
+        <tr><td>Jakarta + Desktop</td><td><span style="color:var(--green)">$15</span></td><td>18%</td><td>45% — MAX BID</td></tr>
+        <tr><td>Jakarta + Mobile</td><td><span style="color:var(--amber)">$25</span></td><td>12%</td><td>20% — HIGH BID</td></tr>
+        <tr><td>Bandung + Desktop</td><td><span style="color:var(--amber)">$40</span></td><td>12%</td><td>20% — MEDIUM BID</td></tr>
+        <tr><td>Bandung + Mobile</td><td><span style="color:var(--text2)">$60</span></td><td>8%</td><td>10% — LOW BID</td></tr>
+        <tr><td>Surabaya + any</td><td><span style="color:var(--red)">$80–100</span></td><td>4–6%</td><td>5% — TEST/PAUSE</td></tr>
+      </tbody></table>
+      <div class="hl">Langkah: Export data → Buat matrix → Sort by CPA → Naikan bid segmen terbaik, kurangi yang buruk.</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m5','adv',3)">✅ Selesai Advanced</button>
+  </div>
+  <div class="cs" id="m5-exp">
+    <div class="blk"><h3><span class="ic">🏆</span>Mobile Optimization Strategy</h3>
+      <div class="code">Mobile Conv Rate rendah (4%)? Jangan langsung cut bids!
+Coba fix dulu:
+
+1. Form: 10 fields → 3 fields (nama, telp, pesan)
+   Expected: Conv Rate 4% → 8–10%
+
+2. Page Speed: 4s → &lt;2s (compress gambar, defer JS)
+   Expected: Conv Rate +2–3%
+
+3. CTA: Pindahkan above fold, perbesar button (44px min)
+   Expected: Conv Rate +1–2%
+
+4. Trust signals: Tambah review, logo client, certificate
+   Expected: Conv Rate +1%
+
+TOTAL EXPECTED: 4% → 10–14% (2.5–3.5× improvement!)
+AFTER optimization: Naikan mobile bids, bukan kurangi.</div>
+    </div>
+    <div class="blk"><h3><span class="ic">🗓️</span>Seasonal Geographic Strategy</h3>
+      <table class="tbl"><thead><tr><th>Musim</th><th>Strategy</th><th>Budget</th></tr></thead><tbody>
+        <tr><td>Jan–Mar (Tax Season)</td><td>Concentrate ke Jakarta, expand ke Bandung</td><td>+50% dari normal</td></tr>
+        <tr><td>Apr–Aug (Off-season)</td><td>Perluas ke semua kota (CPC murah!)</td><td>Normal/−20%</td></tr>
+        <tr><td>Sep–Des (Closing season)</td><td>Jakarta + Bandung focus</td><td>+20% dari normal</td></tr>
+      </tbody></table>
+    </div>
+    <button class="done-btn" onclick="doneModule('m5')">🏆 Module Device & Geo Selesai! +150 XP</button>
+    <div class="nav-btns"><button class="nbtn" onclick="go('m4')">← M4</button><button class="nbtn" onclick="go('kb5')">📄 File Asli</button><button class="nbtn pri" onclick="go('m6')">M6: Cost Metrics →</button></div>
+  </div>
+</div></div>
+
+<!-- ═══ MODULE 6: COST METRICS ═══ -->
+<div class="page" id="page-m6"><div class="mod-page">
+  <div class="breadcrumb"><span onclick="go('dash')">🏠</span> › <span style="color:var(--text)">M6 — Cost Metrics</span></div>
+  <div class="mod-title">💵 Cost Metrics — CPC, Cost & Budget</div>
+  <div class="mod-sub">Metrik #6 — Manage budget dengan cerdas</div>
+  <div class="mod-prog"><span class="prog-lbl">Progress:</span><div class="mod-steps"><div class="mod-step" id="m6s1"></div><div class="mod-step" id="m6s2"></div><div class="mod-step" id="m6s3"></div><div class="mod-step" id="m6s4"></div></div><span class="prog-lbl" id="m6prog">0 / 4</span></div>
+  <div class="lvl-tabs">
+    <div class="lvl-tab beg active" id="t-m6-beg" onclick="setLevel('m6','beg',this)">🌱 Beginner</div>
+    <div class="lvl-tab int" id="t-m6-int" onclick="setLevel('m6','int',this)">📚 Intermediate</div>
+    <div class="lvl-tab adv" id="t-m6-adv" onclick="setLevel('m6','adv',this)">🚀 Advanced</div>
+    <div class="lvl-tab exp" id="t-m6-exp" onclick="setLevel('m6','exp',this)">🏆 Expert</div>
+  </div>
+  <div class="cs active" id="m6-beg">
+    <div class="anal"><div class="anal-emoji">🏪</div><h4>Analogi: Bayar per Orang Masuk Toko</h4><p>Bayangkan kamu bayar <strong>$4 setiap kali seseorang masuk tokomu</strong>. Kalau 100 orang masuk = bayar $400. Setiap kunjungan harus worth it!</p><p>Itulah CPC — Cost Per Click. Kamu bayar Google setiap kali seseorang klik iklanmu.</p></div>
+    <div class="blk"><h3><span class="ic">💵</span>Apa itu CPC?</h3>
+      <div class="fml"><div class="fml-lbl">Formula CPC</div><div class="fml-text">CPC = Total Cost ÷ Total Clicks</div><div class="fml-sub">$1,000 ÷ 250 clicks = $4 per click</div></div>
+      <p>CPC bervariasi berdasarkan: kompetisi, Quality Score, jenis keyword, dan waktu.</p>
+    </div>
+    <div class="blk"><h3><span class="ic">🧠</span>Quiz</h3>
+      <div id="q-m6-1"><div class="quiz-q">Spend $600, 150 clicks. Berapa CPC?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m6-1',this,true,'✅ Benar! $600 ÷ 150 = $4 per click.')">$4</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m6-1',this,false,'Coba lagi! $600 ÷ 150 = $4, bukan $0.25.')">$0.25</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m6-1',this,false,'Terlalu tinggi! $600 ÷ 150 = $4.')">$40</div>
+      </div><div class="quiz-fb" id="q-m6-1-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m6','beg',1)">✅ Selesai Beginner</button>
+  </div>
+  <div class="cs" id="m6-int">
+    <div class="calc"><div class="calc-ttl">🧮 CPC & Budget Pace Calculator</div>
+      <div class="calc-grid">
+        <div><label class="f-lbl">Total Spend ($)</label><input class="f-inp" id="cpc_s" type="number" value="700"></div>
+        <div><label class="f-lbl">Total Clicks</label><input class="f-inp" id="cpc_c" type="number" value="175"></div>
+        <div><label class="f-lbl">Monthly Budget ($)</label><input class="f-inp" id="cpc_b" type="number" value="1000"></div>
+        <div><label class="f-lbl">Days Elapsed</label><input class="f-inp" id="cpc_d" type="number" value="20"></div>
+      </div>
+      <button class="calc-btn" onclick="calcCPC()">Analisis</button>
+      <div class="calc-res" id="cpc_res"><div class="calc-res-lbl">Hasil Analisis</div><div class="calc-res-val" id="cpc_v" style="font-size:14px;line-height:1.9">—</div></div>
+    </div>
+    <div class="blk" style="margin-top:16px"><h3><span class="ic">💡</span>Cara Google Menentukan CPC</h3>
+      <div class="code">Proses auction setiap search:
+  1. Kamu set max bid: $5
+  2. Quality Score applied (discount atau penalty)
+  3. Google bandingkan dengan kompetitor
+  4. Kamu bayar HANYA cukup untuk beat posisi #2
+
+QS 9 → CPC ~$3.00 (30% discount!)
+QS 7 → CPC ~$5.00 (baseline)
+QS 4 → CPC ~$8.00 (60% penalty!)</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m6','int',2)">✅ Selesai Intermediate</button>
+  </div>
+  <div class="cs" id="m6-adv">
+    <div class="blk"><h3><span class="ic">📊</span>ROAS-Based Budget Allocation</h3>
+      <div class="code">❌ WRONG — Equal Split:
+  Tax: $500 × ROAS 4.0 = $2,000 revenue
+  Genset: $500 × ROAS 2.0 = $1,000
+  Total: $3,000
+
+✅ CORRECT — ROAS-Weighted:
+  Tax: $700 × ROAS 4.0 = $2,800
+  Genset: $300 × ROAS 2.0 = $600
+  Total: $3,400  (+$400, +13%!)
+
+Sama budget, lebih profitable hanya dengan realokasi!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">⏱️</span>5 Cara Turunkan CPC</h3>
+      <ul>
+        <li><strong>Improve Quality Score</strong> — paling impactful, tidak perlu tambah budget</li>
+        <li><strong>Refine keyword</strong> — specific &gt; broad, relevance lebih tinggi</li>
+        <li><strong>Time-based bid adj.</strong> — kurangi bid di jam rendah intent</li>
+        <li><strong>Device bid adj.</strong> — kurangi bid di device yang underperform</li>
+        <li><strong>Add negative keywords</strong> — hapus irrelevant clicks</li>
+      </ul>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m6','adv',3)">✅ Selesai Advanced</button>
+  </div>
+  <div class="cs" id="m6-exp">
+    <div class="blk"><h3><span class="ic">🏆</span>Budget Scaling Strategy</h3>
+      <table class="tbl"><thead><tr><th>Week</th><th>Budget</th><th>Expected ROAS</th><th>Profit</th><th>Action</th></tr></thead><tbody>
+        <tr><td>1</td><td>$1,000</td><td>3.5</td><td>$2,500</td><td>Baseline</td></tr>
+        <tr><td>2</td><td>$1,100</td><td>3.4</td><td>$2,640</td><td>+10%, monitor</td></tr>
+        <tr><td>3</td><td>$1,210</td><td>3.3</td><td>$2,793</td><td>+10%, still good</td></tr>
+        <tr><td>4</td><td>$1,331</td><td>2.8</td><td>$2,395</td><td>⚠️ ROAS drop — pause scale!</td></tr>
+      </tbody></table>
+      <div class="hl"><strong>Rule:</strong> Scale +10–20% per minggu. Monitor ROAS setiap step. Stop ketika ROAS turun ke batas minimum yang kamu set (misal 2.5). Di situ adalah sweet spot!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">📅</span>Seasonal Budget Planning</h3>
+      <table class="tbl"><thead><tr><th>Periode</th><th>Budget Multiplier</th><th>Alasan</th></tr></thead><tbody>
+        <tr><td>Jan–Mar (Peak)</td><td><span style="color:var(--green)">+50%</span></td><td>Demand tinggi, worth spend lebih</td></tr>
+        <tr><td>Apr–Aug (Off)</td><td><span style="color:var(--text2)">−20%</span></td><td>Demand rendah, tapi CPC murah</td></tr>
+        <tr><td>Sep–Des (Normal)</td><td><span style="color:var(--amber)">+10%</span></td><td>Warming up season</td></tr>
+      </tbody></table>
+    </div>
+    <button class="done-btn" onclick="doneModule('m6')">🏆 Module Cost Metrics Selesai! +150 XP</button>
+    <div class="nav-btns"><button class="nbtn" onclick="go('m5')">← M5</button><button class="nbtn" onclick="go('kb6')">📄 File Asli</button><button class="nbtn pri" onclick="go('m7')">M7: Quality Score →</button></div>
+  </div>
+</div></div>
+
+<!-- ═══ MODULE 7: QUALITY SCORE ═══ -->
+<div class="page" id="page-m7"><div class="mod-page">
+  <div class="breadcrumb"><span onclick="go('dash')">🏠</span> › <span style="color:var(--text)">M7 — Quality Score</span></div>
+  <div class="mod-title">⭐ Quality Score</div>
+  <div class="mod-sub">Metrik #7 — Rating 1–10 dari Google untuk iklanmu</div>
+  <div class="mod-prog"><span class="prog-lbl">Progress:</span><div class="mod-steps"><div class="mod-step" id="m7s1"></div><div class="mod-step" id="m7s2"></div><div class="mod-step" id="m7s3"></div><div class="mod-step" id="m7s4"></div></div><span class="prog-lbl" id="m7prog">0 / 4</span></div>
+  <div class="lvl-tabs">
+    <div class="lvl-tab beg active" id="t-m7-beg" onclick="setLevel('m7','beg',this)">🌱 Beginner</div>
+    <div class="lvl-tab int" id="t-m7-int" onclick="setLevel('m7','int',this)">📚 Intermediate</div>
+    <div class="lvl-tab adv" id="t-m7-adv" onclick="setLevel('m7','adv',this)">🚀 Advanced</div>
+    <div class="lvl-tab exp" id="t-m7-exp" onclick="setLevel('m7','exp',this)">🏆 Expert</div>
+  </div>
+  <div class="cs active" id="m7-beg">
+    <div class="anal"><div class="anal-emoji">⭐</div><h4>Analogi: Rating Toko di Google Maps</h4><p>Toko rating 4.8 vs toko rating 2.1 di Google Maps. Orang pasti lebih percaya dan pilih yang rating tinggi. Google juga memberi reward pada "toko" (iklan) yang ratingnya tinggi.</p><p>Quality Score tinggi = Google <strong>memberimu diskon CPC</strong> dan <strong>posisi lebih baik</strong>!</p></div>
+    <div class="blk"><h3><span class="ic">📊</span>Dampak QS pada CPC</h3>
+      <div class="sc-grid">
+        <div class="sc good"><div class="sc-val good">9–10</div><div class="sc-ttl">Excellent</div><div class="sc-dsc">CPC discount 30–50%! Posisi premium dengan harga murah.</div></div>
+        <div class="sc warn"><div class="sc-val warn">6–8</div><div class="sc-ttl">Good/Average</div><div class="sc-dsc">CPC normal. Maintain dan improve secara bertahap.</div></div>
+        <div class="sc bad"><div class="sc-val bad">1–5</div><div class="sc-ttl">Poor</div><div class="sc-dsc">CPC 50–100% lebih mahal. Perlu diperbaiki segera atau dihapus!</div></div>
+      </div>
+    </div>
+    <div class="blk"><h3><span class="ic">🧠</span>Quiz</h3>
+      <div id="q-m7-1"><div class="quiz-q">Quality Score kamu 4, kompetitor 8. Bid sama $5. Siapa yang dapat posisi lebih baik dengan CPC lebih murah?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m7-1',this,false,'Bukan! QS yang menentukan, bukan hanya bid. QS 8 dapat posisi lebih baik AND CPC lebih murah!')">Kamu — bid sama jadi hasilnya sama</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m7-1',this,true,'✅ Benar! Kompetitor QS 8 bayar lebih murah (dapat QS discount) DAN dapat posisi lebih baik. QS adalah competitive advantage!')">Kompetitor — QS lebih tinggi = posisi lebih baik + CPC lebih murah</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m7-1',this,false,'Tidak random! QS adalah algoritma yang deterministic.')">Random — tergantung algorithm</div>
+      </div><div class="quiz-fb" id="q-m7-1-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m7','beg',1)">✅ Selesai Beginner</button>
+  </div>
+  <div class="cs" id="m7-int">
+    <div class="blk"><h3><span class="ic">📐</span>3 Komponen Quality Score</h3>
+      <table class="tbl"><thead><tr><th>Komponen</th><th>Bobot ~</th><th>Artinya</th><th>Rating</th></tr></thead><tbody>
+        <tr><td><strong>Ad Relevance</strong></td><td>~33%</td><td>Apakah ad text relevan ke keyword?</td><td>Below / Avg / Above</td></tr>
+        <tr><td><strong>Expected CTR</strong></td><td>~33%</td><td>Google predict orang akan klik?</td><td>Below / Avg / Above</td></tr>
+        <tr><td><strong>Landing Page Exp.</strong></td><td>~33%</td><td>Page bagus, cepat, relevan?</td><td>Below / Avg / Above</td></tr>
+      </tbody></table>
+      <div class="banner warn">⚠️ Satu komponen "Below Average" bisa drag down QS drastis meski 2 lainnya "Above Average"!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">💰</span>QS Impact Calculation</h3>
+      <div class="code">Same bid $5, same keyword — beda QS:
+
+QS 10 → CPC ~$3.50  (30% discount)
+QS  7 → CPC ~$5.00  (baseline)
+QS  4 → CPC ~$8.00  (60% premium penalty!)
+
+Annual impact (500 clicks/month):
+QS 10 vs QS 4:
+  ($8 - $3.50) × 500 × 12 = $27,000/year difference!
+
+Improving QS is literally saving thousands of dollars.</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m7','int',2)">✅ Selesai Intermediate</button>
+  </div>
+  <div class="cs" id="m7-adv">
+    <div class="blk"><h3><span class="ic">🔧</span>QS Tier Management System</h3>
+      <table class="tbl"><thead><tr><th>Tier</th><th>QS</th><th>Action</th><th>Budget %</th></tr></thead><tbody>
+        <tr><td>1 — Excellence</td><td><span style="color:var(--green)">8–10</span></td><td>Scale aggressively, naikan bids</td><td>50%</td></tr>
+        <tr><td>2 — Good</td><td><span style="color:var(--amber)">6–7</span></td><td>Maintain, test improvements</td><td>35%</td></tr>
+        <tr><td>3 — Weak</td><td><span style="color:var(--red)">4–5</span></td><td>Optimize atau reduce bids</td><td>15%</td></tr>
+        <tr><td>4 — Poor</td><td><span style="color:var(--red)">1–3</span></td><td>DELETE segera — buang uang!</td><td>0%</td></tr>
+      </tbody></table>
+    </div>
+    <div class="blk"><h3><span class="ic">🔨</span>Cara Fix per Komponen</h3>
+      <div class="code">Ad Relevance "Below Average":
+  → Tulis ulang headline: include keyword exact/close
+  → Match ad copy to search intent
+  → Geographic specificity: "Jakarta Tax Consultant"
+  → Specific benefit: "Hemat 50% Pajak — Konsultasi Gratis"
+
+Expected CTR "Below Average":
+  → Tambah ad extensions (phone, location, callout)
+  → A/B test 5+ headline variations
+  → Tambah urgency dan social proof
+
+Landing Page "Below Average":
+  → Speed: target &lt;2 detik (pakai PageSpeed Insights)
+  → Mobile: test di HP, pastikan form mudah diisi
+  → Content: match copy dengan ad
+  → Trust: tambah testimonial, sertifikasi, foto nyata</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m7','adv',3)">✅ Selesai Advanced</button>
+  </div>
+  <div class="cs" id="m7-exp">
+    <div class="blk"><h3><span class="ic">🏆</span>QS Improvement ROI Calculation</h3>
+      <div class="code">Current state: Average QS 5.5, $2,000/month budget
+  CPC: $5.00 | Clicks: 400 | Conv (10%): 40 leads
+
+After 1 month optimization → QS 7.0 (+1.5 points):
+  CPC: $3.75 (-25%) | Same budget
+  Clicks: 533 (+33%) | Conv: 53.3 leads
+
+Additional leads/month: +13.3
+Revenue gain (@ $150/lead): +$2,000/month
+Annual gain: +$24,000 from SAME budget!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">📋</span>Monthly QS Improvement Plan</h3>
+      <ul>
+        <li><strong>Week 1:</strong> Audit semua keywords — classify ke tier 1/2/3/4. Delete semua Tier 4.</li>
+        <li><strong>Week 2:</strong> Fix 5 keyword Tier 3 — identify weak component, tulis ulang ad</li>
+        <li><strong>Week 3:</strong> Landing page optimization — speed, mobile, trust signals</li>
+        <li><strong>Week 4:</strong> Review results — berapa QS yang naik? Hitung CPC savings.</li>
+      </ul>
+      <div class="hl">Konsistensi: lakukan ini setiap bulan. QS improvement adalah proses iteratif, bukan one-time fix.</div>
+    </div>
+    <button class="done-btn" onclick="doneModule('m7')">🏆 Module Quality Score Selesai! +150 XP</button>
+    <div class="nav-btns"><button class="nbtn" onclick="go('m6')">← M6</button><button class="nbtn" onclick="go('kb7')">📄 File Asli</button><button class="nbtn pri" onclick="go('m8')">M8: Search Term →</button></div>
+  </div>
+</div></div>
+
+<!-- ═══ MODULE 8: SEARCH TERM ═══ -->
+<div class="page" id="page-m8"><div class="mod-page">
+  <div class="breadcrumb"><span onclick="go('dash')">🏠</span> › <span style="color:var(--text)">M8 — Search Term Analysis</span></div>
+  <div class="mod-title">🔍 Search Term Analysis</div>
+  <div class="mod-sub">Metrik #8 — Orang search apa sebelum klik iklanmu?</div>
+  <div class="mod-prog"><span class="prog-lbl">Progress:</span><div class="mod-steps"><div class="mod-step" id="m8s1"></div><div class="mod-step" id="m8s2"></div><div class="mod-step" id="m8s3"></div><div class="mod-step" id="m8s4"></div></div><span class="prog-lbl" id="m8prog">0 / 4</span></div>
+  <div class="lvl-tabs">
+    <div class="lvl-tab beg active" id="t-m8-beg" onclick="setLevel('m8','beg',this)">🌱 Beginner</div>
+    <div class="lvl-tab int" id="t-m8-int" onclick="setLevel('m8','int',this)">📚 Intermediate</div>
+    <div class="lvl-tab adv" id="t-m8-adv" onclick="setLevel('m8','adv',this)">🚀 Advanced</div>
+    <div class="lvl-tab exp" id="t-m8-exp" onclick="setLevel('m8','exp',this)">🏆 Expert</div>
+  </div>
+  <div class="cs active" id="m8-beg">
+    <div class="banner warn">⚠️ Kamu bid keyword "tax consultant" tapi Google bisa show iklanmu untuk "pizza jakarta". Kamu bayar untuk klik yang tidak akan pernah convert!</div>
+    <div class="blk"><h3><span class="ic">🔍</span>Search Term vs Keyword</h3>
+      <div class="code">Kamu bid keyword: "tax consultant"
+
+Actual searches yang trigger iklanmu:
+  ✅ "tax consultant jakarta"  → Relevant, high intent
+  ✅ "konsultan pajak terbaik" → Relevant!
+  ⚠️  "accounting services"    → Semi-relevant
+  ❌ "free tax tips"           → Tidak beli, mau gratis
+  ❌ "tax consultant salary"   → Job seeker, bukan client!
+  ❌ "cara menghindari pajak"  → Bukan target market!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">🧠</span>Quiz</h3>
+      <div id="q-m8-1"><div class="quiz-q">Search term "free tax tips" muncul 60 kali, 0 conversions, cost $240. Apa yang harus dilakukan?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m8-1',this,false,'Bukan! $240 wasted untuk 0 conversions. Pertahankan artinya terus buang uang.')">Pertahankan — traffic tetap bagus</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m8-1',this,true,'✅ Benar! Add -free atau -"free tax" sebagai negative keyword. Hemat $240/month = $2,880/year!')">Add sebagai negative keyword (−free atau −tips)</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m8-1',this,false,'Naikan bid akan buat kamu LEBIH banyak buang uang untuk search term yang tidak convert!')">Naikan bid untuk dapat lebih banyak traffic</div>
+      </div><div class="quiz-fb" id="q-m8-1-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m8','beg',1)">✅ Selesai Beginner</button>
+  </div>
+  <div class="cs" id="m8-int">
+    <div class="blk"><h3><span class="ic">📊</span>Kategorisasi Search Terms</h3>
+      <table class="tbl"><thead><tr><th>Status</th><th>Kriteria</th><th>Action</th></tr></thead><tbody>
+        <tr><td><span style="color:var(--green)">✅ Relevant</span></td><td>Conv Rate &gt;10%, intent tinggi, relevan ke service</td><td>Add sebagai positive keyword</td></tr>
+        <tr><td><span style="color:var(--amber)">⚠️ Semi</span></td><td>Conv Rate 5–10%, borderline relevance</td><td>Monitor, tunggu lebih banyak data</td></tr>
+        <tr><td><span style="color:var(--red)">❌ Not Relevant</span></td><td>Conv Rate 0%, tidak terkait service</td><td>Add sebagai NEGATIVE keyword segera</td></tr>
+      </tbody></table>
+    </div>
+    <div class="blk"><h3><span class="ic">🚫</span>Negative Keyword Match Types</h3>
+      <div class="code">Broad negative: -free
+  → Blocks: "free tax advice", "free tax tips", "free anything"
+
+Phrase negative: -"free tax"
+  → Blocks: "free tax advice", "free tax consultant"
+  → Allows: "tax free investment" (beda urutan kata)
+
+Exact negative: -[free tax advice]
+  → Blocks ONLY: "free tax advice" (exact)
+  → Allows: "free tax tips" (beda phrase)
+
+Recommendation: Mulai dengan Broad untuk quick wins,
+refinement dengan Phrase jika terlalu broad.</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m8','int',2)">✅ Selesai Intermediate</button>
+  </div>
+  <div class="cs" id="m8-adv">
+    <div class="blk"><h3><span class="ic">💰</span>Hitung Potensi Penghematan</h3>
+      <div class="code">Tax Consultant Campaign — Last 30 Days:
+
+Search Term          Clicks  Cost   Conv  Status
+"tax consultant jkt"   45   $180    9   ✅ Keep — $20 CPA
+"free tax tips"        40   $160    0   ❌ Negative → Save $160/mo
+"tax consultant salary" 25   $100    0   ❌ Negative → Save $100/mo
+"how to avoid taxes"   20    $80    0   ❌ Negative → Save $80/mo
+"tax evasion"          10    $40    0   ❌ Negative → Save $40/mo
+
+Total potential savings: $380/month = $4,560/year!
+From SAME budget — just better targeting.</div>
+    </div>
+    <div class="blk"><h3><span class="ic">🔍</span>Menemukan Peluang: Gold Mine Search Terms</h3>
+      <div class="code">Search term: "corporate tax planning jakarta"
+  Searches: 3/month (LOW volume!)
+  Conversions: 3
+  Conv Rate: 100%! ← GOLD MINE!
+
+Action:
+  1. Add sebagai Exact Match keyword
+  2. Buat ad khusus untuk term ini
+  3. Create dedicated landing page
+  Expected: Volume naik + Conv Rate maintain high</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m8','adv',3)">✅ Selesai Advanced</button>
+  </div>
+  <div class="cs" id="m8-exp">
+    <div class="blk"><h3><span class="ic">🏆</span>Search Term Quality Scoring System</h3>
+      <div class="code">Score setiap search term 1–5 per faktor (total 25):
+
+Faktor        | "tax consultant jkt" | "free tax tips"
+Relevance (5) |         5            |       1
+Intent    (5) |         5            |       1
+Conv Rate (5) |         5            |       1
+Volume    (5) |         4            |       3
+CPA       (5) |         5            |       1
+TOTAL         |        24 → ADD!     |       7 → NEGATIVE!
+
+20–25: Add as positive keyword (scale!)
+15–19: Probably add, monitor
+10–14: Need more data
+&lt;10:   Add as NEGATIVE keyword immediately</div>
+    </div>
+    <div class="blk"><h3><span class="ic">📅</span>Weekly Search Term Workflow (30 min/minggu)</h3>
+      <ul>
+        <li><strong>Step 1 (5 min):</strong> Export search terms last 7 days dari Google Ads</li>
+        <li><strong>Step 2 (15 min):</strong> Sort by cost, identify top wasters (0 conv, high cost)</li>
+        <li><strong>Step 3 (5 min):</strong> Add negatives untuk wasters yang jelas</li>
+        <li><strong>Step 4 (5 min):</strong> Identify high-conv terms, add as positive keywords</li>
+      </ul>
+      <div class="hl">30 menit per minggu = rata-rata hemat $300–600/month. ROI tertinggi dari semua optimization activities!</div>
+    </div>
+    <button class="done-btn" onclick="doneModule('m8')">🏆 Module Search Term Selesai! +150 XP</button>
+    <div class="nav-btns"><button class="nbtn" onclick="go('m7')">← M7</button><button class="nbtn" onclick="go('kb8')">📄 File Asli</button><button class="nbtn pri" onclick="go('m9')">M9: Impression Share →</button></div>
+  </div>
+</div></div>
+
+<!-- ═══ MODULE 9: IMPRESSION SHARE ═══ -->
+<div class="page" id="page-m9"><div class="mod-page">
+  <div class="breadcrumb"><span onclick="go('dash')">🏠</span> › <span style="color:var(--text)">M9 — Impression Share</span></div>
+  <div class="mod-title">👁️ Impression Share</div>
+  <div class="mod-sub">Metrik #9 — Berapa % dari pasar yang melihat iklanmu?</div>
+  <div class="mod-prog"><span class="prog-lbl">Progress:</span><div class="mod-steps"><div class="mod-step" id="m9s1"></div><div class="mod-step" id="m9s2"></div><div class="mod-step" id="m9s3"></div><div class="mod-step" id="m9s4"></div></div><span class="prog-lbl" id="m9prog">0 / 4</span></div>
+  <div class="lvl-tabs">
+    <div class="lvl-tab beg active" id="t-m9-beg" onclick="setLevel('m9','beg',this)">🌱 Beginner</div>
+    <div class="lvl-tab int" id="t-m9-int" onclick="setLevel('m9','int',this)">📚 Intermediate</div>
+    <div class="lvl-tab adv" id="t-m9-adv" onclick="setLevel('m9','adv',this)">🚀 Advanced</div>
+    <div class="lvl-tab exp" id="t-m9-exp" onclick="setLevel('m9','exp',this)">🏆 Expert</div>
+  </div>
+  <div class="cs active" id="m9-beg">
+    <div class="anal"><div class="anal-emoji">🏬</div><h4>Analogi: Toko di Mall</h4><p>Mall dapat <strong>1,000 pengunjung/hari</strong>. Tokomu dilewati hanya <strong>600 orang</strong> karena lokasinya agak tersembunyi.</p><p><strong>Impression Share kamu = 60%</strong></p><p>400 orang tidak pernah lihat tokomu → mereka beli di kompetitor!</p></div>
+    <div class="blk"><h3><span class="ic">📊</span>Benchmark IS</h3>
+      <div class="sc-grid">
+        <div class="sc good"><div class="sc-val good">80–100%</div><div class="sc-ttl">Market Leader</div><div class="sc-dsc">Dominasi pasar. Hampir semua potential customer melihat iklanmu.</div></div>
+        <div class="sc warn"><div class="sc-val warn">40–60%</div><div class="sc-ttl">Moderate</div><div class="sc-dsc">Banyak peluang missed. Ada 40–60% pasar yang tidak terjangkau.</div></div>
+        <div class="sc bad"><div class="sc-val bad">&lt;40%</div><div class="sc-ttl">Low Visibility</div><div class="sc-dsc">Mayoritas pasar tidak pernah lihat iklanmu. Perlu perbaikan serius!</div></div>
+      </div>
+    </div>
+    <div class="blk"><h3><span class="ic">🧠</span>Quiz</h3>
+      <div id="q-m9-1"><div class="quiz-q">IS kamu 45%. Artinya?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" data-l="A" onclick="answerQ('q-m9-1',this,false,'Bukan! 45% klik bukan 45% IS. IS adalah tentang impressions/visibility.')">45% orang mengklik iklanmu</div>
+        <div class="quiz-opt" data-l="B" onclick="answerQ('q-m9-1',this,true,'✅ Benar! IS 45% = 55% dari potential customers tidak pernah melihat iklanmu. Peluang besar yang missed!')">55% potential customers tidak pernah melihat iklanmu</div>
+        <div class="quiz-opt" data-l="C" onclick="answerQ('q-m9-1',this,false,'Bukan tentang konversi. IS adalah tentang seberapa banyak orang yang MELIHAT iklan kamu.')">45% yang lihat iklan jadi leads</div>
+      </div><div class="quiz-fb" id="q-m9-1-fb"></div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m9','beg',1)">✅ Selesai Beginner</button>
+  </div>
+  <div class="cs" id="m9-int">
+    <div class="blk"><h3><span class="ic">📐</span>Formula & 3 Penyebab IS Rendah</h3>
+      <div class="fml"><div class="fml-lbl">Formula</div><div class="fml-text">IS = (Your Impressions ÷ Total Possible) × 100%</div></div>
+      <table class="tbl" style="margin-top:14px"><thead><tr><th>Penyebab</th><th>Artinya</th><th>Solusi</th></tr></thead><tbody>
+        <tr><td><strong>Lost IS (Rank)</strong></td><td>Bid terlalu rendah atau QS rendah</td><td>Improve QS atau naikan bid</td></tr>
+        <tr><td><strong>Lost IS (Budget)</strong></td><td>Budget habis sebelum hari selesai</td><td>Naikan daily budget</td></tr>
+        <tr><td><strong>Lost IS (Other)</strong></td><td>Ad disapproval, setting geo/device</td><td>Review settings & disapprovals</td></tr>
+      </tbody></table>
+    </div>
+    <div class="calc"><div class="calc-ttl">🧮 IS ROI Calculator</div>
+      <p style="font-size:12.5px;color:var(--text2);margin-bottom:14px">Hitung potensi revenue jika IS naik:</p>
+      <div class="calc-grid">
+        <div><label class="f-lbl">Current IS (%)</label><input class="f-inp" id="is_cur" type="number" value="60"></div>
+        <div><label class="f-lbl">Target IS (%)</label><input class="f-inp" id="is_tar" type="number" value="80"></div>
+        <div><label class="f-lbl">Current Rev/day ($)</label><input class="f-inp" id="is_rev" type="number" value="2000"></div>
+      </div>
+      <button class="calc-btn" onclick="calcIS()">Hitung Potensi</button>
+      <div class="calc-res" id="is_res"><div class="calc-res-lbl">Potensi Gain</div><div class="calc-res-val" id="is_v" style="font-size:14px;line-height:1.9">—</div></div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m9','int',2)">✅ Selesai Intermediate</button>
+  </div>
+  <div class="cs" id="m9-adv">
+    <div class="blk"><h3><span class="ic">🎯</span>Priority Matrix: Fix IS</h3>
+      <div class="code">Lost IS Breakdown (example):
+  Lost IS (Rank):   25% ← Fix ini DULU
+  Lost IS (Budget): 10%
+  Lost IS (Other):   5%
+
+Priority 1: Fix Rank via QS improvement
+  → FREE (time investment only)
+  → Reduces CPC juga (double benefit!)
+  → Expected: IS +15%
+
+Priority 2: Fix Budget via increase daily budget
+  → Costs money ($300–500/month extra)
+  → Expected: IS +8%
+
+Priority 3: Fix Other (disapprovals, settings)
+  → Quick, small effort
+  → Expected: IS +3%
+
+Result: IS 60% → 86% in 4 weeks!</div>
+    </div>
+    <button class="done-btn" onclick="doneLevel('m9','adv',3)">✅ Selesai Advanced</button>
+  </div>
+  <div class="cs" id="m9-exp">
+    <div class="blk"><h3><span class="ic">🏆</span>IS vs Budget ROI — Real Calculation</h3>
+      <div class="code">Current: IS 60%, budget $50/day
+  Daily clicks: 50
+  Daily conv (10%): 5
+  Revenue/day ($400/conv): $2,000
+
+Plan: +$25/day → IS naik ke 80% (+33% visibility)
+  New clicks: 67 (+34%)
+  New conv: 6.7 (+1.7/day)
+  Extra revenue: 1.7 × $400 = $680/day
+
+Monthly extra revenue: $680 × 30 = $20,400
+Monthly extra cost: $25 × 30 = $750
+ROI = $20,400 / $750 = 27× RETURN!</div>
+    </div>
+    <div class="blk"><h3><span class="ic">🏁</span>Selesai! Kamu Sudah Kuasai 9 Metrik Google Ads</h3>
+      <div class="code">✅ M1: ROAS      — Profitabilitas campaign
+✅ M2: CPA       — Efisiensi per acquisition
+✅ M3: Conv Rate — Kualitas landing page
+✅ M4: CTR       — Relevansi ad copy
+✅ M5: Device    — Segmentasi & bid adjustment
+✅ M6: Cost      — Budget management
+✅ M7: QS        — Kualitas fundamental
+✅ M8: Search    — Keyword precision
+✅ M9: IS        — Market visibility
+
+Kombinasikan semua untuk campaign yang truly optimized!</div>
+      <div class="hl">Next step: Baca <strong>Strategic Frameworks (KB10)</strong> untuk decision-making yang lebih advanced, atau coba <strong>Campaign Simulator</strong> untuk praktik langsung!</div>
+    </div>
+    <button class="done-btn" onclick="doneModule('m9')">🏆 Module IS Selesai! SEMUA 9 MODUL COMPLETE! 🎊</button>
+    <div class="nav-btns"><button class="nbtn" onclick="go('m8')">← M8</button><button class="nbtn" onclick="go('kb9')">📄 File Asli</button><button class="nbtn" onclick="go('kb10')">📘 Strategic Frameworks</button><button class="nbtn pri" onclick="go('sim')">🎮 Simulator →</button></div>
+  </div>
+</div></div>
+
+<!-- ═══ KB PAGES 1–13 ═══ -->
+<div class="page" id="page-kb1">
+<div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📄 ROAS — Knowledge Base Lengkap</div><div class="kb-badge">📊 Metric #1 — Return on Ad Spend</div></div>
+  <div class="toc-box"><div class="toc-ttl">📋 Daftar Isi</div><ul class="toc-list"><li><a href="#kb1l1">Level 1 — Beginner</a></li><li><a href="#kb1l2">Level 2 — Intermediate</a></li><li><a href="#kb1l3">Level 3 — Advanced</a></li><li><a href="#kb1sum">Summary & Practice</a></li></ul></div>
+  <div class="kb-content">
+    <h1 id="kb1l1">📊 METRIC #1: ROAS (Return on Ad Spend)</h1>
+    <h2>LEVEL 1 — BEGINNER: ANALOGI SEDERHANA</h2>
+    <h3>🎯 Bayangan Sederhananya:</h3>
+    <p><strong>Kamu punya toko kopi.</strong></p>
+    <ul><li>Kamu invest <strong>$100 untuk beli biji kopi</strong></li><li>Kamu jual kopi dan hasilkan <strong>$300 revenue</strong></li><li>Berarti dari $100, kamu dapat $300 → <strong>ROAS = 3:1</strong> (atau 300%)</li></ul>
+    <p><strong>Sekarang untuk Google Ads:</strong></p>
+    <ul><li>Kamu invest <strong>$1,000 untuk iklan</strong></li><li>Kamu dapat leads yang convert jadi <strong>$4,000 revenue</strong></li><li>Berarti <strong>ROAS = 4:1</strong> (atau 400%)</li></ul>
+    <p><strong>Interpretation:</strong></p>
+    <ul><li>✅ ROAS 4:1 = <strong>Bagus!</strong> Untuk setiap $1 yang dihabiskan, dapat $4 revenue</li><li>⚠️ ROAS 1:1 = <strong>Break even.</strong> Input sama dengan output</li><li>❌ ROAS 0.5:1 = <strong>Rugi!</strong> Habis $1, dapat revenue $0.50 saja</li></ul>
+    <h2 id="kb1l2">LEVEL 2 — INTERMEDIATE: FORMULA & CALCULATION</h2>
+    <h3>📐 Formula ROAS:</h3>
+    <pre>ROAS = Total Revenue / Total Ad Spend
+
+Contoh:
+  Total Ad Spend  = $1,000
+  Total Revenue   = $4,000
+  ROAS = $4,000 / $1,000 = 4.0</pre>
+    <h3>🔍 Breakdown lebih detail:</h3>
+    <p>Dari $1,000 spend, kamu dapat: 50 leads (conversions) → 10 menjadi paying customer → 10 × $400 = $4,000 revenue</p>
+    <pre>Ad Spend: $1,000
+       ↓
+50 Leads (Conversions)
+       ↓
+10 Customers (20% dari leads)
+       ↓
+$4,000 Revenue
+       ↓
+ROAS = $4,000 / $1,000 = 4.0</pre>
+    <h3>📊 Data Points yang Bergabung:</h3>
+    <table><thead><tr><th>Data Point</th><th>Source</th><th>Value</th><th>Purpose</th></tr></thead><tbody>
+      <tr><td><strong>Ad Spend</strong></td><td>Google Ads</td><td>$1,000</td><td>Denominator (pembagi)</td></tr>
+      <tr><td><strong>Conversions</strong></td><td>GA4</td><td>50</td><td>Track interaction</td></tr>
+      <tr><td><strong>Revenue/conversion</strong></td><td>GA4</td><td>$80 avg</td><td>Hitung total revenue</td></tr>
+      <tr><td><strong>Total Revenue</strong></td><td>GA4 × calc</td><td>$4,000</td><td>Numerator</td></tr>
+      <tr><td><strong>ROAS</strong></td><td>Formula</td><td>4.0</td><td>Final metric</td></tr>
+    </tbody></table>
+    <h2 id="kb1l3">LEVEL 3 — ADVANCED: STRATEGY & DECISION MAKING</h2>
+    <h3>🎯 ROAS untuk Strategic Decisions:</h3>
+    <h4>Scenario 1: ROAS = 2.0</h4>
+    <pre>Spend: $1,000 → Revenue: $2,000 | Profit: $1,000
+Decision: Profitable tapi ada inefficiency
+Action: Optimize untuk naik ke ROAS 3.0+</pre>
+    <h4>Scenario 2: ROAS = 4.0</h4>
+    <pre>Spend: $1,000 → Revenue: $4,000 | Profit: $3,000
+Decision: Very profitable, dapat di-scale
+Action: Naikan budget → scale revenue</pre>
+    <h4>Scenario 3: ROAS = 0.8</h4>
+    <pre>Spend: $1,000 → Revenue: $800 | Loss: -$200
+Decision: Unprofitable
+Action: Pause atau significant optimization</pre>
+    <h3>🔄 Multi-Source ROAS:</h3>
+    <p>Campaign A (Tax): Spend $600, Revenue $2,400, ROAS 4.0<br>Campaign B (Genset): Spend $400, Revenue $1,200, ROAS 3.0<br>Overall: Total Spend $1,000, Revenue $3,600, <strong>Blended ROAS 3.6</strong></p>
+    <h3>💡 Time Factor:</h3>
+    <pre>Week 1: ROAS = 5.0  (Learning phase, best audience)
+Week 2: ROAS = 4.0  (Audience saturation mulai)
+Week 3: ROAS = 3.5  (Diminishing returns)
+Week 4: ROAS = 3.0  (Plateau — butuh fresh creative)</pre>
+    <h3>🎓 Expert: Net ROAS vs Gross ROAS</h3>
+    <pre>Revenue: $4,000 | COGS: $2,000 | Ad Spend: $1,000
+
+Gross ROAS = $4,000 / $1,000 = 4.0
+Net ROAS   = ($4,000 - $2,000) / $1,000 = 2.0
+
+Insight: Gross 4.0 terlihat bagus, tapi Net 2.0 adalah realita!</pre>
+    <h3>Customer Lifetime Value (CLV):</h3>
+    <pre>Customer A: Consultation $400 (day 1)
+  Month 2: Repeat → $200
+  Month 3: Refer 2 friends → $800
+  Total CLV: $1,400 (3.5× dari initial!)
+
+ROAS sebenarnya jauh lebih tinggi dari yang terlihat!</pre>
+    <hr>
+    <h2 id="kb1sum">🎯 SUMMARY: ROAS Mastery</h2>
+    <p><strong>Level 1:</strong> ROAS = Revenue/Spend. Target minimal 2:1. Higher = more profitable.</p>
+    <p><strong>Level 2:</strong> Understand data sources. Multi-campaign analysis. Trend over time.</p>
+    <p><strong>Level 3:</strong> Net vs Gross ROAS. Attribution models. CLV thinking. Budget decisions.</p>
+    <hr>
+    <h2>❓ Practice Questions</h2>
+    <p><strong>Q1:</strong> Kalau ROAS 2.5:1, artinya apa?<br><blockquote>Untuk setiap $1 spend, dapat $2.50 revenue.</blockquote></p>
+    <p><strong>Q2:</strong> COGS 50% dari revenue, spend $1,000, revenue $2,500. Berapa net profit?<br><blockquote>COGS = $1,250 | Net Profit = $2,500 − $1,250 − $1,000 = $250</blockquote></p>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('m1')">← Kembali ke Modul</button><button class="nbtn pri" onclick="go('kb2')">KB CPA →</button></div>
+</div>
+</div>
+
+<!-- KB2 -->
+<div class="page" id="page-kb2"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📄 CPA — Knowledge Base Lengkap</div><div class="kb-badge">🎯 Metric #2 — Cost Per Acquisition</div></div>
+  <div class="kb-content">
+    <h1>📊 METRIC #2: CPA (Cost Per Acquisition)</h1>
+    <h2>LEVEL 1 — BEGINNER</h2>
+    <p>Kamu buat leaflet, bagikan ke 1,000 rumah, biaya total $200. 20 orang datang ke toko.</p>
+    <pre>CPA = $200 / 20 = $10 per pelanggan</pre>
+    <table><thead><tr><th>Service Value</th><th>Apakah CPA $20 Bagus?</th><th>Alasan</th></tr></thead><tbody>
+      <tr><td>$500+</td><td>✅ SANGAT BAGUS</td><td>Revenue $500, CPA $20 = profit $480+</td></tr>
+      <tr><td>$50</td><td>⚠️ LUMAYAN</td><td>Revenue $50, CPA $20 = profit $30</td></tr>
+      <tr><td>$25</td><td>❌ RUGI</td><td>Revenue $25, CPA $20 = profit $5 (terlalu tipis!)</td></tr>
+    </tbody></table>
+    <h2>LEVEL 2 — INTERMEDIATE</h2>
+    <pre>CPA = Total Ad Spend / Total Conversions
+
+Tax Consultant: $600 / 30 leads = $20/lead
+Genset:         $400 / 10 leads = $40/lead
+Blended:        $1,000 / 40    = $25/lead
+
+ROAS 4.0 breakdown:
+  Revenue/conversion: $100
+  CPA:                $25
+  Profit/conversion:  $75 (75% margin)</pre>
+    <h2>LEVEL 3 — ADVANCED</h2>
+    <pre>Acceptable CPA = Revenue/Lead − Operational Cost
+Tax example: $100 avg − $20 ops = max CPA $80
+
+Target CPA bidding: volume-focused
+Target ROAS bidding: profitability-focused
+
+Blended CPA Trap:
+  A: CPA $15 ✅ | B: CPA $45 ❌
+  Blended: $20.40 ← Terlihat okay, tapi B struggling!</pre>
+    <h3>Seasonal CPA Variation:</h3>
+    <pre>Jan (Tax season): CPA $35–40 (high competition)
+Apr–Aug:          CPA $15–20 (low competition, cheap CPC!)
+Sep–Dec:          CPA $25–30 (normal)
+
+Strategy: Spend lebih agresif di bulan CPA rendah!</pre>
+    <h3>CPA vs Customer Quality:</h3>
+    <pre>Campaign A: CPA $15, 50% qualified, 10% close → $150 per customer  ❌
+Campaign B: CPA $30, 90% qualified, 40% close → $83 per customer   ✅
+
+Low CPA ≠ Good CPA. Track downstream quality!</pre>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('m2')">← Modul CPA</button><button class="nbtn pri" onclick="go('kb3')">KB Conv Rate →</button></div>
+</div></div>
+
+<!-- KB3–KB9 condensed but complete -->
+<div class="page" id="page-kb3"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📄 Conversion Rate — Knowledge Base</div><div class="kb-badge">📈 Metric #3</div></div>
+  <div class="kb-content">
+    <h1>📊 METRIC #3: Conversion Rate</h1>
+    <h2>LEVEL 1 — BEGINNER</h2>
+    <p>100 pengunjung toko kue, 30 beli. Conv Rate = <strong>30%</strong>.</p>
+    <pre>Conv Rate (%) = (Conversions / Clicks) × 100%
+200 clicks, 20 conversions → (20/200)×100% = 10%</pre>
+    <table><thead><tr><th>Jenis</th><th>Conv Rate</th><th>Assessment</th></tr></thead><tbody>
+      <tr><td>Service consulting (form)</td><td>5–10%</td><td>Normal</td></tr>
+      <tr><td>Free download / email signup</td><td>15–30%</td><td>Normal (low friction)</td></tr>
+      <tr><td>E-commerce</td><td>2–3%</td><td>Typical</td></tr>
+    </tbody></table>
+    <h2>LEVEL 2 — INTERMEDIATE</h2>
+    <pre>CPA = CPC / Conversion Rate
+$4 CPC / 0.16 (16% conv) = $25 CPA
+
+Untuk turunkan CPA:
+  1. Turunkan CPC (improve Quality Score)
+  2. Naikkan Conv Rate (optimize landing page)
+  3. Keduanya = maximum impact!</pre>
+    <h3>Funnel Stage Analysis:</h3>
+    <pre>Visitors: 1,000 → Scroll headline: 800 (80%)
+Start form: 400 (50% of 800)   ← Bottleneck!
+Submit form: 100 (25% of 400)  ← Bigger bottleneck!
+
+Fix form submission: 25%→35% = +40% overall conversions
+Fix headline: 80%→85% = only +6% conversions
+PRIORITY: Fix the BIGGEST bottleneck first!</pre>
+    <h2>LEVEL 3 — ADVANCED: CRO Framework</h2>
+    <ul><li>Identify bottlenecks (stage mana drop-off terbesar?)</li><li>Prioritize fixes (mana yang impact terbesar per effort?)</li><li>A/B test variants (test 1 variable at a time)</li><li>Scale winner, iterate</li></ul>
+    <h3>Device-based Variation:</h3>
+    <table><thead><tr><th>Device</th><th>Conv Rate</th><th>Strategi</th></tr></thead><tbody>
+      <tr><td>Mobile</td><td>8–12%</td><td>Optimize form (3 fields), speed, CTA size</td></tr>
+      <tr><td>Desktop</td><td>15–22%</td><td>Maintain, scale budget</td></tr>
+    </tbody></table>
+    <h3>Landing Page Optimization Checklist:</h3>
+    <ul><li>Headline mengandung benefit jelas, match keyword intent</li><li>Mobile responsive, load &lt;2s</li><li>CTA visible above fold, warna kontras</li><li>Form: max 3–5 fields, logical order</li><li>Trust signals: testimonial, certifications, client logos</li></ul>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('m3')">← Modul</button><button class="nbtn pri" onclick="go('kb4')">KB CTR →</button></div>
+</div></div>
+
+<div class="page" id="page-kb4"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📄 CTR — Knowledge Base</div><div class="kb-badge">🖱️ Metric #4 — Click-Through Rate</div></div>
+  <div class="kb-content">
+    <h1>📊 METRIC #4: CTR (Click-Through Rate)</h1>
+    <h2>LEVEL 1 — BEGINNER</h2>
+    <p>Poster di mall dilihat 1,000 orang, 50 menghampiri. CTR = <strong>5%</strong>.</p>
+    <pre>CTR (%) = (Clicks / Impressions) × 100%
+10,000 impressions, 500 clicks → 5% CTR</pre>
+    <table><thead><tr><th>Jenis Keyword</th><th>CTR Benchmark</th></tr></thead><tbody>
+      <tr><td>Branded keyword</td><td>10–30%</td></tr>
+      <tr><td>High-intent service</td><td>5–15%</td></tr>
+      <tr><td>General keyword</td><td>2–5%</td></tr>
+      <tr><td>Display ads</td><td>0.5–2%</td></tr>
+    </tbody></table>
+    <h2>LEVEL 2 — INTERMEDIATE</h2>
+    <pre>Marketing Funnel:
+  8,000 impressions → [CTR 4.4%] → 350 clicks → [Conv 10%] → 35 leads
+
+Combined rate: 4.4% × 10% = 0.44% dari impressions → leads</pre>
+    <h3>Quality Score & CTR:</h3>
+    <pre>High CTR → "Above Average" Expected CTR → QS naik
+QS naik → CPC turun → CPA turun → ROAS naik
+
+CTR tinggi = cascade effect yang positif!</pre>
+    <h2>LEVEL 3 — ADVANCED</h2>
+    <h3>Faktor yang meningkatkan CTR:</h3>
+    <ol><li><strong>Ad copy kuat</strong> — benefit-driven headline, specific value prop</li><li><strong>Ad extensions</strong> — phone, location, callout → CTR naik 70–130%!</li><li><strong>Keyword match type</strong> — Exact: 7%+, Phrase: 4%, Broad: 2%</li><li><strong>Ad position</strong> — Pos 1: 5–8%, Pos 4+: hanya 1–2%</li></ol>
+    <h3>⚠️ High CTR ≠ Good CTR:</h3>
+    <pre>Ad A (agresif): CTR 8%, Conv Rate 5%  → 0.4% dari impr jadi conv
+Ad B (relevan): CTR 3%, Conv Rate 20% → 0.6% dari impr jadi conv
+
+Ad B lebih profitable meski CTR lebih rendah!
+Optimize untuk QUALIFIED clicks, bukan sekadar clicks.</pre>
+    <h3>CTR Improvement Priority:</h3>
+    <table><thead><tr><th>#</th><th>Action</th><th>Expected CTR Gain</th></tr></thead><tbody>
+      <tr><td>1</td><td>Keyword relevance (match ad ke keyword)</td><td>+30–50%</td></tr>
+      <tr><td>2</td><td>A/B test ad copy (5+ variasi)</td><td>+20–40%</td></tr>
+      <tr><td>3</td><td>Tambah ad extensions</td><td>+15–30%</td></tr>
+      <tr><td>4</td><td>Improve landing page (QS indirect effect)</td><td>+10–20%</td></tr>
+    </tbody></table>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('m4')">← Modul</button><button class="nbtn pri" onclick="go('kb5')">KB Device & Geo →</button></div>
+</div></div>
+
+<div class="page" id="page-kb5"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📄 Device & Geographic Breakdown — KB</div><div class="kb-badge">📱 Metric #5</div></div>
+  <div class="kb-content">
+    <h1>📊 METRIC #5: Device & Geographic Breakdown</h1>
+    <h2>INTRO</h2>
+    <pre>Overall metric: CPA $25 ← terlihat ok
+Breakdown:
+  Mobile: CPA $45, Conv Rate 4%   ← TERRIBLE!
+  Desktop: CPA $15, Conv Rate 16% ← EXCELLENT!
+
+Average metric hides the problem!</pre>
+    <h2>PART 1: DEVICE</h2>
+    <table><thead><tr><th>Device</th><th>User Behavior</th><th>Typical Conv Rate</th></tr></thead><tbody>
+      <tr><td>Mobile 📱</td><td>On-the-go, form sulit, sering browsing</td><td>3–8%</td></tr>
+      <tr><td>Desktop 🖥️</td><td>Settled, mudah isi form, research mode</td><td>10–20%</td></tr>
+      <tr><td>Tablet</td><td>Hybrid, lebih nyaman dari mobile</td><td>6–15%</td></tr>
+    </tbody></table>
+    <h3>Device Bid Adjustment Strategy:</h3>
+    <pre>Base bid: $5 (desktop)
+Mobile (-40%):  $5 × 0.60 = $3.00
+Desktop (+20%): $5 × 1.20 = $6.00
+
+ATAU: Optimize mobile UX dulu sebelum cut bids!
+  Form: 10 fields → 3 fields
+  Speed: 4s → 1.5s
+  CTA: bigger, above fold
+  Expected: Conv Rate 4% → 8–10%!</pre>
+    <h2>PART 2: GEOGRAPHIC</h2>
+    <pre>Tax Consultant:
+  Jakarta: CTR 8%, CPA $19, Conv 15.6%  ← Best!
+  Bandung: CTR 4%, CPA $50, Conv 10%
+  Surabaya: CTR 2%, CPA $100, Conv 10%  ← Poor
+
+Budget allocation:
+  Jakarta: 60% → best ROI
+  Bandung: 30% → growth market
+  Surabaya: 10% → test or exclude</pre>
+    <h3>Geographic Expansion Tiers:</h3>
+    <table><thead><tr><th>Tier</th><th>Market</th><th>Strategy</th><th>Bid Adj.</th></tr></thead><tbody>
+      <tr><td>1 — Mature</td><td>Jakarta</td><td>Maximize share</td><td>+30–50%</td></tr>
+      <tr><td>2 — Growth</td><td>Bandung</td><td>Build presence</td><td>Base/+10%</td></tr>
+      <tr><td>3 — Emerging</td><td>Surabaya</td><td>Test with offer</td><td>−30–50%</td></tr>
+      <tr><td>4 — Excluded</td><td>Far markets</td><td>Exclude</td><td>Excluded</td></tr>
+    </tbody></table>
+    <h3>Profitability Matrix: Device × Location</h3>
+    <table><thead><tr><th>Segment</th><th>CPA</th><th>Budget Alloc.</th></tr></thead><tbody>
+      <tr><td>Jakarta + Desktop</td><td>$15</td><td>45% — MAX BID</td></tr>
+      <tr><td>Jakarta + Mobile</td><td>$25</td><td>20% — HIGH BID</td></tr>
+      <tr><td>Bandung + Desktop</td><td>$40</td><td>20% — MEDIUM BID</td></tr>
+      <tr><td>Bandung + Mobile</td><td>$60</td><td>10% — LOW BID</td></tr>
+      <tr><td>Surabaya + any</td><td>$80–100</td><td>5% — TEST/PAUSE</td></tr>
+    </tbody></table>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('m5')">← Modul</button><button class="nbtn pri" onclick="go('kb6')">KB Cost →</button></div>
+</div></div>
+
+<div class="page" id="page-kb6"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📄 Cost Metrics — Knowledge Base</div><div class="kb-badge">💵 Metric #6 — CPC, Cost & Budget</div></div>
+  <div class="kb-content">
+    <h1>📊 METRIC #6: Cost Metrics</h1>
+    <h2>PART 1: CPC</h2>
+    <pre>CPC = Total Cost / Total Clicks
+$1,000 / 250 = $4 per click
+
+How Google determines CPC:
+  You bid $5 → Quality Score applied → Compete vs others
+  → You pay just enough to beat #2 position (not max bid!)
+
+QS impact on CPC:
+  QS 9 → CPC ~$3.00 (30% discount!)
+  QS 7 → CPC ~$5.00 (baseline)
+  QS 4 → CPC ~$8.00 (60% penalty!)</pre>
+    <h3>Levers to reduce CPC:</h3>
+    <ol><li>Improve Quality Score (most impactful, no extra cost)</li><li>Refine keywords (specific > broad)</li><li>Time-based bid adjustments</li><li>Device-based bid adjustments</li><li>Add negative keywords</li></ol>
+    <h2>PART 2: BUDGET MANAGEMENT</h2>
+    <pre>Budget Pacing Formula:
+  Spent so far: $700 | Days elapsed: 20 | Budget: $1,000
+  Daily avg: $700/20 = $35/day
+  Projected: $700 + ($35 × 10) = $1,050 ← OVER!
+  Action: Reduce spend atau pause some keywords</pre>
+    <h3>ROAS-Based Budget Allocation:</h3>
+    <pre>❌ WRONG (Equal Split):
+  Tax: $500 × ROAS 4.0 = $2,000 revenue
+  Genset: $500 × ROAS 2.0 = $1,000 revenue
+  Total: $3,000
+
+✅ CORRECT (ROAS-Weighted):
+  Tax: $700 × ROAS 4.0 = $2,800
+  Genset: $300 × ROAS 2.0 = $600
+  Total: $3,400  (+$400 = +13% from same budget!)</pre>
+    <h3>Scaling Strategy:</h3>
+    <pre>Increase budget incrementally (+10–20%/week):
+  Week 1: $1,000, ROAS 3.5 → Profit $2,500
+  Week 2: $1,100, ROAS 3.4 → Profit $2,640 (+5.6%)
+  Week 3: $1,210, ROAS 3.3 → Profit $2,793
+
+Stop when ROAS hits minimum threshold (e.g. 2.5)
+That's your sweet spot!</pre>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('m6')">← Modul</button><button class="nbtn pri" onclick="go('kb7')">KB Quality Score →</button></div>
+</div></div>
+
+<div class="page" id="page-kb7"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📄 Quality Score — Knowledge Base</div><div class="kb-badge">⭐ Metric #7</div></div>
+  <div class="kb-content">
+    <h1>📊 METRIC #7: Quality Score</h1>
+    <h2>INTRO</h2>
+    <pre>Quality Score (1–10) = Google's trust rating untuk iklanmu
+Makin tinggi → CPC lebih murah + posisi lebih baik
+
+QS 9–10: Excellent → CPC discount 30–50%!
+QS 6–8:  Good → CPC normal
+QS 4–5:  Poor → CPC premium 50–100%!
+QS 1–3:  Very Poor → DELETE segera</pre>
+    <h2>3 KOMPONEN</h2>
+    <table><thead><tr><th>Komponen</th><th>Bobot ~</th><th>Artinya</th></tr></thead><tbody>
+      <tr><td>Ad Relevance</td><td>33%</td><td>Apakah ad text relevan ke keyword?</td></tr>
+      <tr><td>Expected CTR</td><td>33%</td><td>Apakah Google predict orang akan klik?</td></tr>
+      <tr><td>Landing Page Exp.</td><td>33%</td><td>Apakah page bagus & relevan?</td></tr>
+    </tbody></table>
+    <h2>QS TIER MANAGEMENT</h2>
+    <table><thead><tr><th>Tier</th><th>QS</th><th>Action</th><th>Budget %</th></tr></thead><tbody>
+      <tr><td>1 — Excellence</td><td>8–10</td><td>Scale aggressively, naikan bids</td><td>50%</td></tr>
+      <tr><td>2 — Good</td><td>6–7</td><td>Maintain, test improvements</td><td>35%</td></tr>
+      <tr><td>3 — Weak</td><td>4–5</td><td>Optimize atau pause</td><td>15%</td></tr>
+      <tr><td>4 — Poor</td><td>1–3</td><td>DELETE IMMEDIATELY</td><td>0%</td></tr>
+    </tbody></table>
+    <h3>ROI dari QS Improvement:</h3>
+    <pre>QS 5.5 → QS 7.0 (1 month effort):
+  CPC drops 25%: $5 → $3.75
+  Same $2,000 budget → 533 clicks (was 400)
+  Additional leads: +13/month
+  Additional revenue: +$5,200/month
+  Annual gain: +$62,400 from SAME budget!</pre>
+    <h3>How to improve each component:</h3>
+    <p><strong>Ad Relevance:</strong> Include keyword in headline, match ad copy to search intent, geographic specificity.</p>
+    <p><strong>Expected CTR:</strong> Better headline (benefit-driven), ad extensions (phone, location, callout), test 5+ variants.</p>
+    <p><strong>Landing Page Experience:</strong> Speed &lt;1s, mobile-friendly, CTA above fold, trust signals, relevant content.</p>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('m7')">← Modul</button><button class="nbtn pri" onclick="go('kb8')">KB Search Term →</button></div>
+</div></div>
+
+<div class="page" id="page-kb8"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📄 Search Term Analysis — KB</div><div class="kb-badge">🔍 Metric #8</div></div>
+  <div class="kb-content">
+    <h1>📊 METRIC #8: Search Term Analysis</h1>
+    <h2>INTRO</h2>
+    <pre>Keyword bid: "tax consultant"
+
+Actual searches yang trigger iklanmu:
+  ✅ "tax consultant jakarta"  → Relevant
+  ✅ "free tax consultation"   → Relevant
+  ⚠️ "accounting services"    → Semi-relevant
+  ❌ "how to avoid taxes"      → Not relevant
+  ❌ "tax evasion reddit"      → Bahaya!
+  ❌ "pizza jakarta"           → WTF?!</pre>
+    <h2>KATEGORISASI</h2>
+    <table><thead><tr><th>Status</th><th>Kriteria</th><th>Action</th></tr></thead><tbody>
+      <tr><td>✅ Relevant</td><td>Conv Rate &gt;10%, CPA acceptable, high intent</td><td>Add as positive keyword</td></tr>
+      <tr><td>⚠️ Semi-Relevant</td><td>Conv Rate 5–10%, CPA borderline</td><td>Monitor, more data needed</td></tr>
+      <tr><td>❌ Not Relevant</td><td>Conv Rate 0%, unrelated topic</td><td>Add as NEGATIVE keyword</td></tr>
+    </tbody></table>
+    <h2>NEGATIVE KEYWORD STRATEGY</h2>
+    <pre>Match types:
+  Broad: -free    → blocks all with "free"
+  Phrase: -"free tax" → blocks this phrase
+  Exact: -[free tax advice] → blocks only exact
+
+Recommended untuk tax consultant:
+  -free    → saves ~$200/month
+  -tips    → saves ~$150/month
+  -reddit  → saves ~$80/month
+  -jobs    → saves ~$100/month
+  -salary  → saves ~$75/month
+  Total: ~$605/month = $7,260/year savings!</pre>
+    <h3>Search Term Quality Scoring (1–25):</h3>
+    <pre>Score 5 factors (1–5 each): Relevance, Intent, Conversion, Volume, CPA
+
+20–25: Definitely add as positive keyword
+15–19: Probably add, monitor
+10–14: Need more data
+&lt;10:   Add as NEGATIVE keyword</pre>
+    <h3>Weekly Workflow (30 min/week):</h3>
+    <ol><li>Export search terms last 7 days (5 min)</li><li>Kategorisasi new searches (15 min)</li><li>Add negatives (5 min)</li><li>Add positives jika ditemukan (5 min)</li></ol>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('m8')">← Modul</button><button class="nbtn pri" onclick="go('kb9')">KB Impression Share →</button></div>
+</div></div>
+
+<div class="page" id="page-kb9"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📄 Impression Share — Knowledge Base</div><div class="kb-badge">👁️ Metric #9</div></div>
+  <div class="kb-content">
+    <h1>📊 METRIC #9: Impression Share</h1>
+    <h2>INTRO</h2>
+    <pre>Total searches "tax consultant jakarta" = 1,000/month
+Your ad appeared = 600 times
+Impression Share = 60%
+
+Artinya: 40% potential customers TIDAK melihat iklanmu!
+Mereka pergi ke kompetitor.</pre>
+    <h2>FORMULA & BREAKDOWN</h2>
+    <pre>IS = (Your Impressions / Total Possible) × 100%
+
+Your IS loss breakdown:
+  Lost IS (Rank):   20% ← Low bid or low QS
+  Lost IS (Budget): 15% ← Budget habis sebelum hari selesai
+  Lost IS (Other):   5% ← Ad disapproval, settings
+
+Total lost: 40% → IS hanya 60%</pre>
+    <h2>IS BENCHMARK</h2>
+    <table><thead><tr><th>IS %</th><th>Posisi</th><th>Action</th></tr></thead><tbody>
+      <tr><td>80–100%</td><td>Market leader</td><td>Maintain</td></tr>
+      <tr><td>60–80%</td><td>Strong player</td><td>Good, room to grow</td></tr>
+      <tr><td>40–60%</td><td>Moderate</td><td>Should improve</td></tr>
+      <tr><td>&lt;40%</td><td>Low visibility</td><td>Major opportunity!</td></tr>
+    </tbody></table>
+    <h2>IMPROVEMENT STRATEGY</h2>
+    <pre>Priority 1: Fix Lost IS (Rank) via QS improvement
+  → No additional cost, also reduces CPC!
+  → Expected: IS +10–15%
+
+Priority 2: Fix Lost IS (Budget) via budget increase
+  → Direct fix, costs money
+  → Expected: IS +10–15%
+
+Priority 3: Fix Other (disapprovals, settings)
+  → Small impact, easy fix
+  → Expected: IS +3–5%
+
+Result: IS 60% → 85% (41% improvement!)</pre>
+    <h3>IS vs Budget ROI:</h3>
+    <pre>Current: IS 60%, $50/day budget, 50 clicks, 5 conv/day, $2,000 rev/day
+
+Plan: Increase to $75/day (+$25) → IS 80%
+  New clicks: 67/day (+34%)
+  New conv: 6.7/day (+1.7)
+  Extra revenue: 1.7 × $400 = $680/day
+
+Monthly extra revenue: $680 × 30 = $20,400
+Monthly extra cost: $25 × 30 = $750
+ROI = $20,400/$750 = 27× return!</pre>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('m9')">← Modul</button><button class="nbtn pri" onclick="go('kb10')">Strategic Frameworks →</button></div>
+</div></div>
+
+<!-- KB10–KB13 -->
+<div class="page" id="page-kb10"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📘 Strategic Frameworks — Advanced Decision Making</div><div class="kb-badge">📚 File 1A</div></div>
+  <div class="toc-box"><div class="toc-ttl">📋 Daftar Isi</div><ul class="toc-list"><li><a href="#sf1">1. ROAS Decision Framework</a></li><li><a href="#sf2">2. CPA Allocation Strategy</a></li><li><a href="#sf3">3. CRO Framework</a></li><li><a href="#sf4">4. CTR & QS Relationship</a></li><li><a href="#sf5">5. Device Strategy Matrix</a></li><li><a href="#sf6">6. Geographic Expansion</a></li><li><a href="#sf7">7. QS Tier System</a></li><li><a href="#sf8">8. Search Term Scoring</a></li><li><a href="#sf9">9. IS Priority Matrix</a></li><li><a href="#sf10">10. Cross-Metric Integration</a></li></ul></div>
+  <div class="kb-content">
+    <h1>📚 STRATEGIC FRAMEWORKS</h1>
+    <h2 id="sf1">1️⃣ ROAS Strategic Decision Framework</h2>
+    <pre>Scenario A: ROAS 3.0, Low volume
+  → SCALE FIRST. High ROAS = profitable, can spend more.
+
+Scenario B: ROAS 1.5, High volume
+  → OPTIMIZE FIRST. Thin margins, scaling = bigger losses.
+
+Scenario C: ROAS 2.0, Medium volume
+  → BALANCE: optimize 50% budget, scale 50%.
+
+Net ROAS vs Gross ROAS:
+  Gross: Revenue / Spend = 4.0
+  Net: (Revenue - COGS) / Spend = 1.6  ← Real profitability!
+  Always calculate Net ROAS for true picture.
+
+Diminishing Returns:
+  $1K → ROAS 5.0 → Profit $4,000
+  $2K → ROAS 4.0 → Profit $6,000 ← OPTIMAL!
+  $3K → ROAS 3.0 → Profit $6,000 (same, more risk)
+  $4K → ROAS 2.0 → Profit $4,000 (declining!)
+  Cap at $2K for max profit in this example.</pre>
+    <h2 id="sf2">2️⃣ CPA Budget Allocation</h2>
+    <pre>Profitability-Based (NOT equal split):
+  A: CPA $20, Rev/conv $500 → Profit/$ = $48
+  B: CPA $50, Rev/conv $200 → Profit/$ = $6
+
+  Optimal: A gets $889, B gets $111 (from $1,000)
+  vs Equal: A gets $500, B gets $500
+
+  Revenue gain from proper allocation: +63%!</pre>
+    <h2 id="sf3">3️⃣ CRO Framework</h2>
+    <pre>Funnel priority:
+  Fixing form completion (25%→35%) = +40% conversions
+  Fixing headline (80%→85%) = +6% conversions
+  Fix the BOTTLENECK, not the easy part!</pre>
+    <h2 id="sf4">4️⃣ CTR & QS Relationship</h2>
+    <pre>Your: QS 7, Bid $5, CPC $4.50
+Competitor: QS 9, Bid $4, CPC $3.00 ← Better pos, lower cost!
+
+Don't get into bid wars.
+Improve QS first → same position at lower CPC.
+Then increase bids if needed.</pre>
+    <h2 id="sf5">5️⃣ Device Bidding Matrix</h2>
+    <table><thead><tr><th>Device + Intent</th><th>CPA</th><th>Bid Adj.</th></tr></thead><tbody>
+      <tr><td>Desktop + High-Intent</td><td>$20</td><td>+40% (SCALE!)</td></tr>
+      <tr><td>Mobile + High-Intent</td><td>$35</td><td>0% (maintain)</td></tr>
+      <tr><td>Desktop + Low-Intent</td><td>$50</td><td>−40%</td></tr>
+      <tr><td>Mobile + Low-Intent</td><td>$80</td><td>−80% (mostly exclude)</td></tr>
+    </tbody></table>
+    <h2 id="sf6">6️⃣ Geographic Expansion</h2>
+    <pre>Tier 1 (Jakarta): Awareness 100%, CPA $20 → 60% budget, +30–50% bids
+Tier 2 (Bandung): Awareness 30%, CPA $40 → 30% budget, base bids
+Tier 3 (Surabaya): Awareness 5%, CPA $70+ → 10% test budget
+Tier 4 (Far): No awareness → Exclude entirely</pre>
+    <h2 id="sf7">7️⃣ QS Tier System</h2>
+    <pre>Tier 1 (QS 8–10): SCALE — 50% budget, increase bids
+Tier 2 (QS 6–7):  MAINTAIN — 35%, test improvements
+Tier 3 (QS 4–5):  FIX/PAUSE — 15%, optimize or pause
+Tier 4 (QS 1–3):  DELETE — 0%, don't waste money
+
+Monthly: Delete Tier 4 week 1, optimize Tier 3 weeks 2–3,
+         scale Tier 1 week 4.</pre>
+    <h2 id="sf8">8️⃣ Search Term Scoring</h2>
+    <pre>Score 1–5 each: Relevance, Intent, Conversion, Volume, CPA
+Total out of 25:
+  20–25: Add as positive keyword
+  15–19: Probably add, test
+  10–14: Monitor
+  &lt;10:   Add as NEGATIVE keyword</pre>
+    <h2 id="sf9">9️⃣ IS Priority Matrix</h2>
+    <pre>Priority 1: QS improvement → fixes Rank for free + lowers CPC
+Priority 2: Budget increase → fixes Budget directly
+Priority 3: Fix settings → small impact, easy
+
+Timeline:
+  Week 1: Fix QS → IS +10%
+  Week 2–3: Monitor + adjust budget → IS +10%
+  Week 4: Review → target IS 75–85%+</pre>
+    <h2 id="sf10">🔟 Cross-Metric Integration</h2>
+    <pre>CORRECT ORDER:
+  Phase 1: Quality Score (2 weeks)
+    → Fixes CTR, CPC, Position, IS all at once!
+  Phase 2: CTR (if not fixed by QS)
+    → Extensions, better copy
+  Phase 3: Landing Page Conv Rate (2 weeks)
+    → Form, speed, trust signals
+  Phase 4: Budget/Scale (ongoing)
+    → Only scale AFTER fundamentals solid!
+
+Example result after sequential 1-month optimization:
+  QS: 5→7 (+40%) | CTR: 2%→4% (+100%)
+  CPA: $50→$32 (-36%) | IS: 50%→75% (+50%)
+  ROAS: 2.0→3.2 (+60%) | Profit: +75%!</pre>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('kb9')">← KB9</button><button class="nbtn pri" onclick="go('kb11')">Quick Reference →</button></div>
+</div></div>
+
+<div class="page" id="page-kb11"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📗 Quick Reference & Decision Tools</div><div class="kb-badge">📚 File 1B</div></div>
+  <div class="kb-content">
+    <h1>📚 QUICK REFERENCE & DECISION TOOLS</h1>
+    <h2>DECISION TREE 1: Metric Rendah — Apa Dilakukan?</h2>
+    <h3>IF ROAS &lt; 2.0:</h3>
+    <pre>→ Check QS: &lt;6? Fix QS first (upstream problem)
+→ Check CPA: too high? → Fix cost efficiency (QS, keywords)
+→ Check Conv Rate: low? → Fix landing page</pre>
+    <h3>IF CPA too high:</h3>
+    <pre>→ QS &lt;6? Fix QS → reduces CPC
+→ CTR low? Fix ad copy, add extensions
+→ Conv Rate &lt;5%? Fix landing page
+→ Bad traffic? Search term analysis + negative KW</pre>
+    <h3>IF IS &lt; 60%:</h3>
+    <pre>→ Lost IS (Rank) dominant? Improve QS atau naikan bid
+→ Lost IS (Budget) dominant? Naikan daily budget
+→ Other? Fix disapprovals/settings</pre>
+    <h2>DECISION TREE 2: Budget Allocation</h2>
+    <pre>Multiple campaigns:
+  Rank by ROAS → Top: 50%, 2nd: 30%, 3rd: 20%
+  Review every 2 weeks, shift 5–10% to winner
+
+New market:
+  IS 80%+? Saturated → expand
+  IS 60–80%? Room to grow → capture current first
+  IS &lt;60%? Not captured → maximize current first
+
+Scaling vs Optimizing:
+  ROAS &gt;3.0? SCALE (increase budget)
+  ROAS 2–3? BALANCE (do both)
+  ROAS &lt;2? OPTIMIZE (fix first)</pre>
+    <h2>WHEN TO STOP OPTIMIZING</h2>
+    <h3>DELETE keyword IF:</h3>
+    <ul><li>QS 1–3 AND no improvement in 2 weeks AND CPA &gt;2× threshold</li></ul>
+    <h3>PAUSE campaign IF:</h3>
+    <ul><li>ROAS &lt;1.0 AND no improvement after 2 weeks AND better alternatives exist</li></ul>
+    <h3>The Sunk Cost Warning:</h3>
+    <blockquote>Jangan: "Sudah spend $5,000, tidak bisa menyerah!" — Lakukan: "Keyword ini cost $500/month, apakah menghasilkan lebih? Jika tidak, stop."</blockquote>
+    <h2>MONTHLY CHECKLIST</h2>
+    <h3>Week 1: Analysis (1–2 jam)</h3>
+    <ul><li>Export semua reports (campaign, keyword, device, geo, search terms)</li><li>QS distribution analysis (tier 1/2/3/4?)</li><li>Search term waste identification</li><li>IS breakdown check</li><li>Top 3 problems + top 3 opportunities</li></ul>
+    <h3>Week 2: Optimization (1–2 jam)</h3>
+    <ul><li>Delete Tier 4 keywords (immediate savings)</li><li>Add negative keywords (top waste)</li><li>Pick ONE landing page fix</li></ul>
+    <h3>Week 3: Monitoring (1 jam)</h3>
+    <ul><li>Is primary metric improving?</li><li>Side effects? A/B test results?</li></ul>
+    <h3>Week 4: Decision (1 jam)</h3>
+    <ul><li>Results assessment, budget reallocation, Month 2 planning</li></ul>
+    <h2>QUICK ACTIONS BY TIME AVAILABLE</h2>
+    <pre>30 menit? → Delete waste (negative KW) OR add winners (positive KW)
+1 jam?    → Weekly trend analysis + identify top issue
+2 jam?    → Full Week 1 analysis + diagnosis
+5 jam?    → Full Week 2 optimization execution</pre>
+    <h2>EMERGENCY GUIDE (ROAS &lt; 1.0)</h2>
+    <pre>IMMEDIATE (30 min):
+  1. Verify problem is real
+  2. Campaign &lt;2 weeks? → Wait (learning phase)
+  3. Pause QS 1–3 keywords
+  4. Reduce daily budget −50%
+
+24 HOURS: Root cause analysis
+  High CPC? → Fix QS
+  Low conv? → Fix landing page
+  Wrong traffic? → Add negatives
+  All? → Comprehensive overhaul needed</pre>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('kb10')">← Strategic Frameworks</button><button class="nbtn pri" onclick="go('kb12')">Impl. Checklists →</button></div>
+</div></div>
+
+<div class="page" id="page-kb12"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📙 Implementation Checklists & Action Plans</div><div class="kb-badge">📚 File 3</div></div>
+  <div class="kb-content">
+    <h1>📚 IMPLEMENTATION CHECKLISTS</h1>
+    <h2>DAILY CHECKLIST (5–15 menit)</h2>
+    <ul><li>Check campaign status — spend today, conversions, ada yang paused/disapproved?</li><li>Monitor QS alerts — ada keyword yang QS turun signifikan?</li><li>Check budget pacing — on track atau over/under?</li><li>Note learnings — worked? didn't work? perlu investigasi?</li></ul>
+    <h2>WEEKLY CHECKLIST (1–2 jam, setiap Selasa)</h2>
+    <ul><li>Export weekly reports (campaign, keyword, device, geo, search terms)</li><li>Compare to previous week (trend improving/declining?)</li><li>Search terms: add negatives/positives</li><li>QS review (tier distribution, improvements?)</li><li>Device performance (bid adjustments needed?)</li><li>Geographic performance (reallocation needed?)</li><li>Top 3 issues + top 3 opportunities</li></ul>
+    <h2>MONTHLY CYCLE (4–6 jam, spread 4 minggu)</h2>
+    <h3>Week 1: Analysis</h3>
+    <pre>Export complete monthly data
+Calculate: Spend, Clicks, Conv, CPC, Conv Rate, CPA, ROAS
+Compare to previous month
+QS tier analysis (count keywords per tier)
+Identify top 5 problems + estimated monthly loss
+Identify top 5 opportunities + potential gain
+Deliverable: 1-page summary</pre>
+    <h3>Week 2: Optimization</h3>
+    <pre>Priority 1: QS
+  - Delete Tier 4 keywords (saves $200–300/month!)
+  - Pick 5 Tier 3 keywords to fix (weak factor?)
+Priority 2: Search Terms
+  - Add high-waste searches as negatives
+  - Add high-conv searches as positives
+Priority 3: Landing Page (pick ONE fix only)
+  - Form reduction, mobile optimization, or speed</pre>
+    <h3>Week 3: Monitoring</h3>
+    <pre>Primary metric improving? By how much?
+Side effects? (impressions drop? conv decrease?)
+A/B test results (winner determined?)
+Decision: Continue / Pause / Adjust</pre>
+    <h3>Week 4: Decision</h3>
+    <pre>Month results vs baseline
+Profitability assessment (optimization worth it?)
+Budget reallocation (ROAS-based)
+Next month priorities</pre>
+    <h2>CAMPAIGN LAUNCH CHECKLIST</h2>
+    <h3>Pre-Launch (1 minggu sebelum):</h3>
+    <ul><li>Campaign structure: name, budget, bidding strategy, location, language, device</li><li>Keyword research: high/medium intent, correct match types</li><li>Ad copy: minimum 3–5 variants</li><li>Landing page: speed &lt;2s, mobile OK, form working, CTA visible, conversion tracking</li></ul>
+    <h3>Post-Launch Week 1:</h3>
+    <ul><li>Day 1–3: Monitor spend, clicks, conversions daily</li><li>Day 3–4: Check Quality Score distribution</li><li>Day 5–7: Conversion tracking verification, optimization decision</li></ul>
+    <h2>CRISIS RESPONSE (ROAS &lt; 1.0)</h2>
+    <h3>Immediate (30 menit):</h3>
+    <ol><li>Verify problem (bukan reporting error?)</li><li>Campaign age? &lt;2 weeks → wait (learning phase)</li><li>Pause QS 1–3 keywords dan 0-conversion campaigns</li><li>Reduce daily budget −50%</li><li>Notify stakeholders</li></ol>
+    <h3>Next 24 hours:</h3>
+    <ol><li>Root cause: High CPC? Low conv? Wrong traffic? All?</li><li>Quick fixes: negatives, match types, headline</li></ol>
+    <h3>3–7 days:</h3>
+    <ol><li>Full diagnosis di keyword/traffic/LP/QS level</li><li>Targeted fixes</li><li>Relaunch at 25% previous budget, scale gradually</li></ol>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('kb11')">← Quick Reference</button><button class="nbtn pri" onclick="go('kb13')">Practice Questions →</button></div>
+</div></div>
+
+<div class="page" id="page-kb13"><div class="kb-page">
+  <div class="kb-head"><div class="kb-title">📕 Practice Questions & Answers</div><div class="kb-badge">📚 File 2 — 45 Soal Komprehensif</div></div>
+  <div class="kb-content">
+    <h1>📚 PRACTICE QUESTIONS & ANSWERS</h1>
+    <h2>METRIC 1: ROAS</h2>
+    <h3>Q1</h3><p>Spent $1,000, generated $3,500 revenue. Berapa ROAS?</p><blockquote><strong>Jawaban:</strong> $3,500 / $1,000 = <strong>ROAS 3.5</strong></blockquote>
+    <h3>Q2</h3><p>Gross ROAS 4.0. Revenue $4,000, COGS 60%. Berapa Net ROAS?</p><blockquote>COGS = $2,400. Net ROAS = ($4,000−$2,400)/$1,000 = <strong>1.6</strong></blockquote>
+    <h3>Q3</h3><p>$1K→ROAS 6, $2K→4.5, $3K→3, $4K→2. Budget optimal?</p><blockquote>Profit: $5K, $7K, $6K, $4K → Optimal di <strong>$2,000</strong> (profit tertinggi)</blockquote>
+    <h2>METRIC 2: CPA</h2>
+    <h3>Q4</h3><p>Spent $1,200, 30 conversions. CPA?</p><blockquote>$1,200/30 = <strong>$40 per conversion</strong></blockquote>
+    <h3>Q5</h3><p>Customer value $500, lead→client rate 25%, ops cost $75. Acceptable CPA?</p><blockquote>Lead value = $500×25% = $125. Acceptable CPA = $125−$75 = <strong>$50</strong></blockquote>
+    <h2>METRIC 3: CONVERSION RATE</h2>
+    <h3>Q6</h3><p>500 clicks, 50 conversions. Conv Rate?</p><blockquote>(50/500)×100% = <strong>10%</strong></blockquote>
+    <h3>Q7</h3><p>1,000 visitors, 400 start form, 100 submit. Bottleneck dimana?</p><blockquote>Stage 1: 40% (OK). Stage 2: 25% ← BOTTLENECK. Fix form completion first!</blockquote>
+    <h2>METRIC 4: CTR</h2>
+    <h3>Q8</h3><p>5,000 impressions, 150 clicks. CTR?</p><blockquote>(150/5,000)×100% = <strong>3%</strong></blockquote>
+    <h3>Q9</h3><p>Ad A: CTR 8%, Conv 5%. Ad B: CTR 3%, Conv 20%. Mana lebih profitable?</p><blockquote>A: 0.4% dari impr jadi conv. B: 0.6% dari impr jadi conv. <strong>Ad B lebih profitable!</strong></blockquote>
+    <h2>METRIC 5: DEVICE & GEO</h2>
+    <h3>Q10</h3><p>Mobile: 200 clicks, 10 conv, $400 cost. Desktop: 300 clicks, 60 conv, $900. Bid adjustment?</p><blockquote>Mobile CPA $40, Desktop CPA $15. Desktop 2.67× lebih efisien. Desktop +40%, Mobile −40%.</blockquote>
+    <h2>METRIC 6: COST METRICS</h2>
+    <h3>Q11</h3><p>Spend $800, 200 clicks. CPC?</p><blockquote>$800/200 = <strong>$4 per click</strong></blockquote>
+    <h3>Q12</h3><p>Day 20, spent $700, budget $1,000. Akan over?</p><blockquote>Daily avg $35. Projected $700+$350 = $1,050. <strong>Yes, over $50!</strong> Perlu reduce spend.</blockquote>
+    <h2>METRIC 7: QUALITY SCORE</h2>
+    <h3>Q13</h3><p>Ad Rel: Above, Exp CTR: Above, LP: Below Avg. QS 5. Prioritas?</p><blockquote><strong>Fix Landing Page Experience</strong> — satu-satunya "Below Average" yang menarik QS turun.</blockquote>
+    <h2>METRIC 8: SEARCH TERM</h2>
+    <h3>Q14</h3><p>Kategorikan: "tax consultant jakarta", "free tax tips", "tax evasion reddit".</h3><blockquote>✅ Relevant: "tax consultant jakarta". ❌ Add as negative: "free tax tips" (−free/−tips), "tax evasion reddit" (−evasion/−reddit).</blockquote>
+    <h2>METRIC 9: IMPRESSION SHARE</h2>
+    <h3>Q15</h3><p>Your impressions 400, total possible 1,000. IS?</p><blockquote>(400/1,000)×100% = <strong>40%</strong>. Kamu kehilangan 60% dari pasar!</blockquote>
+    <h3>Q16</h3><p>Lost IS: Rank 35%, Budget 20%, Other 5%. Prioritas?</p><blockquote><strong>Priority 1:</strong> Fix Rank (35%) via QS improvement — free + lowers CPC! Then fix Budget (20%).</blockquote>
+    <hr>
+    <p style="color:var(--text3);font-size:12px">File ini berisi 45 pertanyaan lengkap. Di atas adalah sample 16 pertanyaan untuk semua 9 metrik. Tambahan pertanyaan tersedia di Quiz Master interaktif.</p>
+  </div>
+  <div class="nav-btns"><button class="nbtn" onclick="go('kb12')">← Checklists</button><button class="nbtn pri" onclick="go('quiz')">Coba Quiz Master →</button></div>
+</div></div>
+
+<!-- ═══ SIMULATOR ═══ -->
+<div class="page" id="page-sim"><div class="mod-page">
+  <div class="mod-title">🎮 Campaign Simulator</div>
+  <div class="mod-sub">Virtual $1,000 budget. Alokasikan ke campaign berbeda dan lihat hasilnya!</div>
+  <div class="sim-grid">
+    <div class="blk"><h3><span class="ic">📊</span>Tax Consultant Campaign</h3>
+      <div style="margin-bottom:10px"><label class="f-lbl">Alokasi Budget ($)</label><input class="f-inp" id="sim_tax" type="number" value="600" min="0" max="1000" oninput="checkSimBudget()"></div>
+      <div style="font-size:12.5px;color:var(--text2);line-height:1.9"><div>CPC: <code>$4</code> | Conv Rate: <code>15%</code> | Revenue/Lead: <code>$150</code></div><div style="color:var(--text3);font-size:11px;margin-top:4px">Expected ROAS: 3.5–5.0×</div></div>
+    </div>
+    <div class="blk"><h3><span class="ic">⚡</span>Genset Service Campaign</h3>
+      <div style="margin-bottom:10px"><label class="f-lbl">Alokasi Budget ($)</label><input class="f-inp" id="sim_gen" type="number" value="400" min="0" max="1000" oninput="checkSimBudget()"></div>
+      <div style="font-size:12.5px;color:var(--text2);line-height:1.9"><div>CPC: <code>$3</code> | Conv Rate: <code>8%</code> | Revenue/Lead: <code>$100</code></div><div style="color:var(--text3);font-size:11px;margin-top:4px">Expected ROAS: 2.0–3.0×</div></div>
+    </div>
+  </div>
+  <div class="banner warn" id="simWarn" style="display:none">⚠️ Total alokasi melebihi $1,000! Sesuaikan.</div>
+  <button class="calc-btn" onclick="runSim()">🚀 Jalankan Simulasi</button>
+  <div id="simOut" style="display:none;margin-top:20px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px">
+      <div class="stat-card"><div class="stat-lbl">Total Spend</div><div class="stat-val" id="siTS">—</div></div>
+      <div class="stat-card"><div class="stat-lbl">Total Leads</div><div class="stat-val" id="siTL">—</div></div>
+      <div class="stat-card"><div class="stat-lbl">Total Revenue</div><div class="stat-val" id="siTR">—</div></div>
+      <div class="stat-card"><div class="stat-lbl">Blended ROAS</div><div class="stat-val" id="siROAS">—</div></div>
+      <div class="stat-card"><div class="stat-lbl">Blended CPA</div><div class="stat-val" id="siCPA">—</div></div>
+      <div class="stat-card"><div class="stat-lbl">Net Profit</div><div class="stat-val" id="siProfit">—</div></div>
+    </div>
+    <div class="hl" id="simAdv"></div>
+  </div>
+</div></div>
+
+<!-- ═══ QUIZ MASTER ═══ -->
+<div class="page" id="page-quiz"><div class="mod-page">
+  <div class="mod-title">📝 Quiz Master</div>
+  <div class="mod-sub">20 pertanyaan random dari semua materi. Uji pemahaman kamu!</div>
+  <div id="qzStart">
+    <div class="blk"><h3><span class="ic">🎯</span>Cara Bermain</h3><ul><li>20 pertanyaan pilihan ganda dari semua 9 metrik</li><li>Setiap jawaban benar = +5 XP</li><li>Feedback langsung setelah menjawab</li><li>Score akhir ditampilkan</li></ul></div>
+    <button class="done-btn" style="margin-top:0" onclick="startQuiz()">🚀 Mulai Quiz!</button>
+  </div>
+  <div id="qzPlay" style="display:none">
+    <div class="mod-prog"><span class="prog-lbl">Soal:</span><div class="mod-steps" id="qzSteps"></div><span class="prog-lbl" id="qzNum">1/20</span></div>
+    <div class="blk" id="qzBlock">
+      <div style="font-size:10px;color:var(--text3);margin-bottom:6px" id="qzCat">—</div>
+      <div class="quiz-q" id="qzQ">Loading...</div>
+      <div class="quiz-opts" id="qzOpts"></div>
+      <div class="quiz-fb" id="qzFb"></div>
+    </div>
+    <button class="calc-btn" id="qzNext" onclick="nextQ()" style="display:none;margin-top:6px">Lanjut →</button>
+  </div>
+  <div id="qzDone" style="display:none">
+    <div class="blk" style="text-align:center;padding:36px 24px">
+      <div style="font-size:44px;margin-bottom:10px" id="qzEmoji">🎉</div>
+      <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:6px" id="qzScore">0/20</div>
+      <div style="color:var(--text2);margin-bottom:16px" id="qzMsg">—</div>
+      <div style="font-size:22px;color:var(--amber);margin-bottom:20px" id="qzXP">+0 XP</div>
+      <button class="done-btn" style="margin:0 auto" onclick="restartQuiz()">🔄 Quiz Lagi</button>
+    </div>
+  </div>
+</div></div>
+
+</main>
+</div><!-- .shell -->
+
+<!-- BADGE POPUP -->
+<div class="badge-pop" id="badgePop">
+  <div class="badge-pop-ico" id="bpIco">🏅</div>
+  <div class="badge-pop-ttl" id="bpTtl">Level Selesai!</div>
+  <div class="badge-pop-msg" id="bpMsg">+50 XP</div>
+</div>
+<button class="scroll-top" id="scrTop" onclick="document.getElementById('mainEl').scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── STATE ──
+const S={xp:0,mDone:new Set(),lvlDone:{},qRight:0};
+const LVL=[{x:0,n:'Beginner'},{x:250,n:'Intermediate'},{x:700,n:'Advanced'},{x:1400,n:'Expert'},{x:2200,n:'Master 🏆'}];
+function getLevel(){for(let i=LVL.length-1;i>=0;i--)if(S.xp>=LVL[i].x)return LVL[i].n;return'Beginner'}
+function addXP(n){S.xp+=n;refreshUI()}
+function refreshUI(){
+  document.getElementById('xpNum').textContent=S.xp;
+  document.getElementById('sXP').textContent=S.xp;
+  const lv=getLevel();
+  document.getElementById('lvlPill').textContent=lv;
+  document.getElementById('sLvl').textContent=lv;
+  document.getElementById('sMod').textContent=S.mDone.size;
+  document.getElementById('sQ').textContent=S.qRight;
+  const pct=Math.round((S.mDone.size/9)*100);
+  document.getElementById('ovPct').textContent=pct+'%';
+  document.getElementById('ovBar').style.width=pct+'%';
+}
+
+// ── NAVIGATION ──
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg)pg.classList.add('active');
+  const nv=document.getElementById('nav-'+id);
+  if(nv)nv.classList.add('active');
+  document.getElementById('mainEl').scrollTo({top:0});
+}
+
+// ── LEVEL TABS ──
+function setLevel(mod,lv,el){
+  document.querySelectorAll('#page-'+mod+' .lvl-tab').forEach(t=>t.classList.remove('active','beg','int','adv','exp'));
+  el.classList.add('active',lv);
+  document.querySelectorAll('#page-'+mod+' .cs').forEach(s=>s.classList.remove('active'));
+  const sec=document.getElementById(mod+'-'+lv);
+  if(sec)sec.classList.add('active');
+}
+
+// ── QUIZ ──
+function answerQ(qid,el,correct,fb){
+  const con=document.getElementById(qid);
+  if(con.querySelector('.ok')||con.querySelector('.ng'))return;
+  con.querySelectorAll('.quiz-opt').forEach(o=>{o.style.pointerEvents='none';if(o===el)o.classList.add(correct?'ok':'ng')});
+  const f=document.getElementById(qid+'-fb');
+  if(f){f.classList.add('show',correct?'ok-fb':'ng-fb');f.textContent=fb}
+  if(correct){addXP(10);S.qRight++;refreshUI()}
+}
+
+// ── LEVEL COMPLETE ──
+function doneLevel(mod,lv,num){
+  const k=mod+'_'+lv;
+  if(S.lvlDone[k])return;
+  S.lvlDone[k]=true;
+  addXP(50);
+  const st=document.getElementById(mod+'s'+num);
+  if(st)st.classList.add('done');
+  updateModProg(mod);
+  showBadge('✨','Level '+lv.charAt(0).toUpperCase()+lv.slice(1)+' Selesai!','+50 XP');
+}
+function updateModProg(mod){
+  const lvs=['beg','int','adv','exp'];
+  let done=lvs.filter(l=>S.lvlDone[mod+'_'+l]).length;
+  const el=document.getElementById(mod+'prog');
+  if(el)el.textContent=done+' / 4';
+  const np=document.getElementById('np-'+mod);
+  if(np){np.textContent=done>0?done+'/4':'';np.className='nav-prog'+(done===4?' done':'')}
+}
+function doneModule(mod){
+  if(S.mDone.has(mod))return;
+  S.mDone.add(mod);
+  addXP(150);
+  ['beg','int','adv','exp'].forEach((l,i)=>{
+    const k=mod+'_'+l;
+    if(!S.lvlDone[k]){S.lvlDone[k]=true;const st=document.getElementById(mod+'s'+(i+1));if(st)st.classList.add('done')}
+  });
+  updateModProg(mod);
+  const cc=document.getElementById('cc-'+mod);
+  if(cc)cc.classList.add('done');
+  const cs=document.getElementById('cs-'+mod);
+  if(cs)cs.textContent='✅';
+  showBadge('🏆','Module Selesai!','+150 XP earned!');
+  if(S.mDone.size===9)setTimeout(()=>showBadge('🎊','ALL 9 MODULES DONE!','+500 XP BONUS! You are a Master!'),1500);
+}
+
+// ── BADGE POPUP ──
+function showBadge(ico,ttl,msg){
+  document.getElementById('bpIco').textContent=ico;
+  document.getElementById('bpTtl').textContent=ttl;
+  document.getElementById('bpMsg').textContent=msg;
+  const pop=document.getElementById('badgePop');
+  pop.classList.add('show');
+  setTimeout(()=>pop.classList.remove('show'),3000);
+}
+
+// ── CALCULATORS ──
+function calcROAS(){
+  const s=+document.getElementById('roas_s').value;
+  const r=+document.getElementById('roas_r').value;
+  if(!s||!r)return;
+  const v=(r/s).toFixed(2);
+  const res=document.getElementById('roas_res');res.classList.add('show');
+  document.getElementById('roas_v').textContent=v+'x';
+  let msg=v>=4?'🟢 Excellent! Campaign sangat profitable, pertimbangkan scale.':v>=3?'✅ Bagus! Profitable dan sehat.':v>=2?'⚠️ Profitable tapi ada room to improve.':v>=1?'⚠️ Hampir break even. Butuh optimasi.':'🔴 Rugi! Pause dan analisis masalah.';
+  document.getElementById('roas_m').textContent=msg;
+  addXP(5);
+}
+function calcCPA(){
+  const s=+document.getElementById('cpa_s').value;
+  const c=+document.getElementById('cpa_c').value;
+  if(!s||!c)return;
+  const v=(s/c).toFixed(2);
+  document.getElementById('cpa_res').classList.add('show');
+  document.getElementById('cpa_v').textContent='$'+v;
+  document.getElementById('cpa_m').textContent='Setiap 1 lead/conversion biayanya $'+v+'. Bandingkan dengan revenue per conversion untuk menentukan apakah profitable!';
+  addXP(5);
+}
+
+// ── SIMULATOR ──
+function checkSimBudget(){
+  const t=+document.getElementById('sim_tax').value||0;
+  const g=+document.getElementById('sim_gen').value||0;
+  document.getElementById('simWarn').style.display=(t+g>1000)?'flex':'none';
+}
+function runSim(){
+  const taxB=+document.getElementById('sim_tax').value||0;
+  const genB=+document.getElementById('sim_gen').value||0;
+  if(taxB+genB>1000){alert('Budget melebihi $1,000!');return}
+  const taxClicks=Math.round(taxB/4);const taxLeads=Math.round(taxClicks*0.15);const taxRev=taxLeads*150;
+  const genClicks=Math.round(genB/3);const genLeads=Math.round(genClicks*0.08);const genRev=genLeads*100;
+  const totalSpend=taxB+genB;const totalLeads=taxLeads+genLeads;const totalRev=taxRev+genRev;
+  const roas=totalSpend?+(totalRev/totalSpend).toFixed(2):0;
+  const cpa=totalLeads?+(totalSpend/totalLeads).toFixed(2):0;
+  const profit=totalRev-totalSpend;
+  document.getElementById('siTS').textContent='$'+totalSpend;
+  document.getElementById('siTL').textContent=totalLeads;
+  document.getElementById('siTR').textContent='$'+totalRev;
+  document.getElementById('siROAS').textContent=roas+'×';
+  document.getElementById('siCPA').textContent='$'+cpa;
+  document.getElementById('siProfit').textContent='$'+profit;
+  document.getElementById('siProfit').style.color=profit>0?'var(--green)':'var(--red)';
+  let adv=roas>=4?'🟢 Excellent ROAS! Campaign sangat profitable. Pertimbangkan untuk naikan budget.':roas>=3?'✅ ROAS bagus! Campaign sehat dan profitable.':roas>=2?'⚠️ ROAS lumayan. Ada room to improve — coba alokasikan lebih ke Tax Consultant (ROAS lebih tinggi).':'🔴 ROAS rendah. Realokasikan budget: Tax Consultant memiliki metrics lebih baik dari Genset.';
+  if(taxB>genB*1.5)adv+=' 💡 Smart allocation! Tax campaign mendapat lebih banyak budget sesuai performanya.';
+  document.getElementById('simAdv').textContent=adv;
+  document.getElementById('simOut').style.display='block';
+  addXP(20);
+}
+
+// ── QUIZ MASTER ──
+const QUESTIONS=[
+  {cat:'ROAS',q:'Spend $1,000, Revenue $4,500. Berapa ROAS?',opts:['3.5','4.5','5.0','0.22'],ans:1,fb:'✅ $4,500 ÷ $1,000 = ROAS 4.5'},
+  {cat:'ROAS',q:'ROAS 1.0 artinya apa?',opts:['Untung 100%','Break even — revenue sama dengan spend','Rugi 100%','Tidak bisa dihitung'],ans:1,fb:'✅ ROAS 1.0 = break even. Revenue = Ad Spend. Tidak untung, tidak rugi.'},
+  {cat:'CPA',q:'Spend $600, 30 conversions. CPA?',opts:['$10','$20','$30','$180'],ans:1,fb:'✅ $600 ÷ 30 = $20 per conversion'},
+  {cat:'CPA',q:'CPA $50, service value $500. Profitable?',opts:['Tidak, rugi besar','Ya, profit $450 per lead','Break even','Tergantung ROAS'],ans:1,fb:'✅ Revenue $500 − CPA $50 = $450 profit per lead. Sangat profitable!'},
+  {cat:'Conversion Rate',q:'300 clicks, 30 conversions. Conv Rate?',opts:['3%','10%','30%','0.1%'],ans:1,fb:'✅ (30/300)×100% = 10%'},
+  {cat:'Conversion Rate',q:'Untuk turunkan CPA, kamu bisa... (pilih yang paling tepat)',opts:['Hanya tingkatkan budget','Tingkatkan Conv Rate ATAU turunkan CPC','Pause semua kampanye','Tambah lebih banyak keywords'],ans:1,fb:'✅ CPA = CPC / Conv Rate. Turunkan CPC (QS) ATAU naikkan Conv Rate (LP). Keduanya akan turunkan CPA!'},
+  {cat:'CTR',q:'10,000 impressions, 300 clicks. CTR?',opts:['0.3%','3%','30%','300%'],ans:1,fb:'✅ (300/10,000)×100% = 3%'},
+  {cat:'CTR',q:'Apa yang biasanya paling efektif meningkatkan CTR?',opts:['Naikan budget','Tambah ad extensions (phone, location, callout)','Pause kampanye di malam hari','Ganti landing page'],ans:1,fb:'✅ Ad extensions menambah real estate iklan di search results → lebih visible → CTR naik 70-130%!'},
+  {cat:'Quality Score',q:'QS 9 vs QS 4, bid sama $5. Apa bedanya?',opts:['QS tidak berpengaruh pada CPC','QS 9 bayar lebih murah, posisi lebih tinggi','QS 9 bayar lebih mahal','QS 4 dapat lebih banyak klik'],ans:1,fb:'✅ QS tinggi = CPC discount (bisa 30-50% lebih murah) + posisi lebih baik untuk bid yang sama!'},
+  {cat:'Quality Score',q:'Quality Score terdiri dari 3 komponen. Mana yang BUKAN komponen QS?',opts:['Ad Relevance','Expected CTR','Landing Page Experience','Budget size'],ans:3,fb:'✅ Budget tidak mempengaruhi QS. 3 komponen QS: Ad Relevance, Expected CTR, Landing Page Experience.'},
+  {cat:'Device & Geo',q:'Desktop Conv Rate 20%, Mobile 5%. Apa yang harus dilakukan pertama?',opts:['Langsung exclude mobile','Optimize mobile experience (form, speed, CTA) dulu','Naikan budget desktop 5x','Pause semua kampanye'],ans:1,fb:'✅ Optimize mobile dulu! Form jadi 3-5 fields, speed <2s, CTA lebih besar. Setelah optimize, mobile bisa jadi profitable.'},
+  {cat:'Device & Geo',q:'Jakarta CPA $20, Surabaya CPA $100. Budget allocation?',opts:['50/50 equal split','Jakarta 60-70%, Surabaya 10-20% atau exclude','Semua ke Surabaya karena lebih challenging','Pause keduanya'],ans:1,fb:'✅ Jakarta has 5× better CPA. Prioritize Jakarta (60-70%), test Surabaya dengan small budget atau exclude jika unprofitable.'},
+  {cat:'Cost Metrics',q:'Spend $900, 180 clicks. CPC?',opts:['$0.20','$5','$162','$4.50'],ans:1,fb:'✅ $900 ÷ 180 = $5 per click'},
+  {cat:'Cost Metrics',q:'Day 15 of 30. Spent $600. Monthly budget $1,000. Akan over-budget?',opts:['Tidak, masih aman','Ya, akan over ~$200','Tepat budget','Tidak cukup data'],ans:1,fb:'✅ Daily avg: $600/15 = $40. Projected: $600 + ($40×15) = $1,200. Over by $200!'},
+  {cat:'Search Term',q:'Search term "free tax tips" — 50 clicks, 0 conversions, $200 cost. Apa yang dilakukan?',opts:['Pertahankan, traffic tetap bagus','Add sebagai negative keyword (-free atau -tips)','Naikan bid untuk keyword ini','Buat landing page baru'],ans:1,fb:'✅ 0 conversions + $200 wasted = jelas irrelevant. Add -free atau -"free tax" sebagai negative keyword. Hemat $200/month!'},
+  {cat:'Search Term',q:'Mana dari berikut yang BUKAN alasan untuk add negative keyword?',opts:['Search term 0% conversion rate','Search term tidak relevan ke service','Search term menghasilkan banyak conversions','Search term dari audience yang tidak membeli'],ans:2,fb:'✅ Kalau search term menghasilkan banyak conversions, itu justru search term BAGUS — add sebagai positive keyword, bukan negative!'},
+  {cat:'Impression Share',q:'IS 60%, Lost IS (Rank) 20%, Lost IS (Budget) 15%. Prioritas pertama?',opts:['Langsung naikan budget','Fix Quality Score (improves rank for free + lowers CPC)','Pause semua campaigns','Ganti semua ad copy'],ans:1,fb:'✅ Fix QS first! Improves rank (fixes 20% lost IS) AND lowers CPC — double benefit, no additional cost!'},
+  {cat:'Impression Share',q:'IS 40% artinya apa?',opts:['60% dari potential customers tidak melihat iklanmu','Kamu sangat dominan di market','40% orang klik iklanmu','Kamu perlu pause campaign'],ans:0,fb:'✅ IS 40% = hanya 40% dari total possible impressions yang kamu dapat. 60% potential customers tidak pernah melihat iklanmu!'},
+  {cat:'ROAS',q:'ROAS 5.0 di week 1 turun ke 3.0 di week 4. Normal?',opts:['Tidak normal, campaign bermasalah','Ya normal — diminishing returns, best audience reached first','ROAS harusnya selalu naik','Perlu pause campaign segera'],ans:1,fb:'✅ Normal! Google shows ads to most interested audience first. As you reach more people, quality decreases → ROAS naturally drops. Solution: fresh creatives!'},
+  {cat:'CPA',q:'Blended CPA $20 (Tax CPA $15 + Genset CPA $45). Apa artinya?',opts:['Campaign sangat efisien','Genset campaign underperforming — blended hides the issue!','Perlu naikan budget','Tax campaign bermasalah'],ans:1,fb:'✅ Blended CPA $20 terlihat OK, tapi Genset CPA $45 sangat tinggi dan menyeret performa. Selalu cek CPA PER CAMPAIGN!'},
+];
+let qzState={idx:0,score:0,q:[]};
+function startQuiz(){
+  document.getElementById('qzStart').style.display='none';
+  document.getElementById('qzPlay').style.display='block';
+  qzState={idx:0,score:0,q:shuffleArr([...QUESTIONS]).slice(0,20)};
+  buildSteps();
+  showQ();
+}
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function buildSteps(){
+  const el=document.getElementById('qzSteps');el.innerHTML='';
+  for(let i=0;i<20;i++){const d=document.createElement('div');d.className='mod-step';d.id='qs'+i;el.appendChild(d)}
+}
+function showQ(){
+  const cur=qzState.q[qzState.idx];
+  document.getElementById('qzCat').textContent='KATEGORI: '+cur.cat;
+  document.getElementById('qzQ').textContent=cur.q;
+  document.getElementById('qzNum').textContent=(qzState.idx+1)+'/20';
+  const opts=document.getElementById('qzOpts');opts.innerHTML='';
+  const fb=document.getElementById('qzFb');fb.className='quiz-fb';fb.textContent='';
+  document.getElementById('qzNext').style.display='none';
+  const ls=['A','B','C','D'];
+  cur.opts.forEach((o,i)=>{
+    const d=document.createElement('div');d.className='quiz-opt';d.setAttribute('data-l',ls[i]);
+    d.textContent=o;d.onclick=()=>answerMaster(i,cur.ans,cur.fb);opts.appendChild(d);
+  });
+  const st=document.getElementById('qs'+(qzState.idx));
+  if(st)st.classList.add('cur');
+}
+function answerMaster(chosen,correct,fb){
+  document.querySelectorAll('#qzOpts .quiz-opt').forEach((o,i)=>{
+    o.style.pointerEvents='none';
+    if(i===chosen)o.classList.add(chosen===correct?'ok':'ng');
+    if(i===correct&&chosen!==correct)o.classList.add('ok');
+  });
+  const f=document.getElementById('qzFb');f.classList.add('show',chosen===correct?'ok-fb':'ng-fb');f.textContent=fb;
+  const st=document.getElementById('qs'+qzState.idx);
+  if(st){st.classList.remove('cur');st.classList.add('done')}
+  if(chosen===correct){qzState.score++;addXP(5);S.qRight++;refreshUI()}
+  document.getElementById('qzNext').style.display='inline-block';
+}
+function nextQ(){
+  qzState.idx++;
+  if(qzState.idx>=20){showResult();return}
+  showQ();
+}
+function showResult(){
+  document.getElementById('qzPlay').style.display='none';
+  document.getElementById('qzDone').style.display='block';
+  const s=qzState.score;
+  document.getElementById('qzScore').textContent=s+'/20';
+  const emojis=['😅','🙂','👍','😊','🔥','🏆'];
+  document.getElementById('qzEmoji').textContent=emojis[Math.min(Math.floor(s/4),5)];
+  const msgs=['Jangan menyerah! Baca lagi materinya ya.','Lumayan! Beberapa konsep sudah mulai masuk.','Bagus! Kamu memahami dasar-dasarnya.','Keren! Pemahaman yang solid.','Luar biasa! Hampir sempurna.','PERFECT! Kamu sudah jadi Ads Expert! 🎉'];
+  document.getElementById('qzMsg').textContent=msgs[Math.min(Math.floor(s/4),5)];
+  const xp=s*5;document.getElementById('qzXP').textContent='+'+xp+' XP';
+  addXP(xp);
+}
+function restartQuiz(){
+  document.getElementById('qzDone').style.display='none';
+  document.getElementById('qzPlay').style.display='none';
+  document.getElementById('qzStart').style.display='block';
+}
+
+// ── SCROLL TOP ──
+document.getElementById('mainEl').addEventListener('scroll',function(){
+  document.getElementById('scrTop').classList.toggle('vis',this.scrollTop>300);
+});
+
+// ── CALCULATORS (Stage 2) ──
+function calcCR(){
+  const cl=+document.getElementById('cr_cl').value;
+  const cv=+document.getElementById('cr_cv').value;
+  const cpc=+document.getElementById('cr_cpc').value;
+  if(!cl||!cv)return;
+  const cr=((cv/cl)*100).toFixed(2);
+  const cpa=cpc?(cpc/(cv/cl)).toFixed(2):null;
+  document.getElementById('cr_res').classList.add('show');
+  document.getElementById('cr_v').textContent=cr+'%';
+  let msg='Conv Rate '+cr+'%.';
+  if(cpa)msg+=' → CPA = $'+cpc+' / 0.'+cr.replace('.','')+'% = $'+cpa+' per lead.';
+  msg+=cr>=15?' 🟢 Excellent!':cr>=10?' ✅ Bagus!':cr>=5?' ⚠️ Bisa ditingkatkan.':' 🔴 Rendah — optimasi landing page!';
+  document.getElementById('cr_m').textContent=msg;addXP(5);
+}
+function calcCTR(){
+  const i=+document.getElementById('ctr_i').value;
+  const c=+document.getElementById('ctr_c').value;
+  if(!i||!c)return;
+  const v=((c/i)*100).toFixed(2);
+  document.getElementById('ctr_res').classList.add('show');
+  document.getElementById('ctr_v').textContent=v+'%';
+  const msg=v>=8?'🟢 Excellent CTR! Ad sangat relevan.':v>=5?'✅ CTR bagus untuk high-intent keyword!':v>=3?'⚠️ Average — improve ad copy & add extensions.':'🔴 CTR rendah — review keyword relevance & copy.';
+  document.getElementById('ctr_m').textContent=msg;addXP(5);
+}
+function calcDevice(){
+  const d=+document.getElementById('dev_d').value||0;
+  const m=+document.getElementById('dev_m').value||0;
+  const t=+document.getElementById('dev_t').value||0;
+  if(!d)return;
+  const vals=[d,m||9999,t||9999];const best=Math.min(...vals);
+  function adj(v){if(!v||v===9999)return'N/A';if(v===best)return'+10 to +20%';const pct=Math.round((1-best/v)*100);return'-'+pct+'% (CPA '+pct+'% lebih tinggi dari best)'}
+  document.getElementById('dev_res').classList.add('show');
+  document.getElementById('dev_v').textContent='Desktop ($'+d+'): '+adj(d)+'\nMobile ($'+(m||'N/A')+'): '+adj(m)+'\nTablet ($'+(t||'N/A')+'): '+adj(t)+'\n\nBest performer: '+(d<=Math.min(m||9999,t||9999)?'Desktop 🖥️ ($'+d+')':m&&m<=Math.min(d,t||9999)?'Mobile 📱 ($'+m+')':'Tablet ($'+t+')')+' — bid highest here!';
+  addXP(5);
+}
+function calcCPC(){
+  const s=+document.getElementById('cpc_s').value;
+  const c=+document.getElementById('cpc_c').value;
+  const b=+document.getElementById('cpc_b').value;
+  const d=+document.getElementById('cpc_d').value;
+  if(!s||!c)return;
+  const cpc=(s/c).toFixed(2);
+  let msg='CPC: $'+cpc+' per click.';
+  if(b&&d){const da=(s/d).toFixed(2);const proj=Math.round(s+(da*(30-d)));msg+='\nDaily avg: $'+da+'. Projected: $'+proj+' ('+(proj>b?'⚠️ OVER by $'+(proj-b)+'!':'✅ On track')+')'}
+  document.getElementById('cpc_res').classList.add('show');
+  document.getElementById('cpc_v').textContent=msg;addXP(5);
+}
+function calcIS(){
+  const cur=+document.getElementById('is_cur').value;
+  const tar=+document.getElementById('is_tar').value;
+  const rev=+document.getElementById('is_rev').value;
+  if(!cur||!tar||!rev)return;
+  const gain=(tar-cur)/cur;
+  const extraDay=Math.round(rev*gain);
+  const extraMonth=extraDay*30;
+  document.getElementById('is_res').classList.add('show');
+  document.getElementById('is_v').textContent='IS: '+cur+'% → '+tar+'% (+'+Math.round(gain*100)+'% visibility)\nExtra revenue/day: +$'+extraDay+'\nExtra revenue/month: +$'+extraMonth.toLocaleString()+'\n'+(gain>0.2?'🟢 Huge opportunity! Act now.':gain>0?'✅ Good improvement.':'⚠️ Target IS harus lebih tinggi dari current IS.');
+  addXP(5);
+}
+
+// ── INIT ──
+refreshUI();
+</script>
+</body>
+</html>
