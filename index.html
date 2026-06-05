@@ -297,6 +297,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* SIMULATOR */
 .sim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:18px}
 
+/* PRINT STYLES */
+@media print{
+  .sidebar,.topbar,.scroll-top,.badge-pop,.done-btn,.nbtn,.calc-btn,#searchWrap,.nav-btns,#saveInd{display:none!important}
+  .shell{display:block}
+  .main{overflow:visible;height:auto}
+  .page{display:none!important}
+  #page-cheat{display:block!important}
+  body,#page-cheat{background:#fff;color:#111}
+  .mod-title{color:#333;-webkit-text-fill-color:#333}
+  .mod-sub{color:#555}
+  .blk{background:#f8f8f8;border:1px solid #ddd;break-inside:avoid;page-break-inside:avoid}
+  .fml{background:#eef2ff;border:1px solid #aab}
+  .fml-text{color:#333}.fml-lbl{color:#555}
+  .tbl th{background:#e5e5e5;color:#333}
+  .tbl td{color:#444;border-color:#ddd}
+  code{background:#eee;color:#c00}
+  .sc{background:#f5f5f5;border:1px solid #ddd}
+  .sc-val.good{color:#087a5a}.sc-val.warn{color:#b36a00}.sc-val.bad{color:#c0002a}
+}
+
 /* RESPONSIVE */
 @media(max-width:768px){
   .shell{grid-template-columns:1fr}
@@ -369,6 +389,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="nav-lbl">Tools</div>
     <div class="nav-item" id="nav-sim" onclick="go('sim')"><div class="nav-icon">🎮</div>Campaign Simulator</div>
     <div class="nav-item" id="nav-quiz" onclick="go('quiz')"><div class="nav-icon">📝</div>Quiz Master</div>
+    <div class="nav-item" id="nav-cheat" onclick="go('cheat')"><div class="nav-icon">📋</div>Cheat Sheet</div>
+    <div class="nav-item" id="nav-glossary" onclick="go('glossary')"><div class="nav-icon">📖</div>Glosarium</div>
     <div class="nav-item" onclick="resetState()" style="color:var(--red);margin-top:8px;border-top:1px solid var(--border);padding-top:10px"><div class="nav-icon" style="background:rgba(255,92,122,.1)">🔄</div>Reset Progress</div>
   </div>
 </nav>
@@ -416,6 +438,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="m-card" onclick="go('kb13')"><div class="card-num">FILE 2</div><div class="card-ttl">Practice Questions</div><div class="card-dsc">45 soal latihan komprehensif dengan jawaban detail untuk 9 metrik.</div><div class="card-foot"><div class="tags"><span class="tag a">Practice</span></div></div></div>
     <div class="m-card" onclick="go('sim')"><div class="card-num">TOOL</div><div class="card-ttl">Campaign Simulator 🎮</div><div class="card-dsc">Virtual $1,000 budget. Alokasikan, jalankan, lihat hasilnya!</div><div class="card-foot"><div class="tags"><span class="tag g">Interaktif</span></div></div></div>
     <div class="m-card" onclick="go('quiz')"><div class="card-num">TOOL</div><div class="card-ttl">Quiz Master 📝</div><div class="card-dsc">20 pertanyaan random dari semua materi. Uji pemahaman kamu!</div><div class="card-foot"><div class="tags"><span class="tag a">Quiz</span></div></div></div>
+    <div class="m-card" onclick="go('cheat')"><div class="card-num">TOOL</div><div class="card-ttl">Cheat Sheet 📋</div><div class="card-dsc">Semua formula, benchmark, dan decision rules dalam satu halaman ringkas. Print-friendly!</div><div class="card-foot"><div class="tags"><span class="tag p">Formula</span><span class="tag">Print</span></div></div></div>
+    <div class="m-card" onclick="go('glossary')"><div class="card-num">TOOL</div><div class="card-ttl">Glosarium 📖</div><div class="card-dsc">Kamus 50+ istilah Google Ads dari A–Z. Bingung dengan jargon? Cari di sini!</div><div class="card-foot"><div class="tags"><span class="tag g">Kamus</span></div></div></div>
   </div>
 </div>
 
@@ -2151,6 +2175,213 @@ Next month priorities</pre>
   <div class="nav-btns"><button class="nbtn" onclick="go('kb12')">← Checklists</button><button class="nbtn pri" onclick="go('quiz')">Coba Quiz Master →</button></div>
 </div></div>
 
+<!-- ═══ CHEAT SHEET ═══ -->
+<div class="page" id="page-cheat"><div class="mod-page">
+  <div class="mod-title">📋 Cheat Sheet</div>
+  <div class="mod-sub">Semua formula, benchmark & decision rules — satu halaman ringkas</div>
+
+  <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+    <button class="calc-btn" onclick="window.print()" style="background:var(--bg3);color:var(--text2);border:1px solid var(--border2)">🖨️ Print / Save PDF</button>
+    <span style="font-size:12px;color:var(--text3);align-self:center">Tip: Print → Save as PDF untuk simpan offline</span>
+  </div>
+
+  <!-- ROW 1: FORMULAS -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:12px">
+
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--accent2);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">💰 ROAS</div>
+      <div class="fml" style="margin:0 0 8px;padding:12px 16px"><div class="fml-lbl">Formula</div><div class="fml-text" style="font-size:15px">Revenue ÷ Ad Spend</div></div>
+      <table class="tbl" style="margin:0;font-size:12px">
+        <tr><td>🟢 Excellent</td><td style="color:var(--green);font-family:'DM Mono',monospace">≥ 4.0</td><td>Scale up!</td></tr>
+        <tr><td>✅ Good</td><td style="color:var(--amber);font-family:'DM Mono',monospace">2.0–3.9</td><td>Optimize</td></tr>
+        <tr><td>🔴 Poor</td><td style="color:var(--red);font-family:'DM Mono',monospace">&lt; 1.0</td><td>Pause!</td></tr>
+      </table>
+    </div>
+
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--green);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">🎯 CPA</div>
+      <div class="fml" style="margin:0 0 8px;padding:12px 16px"><div class="fml-lbl">Formula</div><div class="fml-text" style="font-size:15px">Ad Spend ÷ Conversions</div></div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7">
+        <div>Acceptable CPA = <code>Revenue/Lead − Ops Cost</code></div>
+        <div>CPA = <code>CPC ÷ Conv Rate</code></div>
+        <div style="color:var(--amber);margin-top:4px">⚠️ Selalu cek per campaign, bukan blended!</div>
+      </div>
+    </div>
+
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--amber);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">📈 Conversion Rate</div>
+      <div class="fml" style="margin:0 0 8px;padding:12px 16px"><div class="fml-lbl">Formula</div><div class="fml-text" style="font-size:15px">(Conv ÷ Clicks) × 100%</div></div>
+      <table class="tbl" style="margin:0;font-size:12px">
+        <tr><td>Service form</td><td style="color:var(--amber);font-family:'DM Mono',monospace">5–10%</td><td>Normal</td></tr>
+        <tr><td>Free signup</td><td style="color:var(--green);font-family:'DM Mono',monospace">15–30%</td><td>Low friction</td></tr>
+        <tr><td>E-commerce</td><td style="color:var(--text2);font-family:'DM Mono',monospace">2–3%</td><td>Typical</td></tr>
+      </table>
+    </div>
+
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--teal);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">🖱️ CTR</div>
+      <div class="fml" style="margin:0 0 8px;padding:12px 16px"><div class="fml-lbl">Formula</div><div class="fml-text" style="font-size:15px">(Clicks ÷ Impr.) × 100%</div></div>
+      <table class="tbl" style="margin:0;font-size:12px">
+        <tr><td>Branded KW</td><td style="color:var(--green);font-family:'DM Mono',monospace">10–30%</td></tr>
+        <tr><td>High-intent</td><td style="color:var(--green);font-family:'DM Mono',monospace">5–15%</td></tr>
+        <tr><td>General KW</td><td style="color:var(--amber);font-family:'DM Mono',monospace">2–5%</td></tr>
+        <tr><td>Display</td><td style="color:var(--text2);font-family:'DM Mono',monospace">0.5–2%</td></tr>
+      </table>
+    </div>
+
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--pink);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">💵 CPC</div>
+      <div class="fml" style="margin:0 0 8px;padding:12px 16px"><div class="fml-lbl">Formula</div><div class="fml-text" style="font-size:15px">Total Cost ÷ Total Clicks</div></div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7">
+        <div>QS 9–10 → CPC <span style="color:var(--green)">−30–50%</span> discount</div>
+        <div>QS 7–8 → CPC normal (baseline)</div>
+        <div>QS 1–5 → CPC <span style="color:var(--red)">+50–100%</span> penalty!</div>
+      </div>
+    </div>
+
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--blue);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">👁️ Impression Share</div>
+      <div class="fml" style="margin:0 0 8px;padding:12px 16px"><div class="fml-lbl">Formula</div><div class="fml-text" style="font-size:15px">(Your Impr. ÷ Total) × 100%</div></div>
+      <table class="tbl" style="margin:0;font-size:12px">
+        <tr><td>Lost IS (Rank)</td><td>Fix QS atau bid</td></tr>
+        <tr><td>Lost IS (Budget)</td><td>Naikan daily budget</td></tr>
+        <tr><td>Lost IS (Other)</td><td>Fix disapprovals</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ROW 2: QUALITY SCORE + DEVICE -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:12px">
+
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--amber);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">⭐ Quality Score Tier</div>
+      <table class="tbl" style="margin:0;font-size:12px">
+        <thead><tr><th>QS</th><th>Tier</th><th>Action</th><th>Budget</th></tr></thead>
+        <tbody>
+          <tr><td><span style="color:var(--green)">8–10</span></td><td>Excellence</td><td>Scale aggressively</td><td>50%</td></tr>
+          <tr><td><span style="color:var(--amber)">6–7</span></td><td>Good</td><td>Maintain & improve</td><td>35%</td></tr>
+          <tr><td><span style="color:var(--red)">4–5</span></td><td>Weak</td><td>Optimize or pause</td><td>15%</td></tr>
+          <tr><td><span style="color:var(--red)">1–3</span></td><td>Poor</td><td style="color:var(--red)">DELETE segera!</td><td>0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--accent2);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">📱 Device Bid Adjustment</div>
+      <table class="tbl" style="margin:0;font-size:12px">
+        <thead><tr><th>Device</th><th>Typical CPA</th><th>Bid Adj.</th></tr></thead>
+        <tbody>
+          <tr><td>🖥️ Desktop</td><td><span style="color:var(--green)">Low</span></td><td>+20 to +40%</td></tr>
+          <tr><td>📱 Mobile</td><td><span style="color:var(--amber)">Medium</span></td><td>Optimize first</td></tr>
+          <tr><td>📊 Tablet</td><td><span style="color:var(--text2)">Medium</span></td><td>0 to +10%</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:11.5px;color:var(--text3);margin-top:8px">Mobile underperform? Fix form (3 fields), speed (&lt;2s), CTA before cutting bids.</div>
+    </div>
+
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--green);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">🌍 Geographic Tiers</div>
+      <table class="tbl" style="margin:0;font-size:12px">
+        <thead><tr><th>Tier</th><th>Strategy</th><th>Budget</th></tr></thead>
+        <tbody>
+          <tr><td>1 — Jakarta</td><td>Maximize share</td><td>60%</td></tr>
+          <tr><td>2 — Bandung</td><td>Build presence</td><td>30%</td></tr>
+          <tr><td>3 — Surabaya</td><td>Test with offer</td><td>10%</td></tr>
+          <tr><td>4 — Others</td><td style="color:var(--red)">Exclude</td><td>0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ROW 3: DECISION RULES -->
+  <div class="blk" style="padding:18px;margin-bottom:12px">
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px">🚦 Decision Rules — Kapan Melakukan Apa</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px">
+      <div style="background:var(--bg3);border-radius:8px;padding:12px 14px;border-left:3px solid var(--green)">
+        <div style="font-size:11px;font-weight:600;color:var(--green);margin-bottom:6px;text-transform:uppercase">ROAS &gt; 3.0</div>
+        <div style="font-size:12.5px;color:var(--text2)">Scale up — naikan budget +10–20%/week sambil monitor</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:12px 14px;border-left:3px solid var(--amber)">
+        <div style="font-size:11px;font-weight:600;color:var(--amber);margin-bottom:6px;text-transform:uppercase">ROAS 1.0–2.0</div>
+        <div style="font-size:12.5px;color:var(--text2)">Optimize dulu — fix QS, landing page, negative KW</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:12px 14px;border-left:3px solid var(--red)">
+        <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:6px;text-transform:uppercase">ROAS &lt; 1.0</div>
+        <div style="font-size:12.5px;color:var(--text2)">Pause campaign — cari root cause sebelum lanjutkan</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:12px 14px;border-left:3px solid var(--accent)">
+        <div style="font-size:11px;font-weight:600;color:var(--accent2);margin-bottom:6px;text-transform:uppercase">QS 1–3</div>
+        <div style="font-size:12.5px;color:var(--text2)">Delete keyword — buang uang, tidak ada gunanya dipertahankan</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:12px 14px;border-left:3px solid var(--teal)">
+        <div style="font-size:11px;font-weight:600;color:var(--teal);margin-bottom:6px;text-transform:uppercase">CPA Tinggi?</div>
+        <div style="font-size:12.5px;color:var(--text2)">Check: CPC tinggi (fix QS) atau Conv Rate rendah (fix LP)?</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:12px 14px;border-left:3px solid var(--pink)">
+        <div style="font-size:11px;font-weight:600;color:var(--pink);margin-bottom:6px;text-transform:uppercase">IS Rendah?</div>
+        <div style="font-size:12.5px;color:var(--text2)">Fix Rank (QS/bid) dulu, baru Budget. Rank fix = gratis!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: OPTIMIZATION ORDER + NEGATIVE KW -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">🔢 Urutan Optimasi yang Benar</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;gap:10px;align-items:center"><div style="width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</div><div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">Quality Score</strong> — fixes CTR, CPC, IS sekaligus</div></div>
+        <div style="display:flex;gap:10px;align-items:center"><div style="width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</div><div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">Search Terms</strong> — hapus waste, tambah winners</div></div>
+        <div style="display:flex;gap:10px;align-items:center"><div style="width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</div><div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">Landing Page</strong> — fix conv rate dari sisi LP</div></div>
+        <div style="display:flex;gap:10px;align-items:center"><div style="width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">4</div><div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">Budget & Scale</strong> — baru scale setelah semua solid</div></div>
+      </div>
+    </div>
+    <div class="blk" style="padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">🚫 Common Negative Keywords</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-free</code>
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-tips</code>
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-jobs</code>
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-salary</code>
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-reddit</code>
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-course</code>
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-how to</code>
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-diy</code>
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-review</code>
+        <code style="font-size:11.5px;background:var(--bg3);padding:4px 8px;border-radius:4px;color:var(--red)">-cheap</code>
+      </div>
+      <div style="font-size:11.5px;color:var(--text3);margin-top:8px">Review search terms setiap Selasa — 30 menit = hemat ratusan dollar/bulan!</div>
+    </div>
+  </div>
+
+  <!-- ROW 5: RELATIONSHIPS -->
+  <div class="blk" style="padding:18px">
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px">🔗 Hubungan Antar Metrik</div>
+    <div style="font-family:'DM Mono',monospace;font-size:12.5px;color:var(--text2);line-height:2;background:var(--bg3);padding:16px;border-radius:8px;overflow-x:auto;white-space:nowrap">
+      <span style="color:var(--accent2)">CPA</span> = <span style="color:var(--teal)">CPC</span> ÷ <span style="color:var(--amber)">Conv Rate</span>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <span style="color:var(--green)">ROAS</span> = <span style="color:var(--pink)">Revenue</span> ÷ <span style="color:var(--blue)">Ad Spend</span>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <span style="color:var(--teal)">CPC</span> ↓ jika <span style="color:var(--amber)">QS</span> ↑
+      <br>
+      <span style="color:var(--amber)">QS</span> ↑ → <span style="color:var(--teal)">CTR</span> ↑ → <span style="color:var(--teal)">CPC</span> ↓ → <span style="color:var(--accent2)">CPA</span> ↓ → <span style="color:var(--green)">ROAS</span> ↑ → <span style="color:var(--green)">IS</span> ↑
+      <br>
+      <span style="color:var(--amber)">Conv Rate</span> ↑ → <span style="color:var(--accent2)">CPA</span> ↓ → <span style="color:var(--green)">ROAS</span> ↑ &nbsp;&nbsp;|&nbsp;&nbsp; Budget ÷ <span style="color:var(--teal)">CPC</span> = Max Clicks
+    </div>
+  </div>
+</div></div>
+
+<!-- ═══ GLOSSARY ═══ -->
+<div class="page" id="page-glossary"><div class="mod-page">
+  <div class="mod-title">📖 Glosarium Google Ads</div>
+  <div class="mod-sub">50+ istilah dari A–Z — klik huruf untuk jump, atau gunakan search di topbar</div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px" id="glossAlpha"></div>
+
+  <div id="glossBody"></div>
+</div></div>
+
 <!-- ═══ SIMULATOR ═══ -->
 <div class="page" id="page-sim"><div class="mod-page">
   <div class="mod-title">🎮 Campaign Simulator</div>
@@ -2569,6 +2800,10 @@ const SEARCH_INDEX=[
   // ── TOOLS ──
   {page:'sim',icon:'🎮',title:'Campaign Simulator — Virtual $1,000 Budget',cat:'Tools',tags:['simulator','simulasi','virtual budget','campaign simulation','alokasi budget','coba-coba']},
   {page:'quiz',icon:'📝',title:'Quiz Master — 20 Soal Random',cat:'Tools',tags:['quiz','kuis','20 soal','test','ujian','latihan','random questions']},
+  {page:'cheat',icon:'📋',title:'Cheat Sheet — Semua Formula & Benchmark',cat:'Tools',tags:['cheat sheet','ringkasan','formula','benchmark','semua metrik','print','cetak','quick reference formula']},
+  {page:'cheat',icon:'📋',title:'Cheat Sheet: Decision Rules (ROAS, CPA, QS)',cat:'Tools',tags:['decision rules','kapan scale','kapan pause','kapan delete','roas decision','cpa decision']},
+  {page:'cheat',icon:'📋',title:'Cheat Sheet: Urutan Optimasi yang Benar',cat:'Tools',tags:['urutan optimasi','sequential optimization','langkah optimasi','tahapan']},
+  {page:'glossary',icon:'📖',title:'Glosarium — 45+ Istilah Google Ads A–Z',cat:'Tools',tags:['glosarium','kamus','istilah','definisi','artinya','apa itu','pengertian','glossary']},
 
   // ── CONCEPTS ──
   {page:'kb10',icon:'📘',title:'Diminishing Returns — ROAS turun saat scale',cat:'Konsep',tags:['diminishing returns','roas turun','scale','saturasi','audience saturation','sweet spot']},
@@ -2710,6 +2945,92 @@ function closeSearch(){
   srActive=-1;
 }
 // ── END SEARCH SYSTEM ──
+
+// ══════════════════════════════════
+// ── GLOSSARY ──
+// ══════════════════════════════════
+const GLOSSARY=[
+  {term:'Ad Extension',def:'Tambahan informasi pada iklan Google (telepon, lokasi, callout, sitelinks). Membuat iklan lebih besar & CTR naik 70–130%.',related:'CTR, Quality Score'},
+  {term:'Ad Fatigue',def:'Kondisi ketika audience sudah terlalu sering melihat iklan yang sama sehingga CTR menurun. Solusi: rotate creative setiap 3–4 minggu.',related:'CTR'},
+  {term:'Ad Rank',def:'Skor yang menentukan posisi iklanmu di hasil pencarian. Dihitung dari: Bid × Quality Score × Expected impact of extensions.',related:'Quality Score, CPC'},
+  {term:'Ad Relevance',def:'Salah satu dari 3 komponen Quality Score. Mengukur seberapa relevan teks iklan dengan keyword yang diincar. Rating: Below/Average/Above Average.',related:'Quality Score, CTR'},
+  {term:'Attribution Model',def:'Cara Google membagi credit ke touchpoints dalam customer journey. Model: Last-Click, First-Click, Linear, Time-Decay. Mempengaruhi ROAS calculation.',related:'ROAS, CLV'},
+  {term:'Audience Saturation',def:'Kondisi ketika iklan telah menjangkau semua orang yang paling tertarik, sehingga ROAS mulai turun meski budget ditambah. Normal terjadi setelah week 2–3.',related:'ROAS, Diminishing Returns'},
+  {term:'Bid',def:'Jumlah maksimum yang bersedia kamu bayarkan per klik (Max CPC Bid). Bid aktual yang dibayar biasanya lebih rendah karena auction system.',related:'CPC, Ad Rank, Quality Score'},
+  {term:'Bid Adjustment',def:'Persentase naik/turun bid untuk segmen tertentu (device, lokasi, waktu). Contoh: Mobile −30% berarti bid mobile = base bid × 0.70.',related:'Device Breakdown, Geographic'},
+  {term:'Blended Metric',def:'Rata-rata dari beberapa campaign/segment. Berbahaya karena bisa menyembunyikan underperformance. Selalu analisis per campaign!',related:'CPA, ROAS'},
+  {term:'Broad Match',def:'Match type paling luas — iklan tampil untuk variasi keyword, sinonim, dan topik terkait. CTR rendah, banyak irrelevant clicks. Butuh banyak negative keywords.',related:'Search Term, CTR, Negative Keyword'},
+  {term:'Budget',def:'Batas pengeluaran iklan. Daily budget = per hari per campaign. Google bisa spend 2× daily budget di hari tertentu, tapi diratakan per bulan.',related:'CPC, Impression Share'},
+  {term:'Callout Extension',def:'Teks singkat tambahan di iklan untuk highlight fitur/keunggulan. Contoh: "15 Tahun Pengalaman | Konsultasi Gratis". Meningkatkan CTR.',related:'Ad Extension, CTR'},
+  {term:'CLV (Customer Lifetime Value)',def:'Total revenue dari satu customer selama hubungan bisnis — termasuk repeat purchase dan referral. CLV tinggi justifies CPA yang lebih tinggi.',related:'ROAS, CPA'},
+  {term:'COGS (Cost of Goods Sold)',def:'Biaya pokok untuk menghasilkan produk/layanan. Digunakan dalam kalkulasi Net ROAS: (Revenue − COGS) ÷ Ad Spend.',related:'Net ROAS, ROAS'},
+  {term:'Conversion',def:'Aksi yang kamu definisikan sebagai "sukses" — isi form, telepon, pembelian, dll. Dilacak via Google Ads conversion tracking atau GA4.',related:'Conv Rate, CPA'},
+  {term:'Conv Rate (Conversion Rate)',def:'Persentase clicks yang menghasilkan conversion. Formula: (Conversions ÷ Clicks) × 100%. Dipengaruhi kualitas landing page dan audience intent.',related:'CPA, CTR, Landing Page'},
+  {term:'CPC (Cost Per Click)',def:'Biaya yang dibayar per satu klik pada iklan. Formula: Total Cost ÷ Total Clicks. Dipengaruhi bid, Quality Score, dan kompetisi keyword.',related:'Quality Score, CPA, CTR'},
+  {term:'CPA (Cost Per Acquisition)',def:'Biaya untuk mendapatkan satu conversion/lead. Formula: Ad Spend ÷ Conversions. Juga = CPC ÷ Conv Rate. Metric efisiensi utama.',related:'ROAS, Conv Rate, CPC'},
+  {term:'CRO (Conversion Rate Optimization)',def:'Proses sistematis untuk meningkatkan persentase visitors yang melakukan action. Mencakup A/B testing, UX improvement, dan analisis funnel bottleneck.',related:'Conv Rate, Landing Page'},
+  {term:'CTR (Click-Through Rate)',def:'Persentase orang yang melihat iklan lalu mengkliknya. Formula: (Clicks ÷ Impressions) × 100%. Komponen Expected CTR di Quality Score.',related:'Quality Score, Impressions, CPC'},
+  {term:'Diminishing Returns',def:'Fenomena ketika penambahan budget menghasilkan ROAS yang semakin menurun. Terjadi karena audience terbaik sudah dijangkau lebih dulu. Normal & expected.',related:'ROAS, Scaling, Audience Saturation'},
+  {term:'Exact Match',def:'Match type paling spesifik — iklan hanya tampil untuk query yang sangat mirip dengan keyword. CTR tertinggi (7%+), volume paling rendah.',related:'Search Term, CTR, Broad Match'},
+  {term:'Expected CTR',def:'Prediksi Google seberapa sering iklanmu akan diklik vs iklan kompetitor di posisi yang sama. Salah satu dari 3 komponen Quality Score.',related:'Quality Score, CTR'},
+  {term:'GA4 (Google Analytics 4)',def:'Platform analytics Google untuk tracking behavior user di website. Sumber data revenue dan conversion untuk kalkulasi ROAS yang akurat.',related:'ROAS, Conversion'},
+  {term:'Geographic Breakdown',def:'Analisis performa campaign berdasarkan lokasi. Membantu identifikasi wilayah paling profitable (Jakarta > Bandung > Surabaya).',related:'Device Breakdown, Bid Adjustment'},
+  {term:'Impression',def:'Satu kali iklanmu ditampilkan ke satu user. Banyak impressions + sedikit clicks = CTR rendah = potential Quality Score issue.',related:'CTR, Impression Share'},
+  {term:'Impression Share (IS)',def:'Persentase impressions yang diterima dibanding total yang bisa didapat. IS 60% = 40% pasar tidak melihat iklanmu. Ada 3 penyebab: Rank, Budget, Other.',related:'Lost IS, Budget, Quality Score'},
+  {term:'Keyword',def:'Kata/frasa yang kamu bid agar iklan muncul saat user mencarinya. Berbeda dengan Search Term (apa yang benar-benar diketik user).',related:'Search Term, Match Type, Quality Score'},
+  {term:'Landing Page',def:'Halaman website yang dikunjungi user setelah klik iklan. Kualitas landing page mempengaruhi Conv Rate dan komponen Quality Score.',related:'Conv Rate, Quality Score, CRO'},
+  {term:'Landing Page Experience',def:'Salah satu dari 3 komponen Quality Score. Google menilai kecepatan, relevansi konten, dan kemudahan navigasi halaman.',related:'Quality Score, Conv Rate, CRO'},
+  {term:'Lead',def:'Prospek yang telah menunjukkan minat dengan melakukan action (isi form, telepon). Lead ≠ Customer — perlu proses sales/follow-up selanjutnya.',related:'CPA, Conversion, CLV'},
+  {term:'Lost IS (Budget)',def:'Persentase impressions yang hilang karena budget harian habis sebelum hari selesai. Solusi langsung: naikan daily budget.',related:'Impression Share'},
+  {term:'Lost IS (Rank)',def:'Persentase impressions yang hilang karena Ad Rank terlalu rendah (bid terlalu rendah atau Quality Score rendah). Solusi: improve QS dulu (gratis!).',related:'Impression Share, Quality Score, Bid'},
+  {term:'Match Type',def:'Cara keyword mencocokkan search query user. Tipe: Exact Match (ketat), Phrase Match (sedang), Broad Match (luas). Mempengaruhi volume dan relevance.',related:'Search Term, CTR, Negative Keyword'},
+  {term:'Negative Keyword',def:'Keyword yang mencegah iklan muncul untuk search query tertentu. −free = tidak tampil untuk "free tax advice". Hemat ratusan dollar per bulan.',related:'Search Term, CTR, CPA'},
+  {term:'Net ROAS',def:'ROAS setelah dikurangi COGS. Formula: (Revenue − COGS) ÷ Ad Spend. Lebih akurat dari Gross ROAS untuk mengukur profitabilitas nyata.',related:'ROAS, COGS, Gross ROAS'},
+  {term:'Phrase Match',def:'Match type sedang — iklan tampil untuk query yang mengandung keyword (atau close variant) dalam urutan yang sama. Balance antara reach dan relevance.',related:'Match Type, Search Term, Exact Match'},
+  {term:'Quality Score (QS)',def:'Rating 1–10 dari Google untuk setiap keyword. Komponen: Ad Relevance, Expected CTR, Landing Page Experience. QS tinggi = CPC murah + posisi baik.',related:'CPC, CTR, Ad Relevance, Landing Page'},
+  {term:'ROAS (Return on Ad Spend)',def:'Revenue yang dihasilkan per $1 iklan. Formula: Revenue ÷ Ad Spend. ROAS 4.0 = setiap $1 iklan menghasilkan $4 revenue. Metric profitabilitas utama.',related:'CPA, Net ROAS, CLV'},
+  {term:'Scaling',def:'Proses menambah budget secara bertahap untuk mendapatkan lebih banyak conversions sambil menjaga profitabilitas. Best practice: +10–20%/week.',related:'ROAS, Budget, Diminishing Returns'},
+  {term:'Search Term',def:'Kata/frasa yang benar-benar diketik user sebelum melihat iklanmu. Bisa berbeda dari keyword yang kamu bid karena Match Type. Cek di tab "Search Terms" Google Ads.',related:'Keyword, Negative Keyword, Match Type'},
+  {term:'Search Term Analysis',def:'Proses review search terms yang trigger iklanmu untuk menemukan: 1) waste (add as negative), 2) gold mine (add as positive keyword).',related:'Negative Keyword, Search Term, CPA'},
+  {term:'Smart Bidding',def:'Strategi bid otomatis Google yang menggunakan machine learning — Target CPA, Target ROAS, Maximize Conversions. Butuh data minimum ~50 conv/bulan untuk bekerja optimal.',related:'Target CPA, Target ROAS, Bid'},
+  {term:'Target CPA',def:'Strategi smart bidding — Google otomatis bid untuk mendapatkan conversions di CPA yang kamu set. Cocok untuk: butuh lead flow yang konsisten.',related:'CPA, Smart Bidding'},
+  {term:'Target ROAS',def:'Strategi smart bidding — Google hanya bid untuk conversions yang diperkirakan mencapai ROAS target. Cocok untuk: profitabilitas lebih penting dari volume.',related:'ROAS, Smart Bidding'},
+];
+
+function buildGlossary(){
+  const sorted=[...GLOSSARY].sort((a,b)=>a.term.localeCompare(b.term));
+  const letters=[...new Set(sorted.map(g=>g.term[0].toUpperCase()))];
+  const alphaEl=document.getElementById('glossAlpha');
+  const body=document.getElementById('glossBody');
+  if(!alphaEl||!body||body.innerHTML)return; // already built
+
+  alphaEl.innerHTML=letters.map(l=>
+    `<button onclick="document.getElementById('gl-${l}').scrollIntoView({behavior:'smooth',block:'start'})"
+      style="padding:4px 10px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:12.5px;font-family:'DM Mono',monospace;transition:all .15s"
+      onmouseover="this.style.background='var(--accent)';this.style.color='#fff'"
+      onmouseout="this.style.background='var(--bg3)';this.style.color='var(--text2)'">${l}</button>`
+  ).join('');
+
+  let html='';let curLetter='';
+  sorted.forEach(g=>{
+    const letter=g.term[0].toUpperCase();
+    if(letter!==curLetter){
+      curLetter=letter;
+      html+=`<div id="gl-${letter}" style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:var(--accent2);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--accent)">${letter}</div>`;
+    }
+    html+=`<div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:15px 18px;margin-bottom:8px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:5px">${escHtml(g.term)}</div>
+      <div style="font-size:13.5px;color:var(--text2);line-height:1.65;margin-bottom:${g.related?'7px':'0'}">${escHtml(g.def)}</div>
+      ${g.related?`<div style="font-size:11px;color:var(--text3)">Lihat juga: <span style="color:var(--accent2)">${escHtml(g.related)}</span></div>`:''}
+    </div>`;
+  });
+  body.innerHTML=html;
+}
+
+// Override go() to build glossary lazily
+const _goBase=go;
+function go(id){_goBase(id);if(id==='glossary')setTimeout(buildGlossary,60);}
+// ── END GLOSSARY ──
   document.getElementById('scrTop').classList.toggle('vis',this.scrollTop>300);
 });
 
