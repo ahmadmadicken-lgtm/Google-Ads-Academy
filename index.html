@@ -2521,6 +2521,7 @@ function go(id){
   const nv=document.getElementById('nav-'+id);
   if(nv)nv.classList.add('active');
   document.getElementById('mainEl').scrollTo({top:0});
+  if(id==='glossary')setTimeout(buildGlossary,60);
 }
 
 // ── LEVEL TABS ──
@@ -3027,9 +3028,7 @@ function buildGlossary(){
   body.innerHTML=html;
 }
 
-// Override go() to build glossary lazily
-const _goBase=go;
-function go(id){_goBase(id);if(id==='glossary')setTimeout(buildGlossary,60);}
+// glossary triggered inside main go() above
 // ── END GLOSSARY ──
   document.getElementById('scrTop').classList.toggle('vis',this.scrollTop>300);
 });
