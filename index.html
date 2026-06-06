@@ -349,7 +349,53 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* SIMULATOR */
 .sim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:18px}
 
-/* NOTE TAKING */
+/* CASE STUDY */
+.cs-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:26px;margin-bottom:16px}
+.cs-scenario-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+.cs-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.cs-title{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--text);margin-bottom:4px}
+.cs-subtitle{font-size:13px;color:var(--text3)}
+.cs-data-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:16px 0}
+.cs-data-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px;text-align:center}
+.cs-data-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;font-weight:600}
+.cs-data-value{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--text)}
+.cs-data-sub{font-size:10px;color:var(--text3);margin-top:3px}
+.cs-question{background:rgba(108,99,255,.06);border:1px solid rgba(108,99,255,.2);border-radius:var(--r);padding:16px 18px;margin:16px 0}
+.cs-question-text{font-family:'Syne',sans-serif;font-weight:600;font-size:15px;color:var(--text);margin-bottom:14px;line-height:1.4}
+.cs-options{display:flex;flex-direction:column;gap:8px}
+.cs-option{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:13px 16px;cursor:pointer;font-size:14px;color:var(--text2);transition:all .2s;display:flex;align-items:flex-start;gap:12px;line-height:1.5}
+.cs-option::before{content:attr(data-l);min-width:24px;height:24px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:var(--text3);text-align:center;line-height:24px;margin-top:1px}
+.cs-option:hover{border-color:var(--accent);color:var(--text);background:rgba(108,99,255,.06)}
+.cs-option.selected{border-color:var(--accent);background:rgba(108,99,255,.1);color:var(--text)}
+.cs-option.selected::before{background:var(--accent);color:#fff}
+.cs-option.correct{border-color:var(--green);background:rgba(31,214,160,.08);color:var(--green);pointer-events:none}
+.cs-option.correct::before{background:var(--green);color:#fff}
+.cs-option.wrong{border-color:var(--red);background:rgba(255,92,122,.08);color:var(--red);pointer-events:none}
+.cs-option.wrong::before{background:var(--red);color:#fff}
+.cs-option.reveal-correct{border-color:var(--green);background:rgba(31,214,160,.05);pointer-events:none}
+.cs-outcome{border-radius:var(--r);padding:16px 18px;margin-top:14px;display:none;line-height:1.6}
+.cs-outcome.show{display:block}
+.cs-outcome.ok{background:rgba(31,214,160,.08);border:1px solid rgba(31,214,160,.25);color:var(--green)}
+.cs-outcome.ng{background:rgba(255,92,122,.08);border:1px solid rgba(255,92,122,.25);color:var(--text2)}
+.cs-outcome-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:8px}
+.cs-impact{background:var(--bg3);border-radius:8px;padding:12px 14px;margin-top:10px;font-size:13px;color:var(--text2);line-height:1.6}
+.cs-next-btn{background:var(--accent);color:#fff;border:none;border-radius:9px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;margin-top:14px;display:none}
+.cs-next-btn:hover{background:var(--accent2);transform:translateY(-1px)}
+.cs-context{background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 16px;margin-bottom:16px;font-size:13.5px;color:var(--text2);line-height:1.65}
+.cs-timeline{display:flex;gap:0;margin-bottom:20px;overflow-x:auto;padding-bottom:4px}
+.cs-timeline-step{flex:1;min-width:80px;text-align:center;position:relative}
+.cs-timeline-step::before{content:'';position:absolute;top:14px;left:-50%;width:100%;height:2px;background:var(--border2);z-index:0}
+.cs-timeline-step:first-child::before{display:none}
+.cs-timeline-dot{width:28px;height:28px;border-radius:50%;background:var(--bg4);border:2px solid var(--border2);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:11px;position:relative;z-index:1;transition:all .3s}
+.cs-timeline-dot.done{background:var(--green);border-color:var(--green);color:#fff}
+.cs-timeline-dot.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 10px rgba(108,99,255,.4)}
+.cs-timeline-label{font-size:10px;color:var(--text3);line-height:1.3}
+
+/* LIGHT MODE */
+body.light .cs-option{background:var(--bg3)}
+body.light .cs-option:hover{background:rgba(90,80,238,.06)}
+.dp-tab{display:none}
+.dp-tab.active{display:block;animation:fadeIn .25s ease}
 .note-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r2);padding:18px 20px;margin-top:20px;margin-bottom:4px}
 .note-box-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .note-box-title{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);display:flex;align-items:center;gap:6px}
@@ -453,6 +499,8 @@ body.light .note-area{background:var(--bg3)}
     <div class="nav-lbl">Tools</div>
     <div class="nav-item" id="nav-sim" onclick="go('sim')"><div class="nav-icon">🎮</div>Campaign Simulator</div>
     <div class="nav-item" id="nav-compare" onclick="go('compare')"><div class="nav-icon">⚖️</div>Comparison Tool</div>
+    <div class="nav-item" id="nav-dashboard-prev" onclick="go('dashprev')"><div class="nav-icon">📺</div>Dashboard Preview</div>
+    <div class="nav-item" id="nav-casestudy" onclick="go('casestudy')"><div class="nav-icon">🎯</div>Case Study</div>
     <div class="nav-item" id="nav-quiz" onclick="go('quiz')"><div class="nav-icon">📝</div>Quiz Master</div>
     <div class="nav-item" id="nav-cheat" onclick="go('cheat')"><div class="nav-icon">📋</div>Cheat Sheet</div>
     <div class="nav-item" id="nav-glossary" onclick="go('glossary')"><div class="nav-icon">📖</div>Glosarium</div>
@@ -506,6 +554,8 @@ body.light .note-area{background:var(--bg3)}
     <div class="m-card" onclick="go('cheat')"><div class="card-num">TOOL</div><div class="card-ttl">Cheat Sheet 📋</div><div class="card-dsc">Semua formula, benchmark, dan decision rules dalam satu halaman ringkas. Print-friendly!</div><div class="card-foot"><div class="tags"><span class="tag p">Formula</span><span class="tag">Print</span></div></div></div>
     <div class="m-card" onclick="go('glossary')"><div class="card-num">TOOL</div><div class="card-ttl">Glosarium 📖</div><div class="card-dsc">Kamus 50+ istilah Google Ads dari A–Z. Bingung dengan jargon? Cari di sini!</div><div class="card-foot"><div class="tags"><span class="tag g">Kamus</span></div></div></div>
     <div class="m-card" onclick="go('compare')"><div class="card-num">TOOL</div><div class="card-ttl">Comparison Tool ⚖️</div><div class="card-dsc">Input 2 campaign → bandingkan ROAS, CPA, CTR, Conv Rate side-by-side dengan visual scoring.</div><div class="card-foot"><div class="tags"><span class="tag p">Analisis</span><span class="tag g">Visual</span></div></div></div>
+    <div class="m-card" onclick="go('dashprev')"><div class="card-num">TOOL</div><div class="card-ttl">Dashboard Preview 📺</div><div class="card-dsc">Mockup Looker Studio dashboard dengan anotasi — lihat di mana ROAS, CPA, CTR ditampilkan di dunia nyata.</div><div class="card-foot"><div class="tags"><span class="tag g">Visual</span><span class="tag p">Looker Studio</span></div></div></div>
+    <div class="m-card" onclick="go('casestudy')"><div class="card-num">TOOL</div><div class="card-ttl">Case Study Interaktif 🎯</div><div class="card-dsc">Kamu jadi campaign manager! Analisis data nyata Tax & Genset, buat keputusan, lihat dampaknya.</div><div class="card-foot"><div class="tags"><span class="tag a">Immersive</span><span class="tag g">Simulasi</span></div></div></div>
   </div>
 </div>
 
@@ -2241,6 +2291,565 @@ Next month priorities</pre>
   <div class="nav-btns"><button class="nbtn" onclick="go('kb12')">← Checklists</button><button class="nbtn pri" onclick="go('quiz')">Coba Quiz Master →</button></div>
 </div></div>
 
+<!-- ═══ CASE STUDY INTERACTIVE ═══ -->
+<div class="page" id="page-casestudy"><div class="mod-page">
+  <div class="mod-title">🎯 Case Study Interaktif</div>
+  <div class="mod-sub">Kamu adalah Campaign Manager. Analisis data nyata, buat keputusan, lihat hasilnya.</div>
+
+  <!-- PROGRESS TRACKER -->
+  <div class="mod-prog" style="margin-bottom:20px">
+    <span class="prog-lbl">Case Progress:</span>
+    <div class="mod-steps" id="csSteps"></div>
+    <span class="prog-lbl" id="csProgLabel">0 / 5 kasus</span>
+  </div>
+
+  <!-- CASE CONTAINER -->
+  <div id="csContainer"></div>
+
+  <!-- RESULTS SUMMARY (hidden until all done) -->
+  <div id="csSummary" style="display:none">
+    <div class="blk" style="padding:28px;text-align:center">
+      <div style="font-size:48px;margin-bottom:12px">🏆</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:24px;color:var(--text);margin-bottom:8px">Semua Kasus Selesai!</div>
+      <div style="color:var(--text2);font-size:14px;margin-bottom:20px">Kamu sudah menyelesaikan semua 5 skenario campaign manager</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px">
+        <div class="stat-card" style="min-width:120px"><div class="stat-lbl">Keputusan Tepat</div><div class="stat-val"><span id="csFinalScore">0</span><span class="stat-unit">/ 5</span></div></div>
+        <div class="stat-card" style="min-width:120px"><div class="stat-lbl">XP Diperoleh</div><div class="stat-val"><span id="csFinalXP">0</span><span class="stat-unit">XP</span></div></div>
+        <div class="stat-card" style="min-width:160px"><div class="stat-lbl">Skor Akhir</div><div class="stat-val" id="csFinalGrade" style="font-size:16px">—</div></div>
+      </div>
+      <button class="done-btn" style="margin:0 auto" onclick="restartCaseStudy()">🔄 Ulangi dari Awal</button>
+    </div>
+  </div>
+</div></div>
+
+<!-- ═══ DASHBOARD PREVIEW ═══ -->
+<div class="page" id="page-dashprev"><div class="mod-page">
+  <div class="mod-title">📺 Dashboard Preview — Looker Studio</div>
+  <div class="mod-sub">Begini tampilannya di dunia nyata — anotasi menunjukkan di mana setiap metrik berada</div>
+
+  <!-- TAB SELECTOR -->
+  <div class="lvl-tabs" style="margin-bottom:24px">
+    <div class="lvl-tab beg active" id="dp-tab-overview" onclick="dpSwitch('overview',this)">📊 Overview</div>
+    <div class="lvl-tab int" id="dp-tab-campaign" onclick="dpSwitch('campaign',this)">📁 Campaign Detail</div>
+    <div class="lvl-tab adv" id="dp-tab-keyword" onclick="dpSwitch('keyword',this)">🔑 Keyword</div>
+    <div class="lvl-tab exp" id="dp-tab-device" onclick="dpSwitch('device',this)">📱 Device & Geo</div>
+  </div>
+
+  <!-- OVERVIEW TAB -->
+  <div id="dp-overview" class="dp-tab">
+    <div class="blk" style="padding:20px;margin-bottom:16px">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;color:var(--text)">📊 Halaman Overview — Summary Performa Campaign</h3>
+      <p style="font-size:13px;color:var(--text3);margin-bottom:16px">Halaman pertama yang dilihat klien. Berisi semua metrik utama dalam satu tampilan.</p>
+      <!-- MOCKUP SVG -->
+      <div style="position:relative;width:100%;background:var(--bg3);border-radius:10px;overflow:visible;padding-bottom:8px">
+        <svg viewBox="0 0 900 520" style="width:100%;display:block;border-radius:10px" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="sh"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.3"/></filter>
+          </defs>
+          <!-- Background -->
+          <rect width="900" height="520" fill="#1a1a28" rx="10"/>
+          <!-- Header bar -->
+          <rect width="900" height="44" fill="#13131e" rx="0"/>
+          <rect width="900" height="44" fill="#13131e"/>
+          <circle cx="22" cy="22" r="8" fill="#ff5f57"/>
+          <circle cx="42" cy="22" r="8" fill="#ffbd2e"/>
+          <circle cx="62" cy="22" r="8" fill="#28c840"/>
+          <text x="450" y="28" text-anchor="middle" fill="#888" font-size="12" font-family="sans-serif">Google Ads Dashboard — Tax Consultant &amp; Genset Service</text>
+
+          <!-- Date range selector -->
+          <rect x="680" y="55" width="200" height="26" rx="5" fill="#252535" stroke="#333" stroke-width="1"/>
+          <text x="780" y="73" text-anchor="middle" fill="#888" font-size="11" font-family="sans-serif">📅 Jan 1 – Jan 31, 2025</text>
+
+          <!-- KPI CARDS ROW 1 -->
+          <!-- ROAS Card -->
+          <rect x="20" y="60" width="148" height="80" rx="8" fill="#252535" filter="url(#sh)"/>
+          <text x="94" y="82" text-anchor="middle" fill="#7070a0" font-size="10" font-family="sans-serif" font-weight="600">RETURN ON AD SPEND</text>
+          <text x="94" y="112" text-anchor="middle" fill="#22d3a0" font-size="28" font-family="monospace" font-weight="700">4.2×</text>
+          <text x="94" y="130" text-anchor="middle" fill="#22d3a0" font-size="9" font-family="sans-serif">▲ 12% vs last month</text>
+
+          <!-- CPA Card -->
+          <rect x="178" y="60" width="148" height="80" rx="8" fill="#252535" filter="url(#sh)"/>
+          <text x="252" y="82" text-anchor="middle" fill="#7070a0" font-size="10" font-family="sans-serif" font-weight="600">COST PER ACQUISITION</text>
+          <text x="252" y="112" text-anchor="middle" fill="#4dbfff" font-size="28" font-family="monospace" font-weight="700">$22</text>
+          <text x="252" y="130" text-anchor="middle" fill="#22d3a0" font-size="9" font-family="sans-serif">▼ 8% vs last month</text>
+
+          <!-- CTR Card -->
+          <rect x="336" y="60" width="148" height="80" rx="8" fill="#252535" filter="url(#sh)"/>
+          <text x="410" y="82" text-anchor="middle" fill="#7070a0" font-size="10" font-family="sans-serif" font-weight="600">CLICK-THROUGH RATE</text>
+          <text x="410" y="112" text-anchor="middle" fill="#ffb347" font-size="28" font-family="monospace" font-weight="700">6.8%</text>
+          <text x="410" y="130" text-anchor="middle" fill="#22d3a0" font-size="9" font-family="sans-serif">▲ 2% vs last month</text>
+
+          <!-- Conv Rate Card -->
+          <rect x="494" y="60" width="148" height="80" rx="8" fill="#252535" filter="url(#sh)"/>
+          <text x="568" y="82" text-anchor="middle" fill="#7070a0" font-size="10" font-family="sans-serif" font-weight="600">CONVERSION RATE</text>
+          <text x="568" y="112" text-anchor="middle" fill="#908aff" font-size="28" font-family="monospace" font-weight="700">14.2%</text>
+          <text x="568" y="130" text-anchor="middle" fill="#22d3a0" font-size="9" font-family="sans-serif">▲ 3% vs last month</text>
+
+          <!-- IS Card -->
+          <rect x="652" y="60" width="100" height="80" rx="8" fill="#252535" filter="url(#sh)"/>
+          <text x="702" y="82" text-anchor="middle" fill="#7070a0" font-size="10" font-family="sans-serif" font-weight="600">IMP. SHARE</text>
+          <text x="702" y="112" text-anchor="middle" fill="#36e8d8" font-size="28" font-family="monospace" font-weight="700">72%</text>
+          <text x="702" y="130" text-anchor="middle" fill="#22d3a0" font-size="9" font-family="sans-serif">▲ 5%</text>
+
+          <!-- QS Card -->
+          <rect x="762" y="60" width="100" height="80" rx="8" fill="#252535" filter="url(#sh)"/>
+          <text x="812" y="82" text-anchor="middle" fill="#7070a0" font-size="10" font-family="sans-serif" font-weight="600">AVG QS</text>
+          <text x="812" y="112" text-anchor="middle" fill="#ff7fd6" font-size="28" font-family="monospace" font-weight="700">7.4</text>
+          <text x="812" y="130" text-anchor="middle" fill="#22d3a0" font-size="9" font-family="sans-serif">▲ 0.5</text>
+
+          <!-- LINE CHART -->
+          <rect x="20" y="155" width="560" height="200" rx="8" fill="#252535"/>
+          <text x="300" y="175" text-anchor="middle" fill="#9090b0" font-size="11" font-family="sans-serif" font-weight="600">ROAS &amp; CPA Trend — 30 Days</text>
+          <!-- Grid lines -->
+          <line x1="40" y1="220" x2="560" y2="220" stroke="#333" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="40" y1="245" x2="560" y2="245" stroke="#333" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="40" y1="270" x2="560" y2="270" stroke="#333" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="40" y1="295" x2="560" y2="295" stroke="#333" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="40" y1="320" x2="560" y2="320" stroke="#333" stroke-width="1" stroke-dasharray="4,4"/>
+          <!-- ROAS line -->
+          <polyline points="40,290 95,270 150,280 205,255 260,260 315,240 370,235 425,230 480,225 535,220"
+            fill="none" stroke="#22d3a0" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- CPA line -->
+          <polyline points="40,310 95,315 150,308 205,320 260,305 315,298 370,290 425,285 480,278 535,275"
+            fill="none" stroke="#4dbfff" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6,3"/>
+          <!-- Legend -->
+          <rect x="40" y="338" width="10" height="3" fill="#22d3a0" rx="1"/>
+          <text x="56" y="344" fill="#888" font-size="10" font-family="sans-serif">ROAS</text>
+          <rect x="90" y="338" width="10" height="3" fill="#4dbfff" rx="1"/>
+          <text x="106" y="344" fill="#888" font-size="10" font-family="sans-serif">CPA</text>
+          <!-- X axis labels -->
+          <text x="40" y="360" fill="#555" font-size="9" font-family="sans-serif">Jan 1</text>
+          <text x="240" y="360" fill="#555" font-size="9" font-family="sans-serif">Jan 15</text>
+          <text x="480" y="360" fill="#555" font-size="9" font-family="sans-serif">Jan 31</text>
+
+          <!-- DONUT / SPEND PIE -->
+          <rect x="592" y="155" width="278" height="200" rx="8" fill="#252535"/>
+          <text x="730" y="175" text-anchor="middle" fill="#9090b0" font-size="11" font-family="sans-serif" font-weight="600">Budget Allocation</text>
+          <circle cx="710" cy="255" r="55" fill="none" stroke="#6c63ff" stroke-width="22" stroke-dasharray="207 139" stroke-dashoffset="0"/>
+          <circle cx="710" cy="255" r="55" fill="none" stroke="#36e8d8" stroke-width="22" stroke-dasharray="139 207" stroke-dashoffset="-207"/>
+          <text x="710" y="250" text-anchor="middle" fill="#e4e4f0" font-size="14" font-family="monospace" font-weight="700">$1,800</text>
+          <text x="710" y="265" text-anchor="middle" fill="#888" font-size="9" font-family="sans-serif">total spend</text>
+          <rect x="775" y="230" width="8" height="8" fill="#6c63ff" rx="2"/>
+          <text x="788" y="239" fill="#888" font-size="9" font-family="sans-serif">Tax (60%)</text>
+          <rect x="775" y="248" width="8" height="8" fill="#36e8d8" rx="2"/>
+          <text x="788" y="257" fill="#888" font-size="9" font-family="sans-serif">Genset (40%)</text>
+
+          <!-- CAMPAIGN TABLE -->
+          <rect x="20" y="368" width="860" height="136" rx="8" fill="#252535"/>
+          <text x="440" y="386" text-anchor="middle" fill="#9090b0" font-size="11" font-family="sans-serif" font-weight="600">Campaign Performance Table</text>
+          <!-- Table header -->
+          <rect x="20" y="392" width="860" height="22" fill="#1e1e30"/>
+          <text x="80" y="407" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CAMPAIGN</text>
+          <text x="220" y="407" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">SPEND</text>
+          <text x="310" y="407" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">REVENUE</text>
+          <text x="405" y="407" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">ROAS</text>
+          <text x="480" y="407" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CONV</text>
+          <text x="555" y="407" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CPA</text>
+          <text x="640" y="407" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CTR</text>
+          <text x="720" y="407" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">QS AVG</text>
+          <text x="810" y="407" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">IS</text>
+          <!-- Row 1 -->
+          <rect x="20" y="414" width="860" height="44" fill="#222232"/>
+          <text x="35" y="432" fill="#e4e4f0" font-size="11" font-family="sans-serif">Tax Consultant</text>
+          <text x="35" y="448" fill="#555" font-size="9" font-family="sans-serif">Search Network</text>
+          <text x="220" y="440" fill="#e4e4f0" font-size="12" font-family="monospace">$1,080</text>
+          <text x="310" y="440" fill="#22d3a0" font-size="12" font-family="monospace">$4,860</text>
+          <text x="405" y="432" fill="#22d3a0" font-size="14" font-family="monospace" font-weight="700">4.5×</text>
+          <text x="480" y="440" fill="#e4e4f0" font-size="12" font-family="monospace">54</text>
+          <text x="555" y="440" fill="#4dbfff" font-size="12" font-family="monospace">$20</text>
+          <text x="640" y="440" fill="#ffb347" font-size="12" font-family="monospace">7.2%</text>
+          <text x="720" y="432" fill="#ff7fd6" font-size="14" font-family="monospace" font-weight="700">8/10</text>
+          <text x="810" y="440" fill="#36e8d8" font-size="12" font-family="monospace">78%</text>
+          <!-- Row 2 -->
+          <rect x="20" y="458" width="860" height="44" fill="#1e1e2e"/>
+          <text x="35" y="476" fill="#e4e4f0" font-size="11" font-family="sans-serif">Genset Service</text>
+          <text x="35" y="492" fill="#555" font-size="9" font-family="sans-serif">Search Network</text>
+          <text x="220" y="484" fill="#e4e4f0" font-size="12" font-family="monospace">$720</text>
+          <text x="310" y="484" fill="#ffb347" font-size="12" font-family="monospace">$2,160</text>
+          <text x="405" y="476" fill="#ffb347" font-size="14" font-family="monospace" font-weight="700">3.0×</text>
+          <text x="480" y="484" fill="#e4e4f0" font-size="12" font-family="monospace">24</text>
+          <text x="555" y="484" fill="#4dbfff" font-size="12" font-family="monospace">$30</text>
+          <text x="640" y="484" fill="#ffb347" font-size="12" font-family="monospace">5.1%</text>
+          <text x="720" y="476" fill="#ffb347" font-size="14" font-family="monospace" font-weight="700">6/10</text>
+          <text x="810" y="484" fill="#36e8d8" font-size="12" font-family="monospace">65%</text>
+        </svg>
+
+        <!-- ANNOTATION OVERLAYS -->
+        <div style="position:absolute;top:68px;left:12px;pointer-events:none">
+          <div style="position:absolute;top:0;left:0;width:152px;height:84px;border:2px solid var(--green);border-radius:10px;box-shadow:0 0 12px rgba(31,214,160,.3)"></div>
+          <div style="position:absolute;top:-26px;left:0;background:var(--green);color:var(--bg);font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;font-family:'Syne',sans-serif">① ROAS — Revenue ÷ Spend</div>
+        </div>
+        <div style="position:absolute;top:68px;left:170px;pointer-events:none">
+          <div style="position:absolute;top:0;left:0;width:152px;height:84px;border:2px solid var(--blue);border-radius:10px;box-shadow:0 0 12px rgba(77,191,255,.3)"></div>
+          <div style="position:absolute;top:-26px;left:0;background:var(--blue);color:var(--bg);font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;font-family:'Syne',sans-serif">② CPA — Spend ÷ Conversions</div>
+        </div>
+        <div style="position:absolute;top:68px;left:328px;pointer-events:none">
+          <div style="position:absolute;top:0;left:0;width:152px;height:84px;border:2px solid var(--amber);border-radius:10px;box-shadow:0 0 12px rgba(255,179,71,.3)"></div>
+          <div style="position:absolute;top:-26px;left:0;background:var(--amber);color:var(--bg);font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;font-family:'Syne',sans-serif">③ CTR — Clicks ÷ Impressions</div>
+        </div>
+        <div style="position:absolute;top:68px;left:486px;pointer-events:none">
+          <div style="position:absolute;top:0;left:0;width:152px;height:84px;border:2px solid var(--accent2);border-radius:10px;box-shadow:0 0 12px rgba(144,138,255,.3)"></div>
+          <div style="position:absolute;top:-26px;left:0;background:var(--accent2);color:var(--bg);font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;font-family:'Syne',sans-serif">④ Conv Rate — Conv ÷ Clicks</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOTATION LEGEND -->
+    <div class="blk" style="padding:18px;margin-bottom:16px">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:14px">🏷️ Penjelasan Anotasi</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px">
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;border-left:3px solid var(--green)">
+          <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:4px">① ROAS Card (Hijau)</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.5">Metric pertama dan terpenting. 4.2× artinya setiap $1 iklan = $4.20 revenue. Arrow hijau ▲ = naik dari bulan lalu.</div>
+        </div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;border-left:3px solid var(--blue)">
+          <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:4px">② CPA Card (Biru)</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.5">$22 per lead. Arrow ▼ turun = BAGUS untuk CPA (lebih murah). Bandingkan dengan target CPA yang sudah ditetapkan.</div>
+        </div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;border-left:3px solid var(--amber)">
+          <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:4px">③ CTR Card (Amber)</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.5">6.8% adalah CTR excellent untuk service keyword. Ini menunjukkan ad copy yang relevan dan menarik.</div>
+        </div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;border-left:3px solid var(--accent2)">
+          <div style="font-size:11px;font-weight:700;color:var(--accent2);margin-bottom:4px">④ Conv Rate Card (Ungu)</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.5">14.2% sangat bagus untuk service consulting. Menunjukkan landing page yang dioptimasi dengan baik.</div>
+        </div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;border-left:3px solid var(--teal)">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);margin-bottom:4px">⑤ Trend Chart</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.5">Garis ROAS hijau naik = bagus. Garis CPA biru turun = bagus. Trend 30 hari lebih reliable dari snapshot harian.</div>
+        </div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;border-left:3px solid var(--accent)">
+          <div style="font-size:11px;font-weight:700;color:var(--accent2);margin-bottom:4px">⑥ Campaign Table</div>
+          <div style="font-size:12.5px;color:var(--text2);line-height:1.5">Row per campaign. Tax ROAS 4.5× lebih bagus dari Genset 3.0×. QS Tax 8/10 vs Genset 6/10 — prioritas optimasi jelas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAMPAIGN DETAIL TAB -->
+  <div id="dp-campaign" class="dp-tab" style="display:none">
+    <div class="blk" style="padding:20px;margin-bottom:16px">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;color:var(--text)">📁 Halaman Campaign Detail — Drill Down per Campaign</h3>
+      <p style="font-size:13px;color:var(--text3);margin-bottom:16px">Zoom in ke satu campaign untuk lihat breakdown lengkapnya.</p>
+      <div style="position:relative">
+        <svg viewBox="0 0 900 400" style="width:100%;display:block;border-radius:10px" xmlns="http://www.w3.org/2000/svg">
+          <rect width="900" height="400" fill="#1a1a28" rx="10"/>
+          <!-- Campaign selector -->
+          <rect x="20" y="15" width="200" height="28" rx="5" fill="#252535" stroke="#6c63ff" stroke-width="1.5"/>
+          <text x="120" y="34" text-anchor="middle" fill="#908aff" font-size="11" font-family="sans-serif" font-weight="600">▼ Tax Consultant Campaign</text>
+          <!-- Filter -->
+          <rect x="230" y="15" width="120" height="28" rx="5" fill="#252535" stroke="#333"/>
+          <text x="290" y="34" text-anchor="middle" fill="#888" font-size="11" font-family="sans-serif">Jan 2025 ▼</text>
+          <!-- KPI row -->
+          <rect x="20" y="55" width="130" height="68" rx="7" fill="#1e2e1e"/>
+          <text x="85" y="74" text-anchor="middle" fill="#22d3a0" font-size="9" font-family="sans-serif" font-weight="700">ROAS</text>
+          <text x="85" y="100" text-anchor="middle" fill="#22d3a0" font-size="24" font-family="monospace" font-weight="700">4.5×</text>
+          <text x="85" y="116" text-anchor="middle" fill="#22d3a0" font-size="8" font-family="sans-serif">Target: 3.5× ✓</text>
+
+          <rect x="160" y="55" width="130" height="68" rx="7" fill="#1e1e2e"/>
+          <text x="225" y="74" text-anchor="middle" fill="#4dbfff" font-size="9" font-family="sans-serif" font-weight="700">CPA</text>
+          <text x="225" y="100" text-anchor="middle" fill="#4dbfff" font-size="24" font-family="monospace" font-weight="700">$20</text>
+          <text x="225" y="116" text-anchor="middle" fill="#22d3a0" font-size="8" font-family="sans-serif">Target: &lt;$30 ✓</text>
+
+          <rect x="300" y="55" width="130" height="68" rx="7" fill="#1e1e2a"/>
+          <text x="365" y="74" text-anchor="middle" fill="#ffb347" font-size="9" font-family="sans-serif" font-weight="700">CTR</text>
+          <text x="365" y="100" text-anchor="middle" fill="#ffb347" font-size="24" font-family="monospace" font-weight="700">7.2%</text>
+          <text x="365" y="116" text-anchor="middle" fill="#22d3a0" font-size="8" font-family="sans-serif">Benchmark: 5% ✓</text>
+
+          <rect x="440" y="55" width="130" height="68" rx="7" fill="#201e2e"/>
+          <text x="505" y="74" text-anchor="middle" fill="#908aff" font-size="9" font-family="sans-serif" font-weight="700">CONV RATE</text>
+          <text x="505" y="100" text-anchor="middle" fill="#908aff" font-size="24" font-family="monospace" font-weight="700">15.6%</text>
+          <text x="505" y="116" text-anchor="middle" fill="#22d3a0" font-size="8" font-family="sans-serif">Benchmark: 10% ✓</text>
+
+          <rect x="580" y="55" width="130" height="68" rx="7" fill="#1e2020"/>
+          <text x="645" y="74" text-anchor="middle" fill="#36e8d8" font-size="9" font-family="sans-serif" font-weight="700">IMP SHARE</text>
+          <text x="645" y="100" text-anchor="middle" fill="#36e8d8" font-size="24" font-family="monospace" font-weight="700">78%</text>
+          <text x="645" y="116" text-anchor="middle" fill="#22d3a0" font-size="8" font-family="sans-serif">Target: 70% ✓</text>
+
+          <rect x="720" y="55" width="160" height="68" rx="7" fill="#201820"/>
+          <text x="800" y="74" text-anchor="middle" fill="#ff7fd6" font-size="9" font-family="sans-serif" font-weight="700">QUALITY SCORE</text>
+          <rect x="730" y="85" width="140" height="16" rx="4" fill="#1a1a28"/>
+          <rect x="730" y="85" width="112" height="16" rx="4" fill="#ff7fd6"/>
+          <text x="800" y="108" text-anchor="middle" fill="#ff7fd6" font-size="11" font-family="monospace" font-weight="600">8 / 10</text>
+          <text x="800" y="119" text-anchor="middle" fill="#22d3a0" font-size="8" font-family="sans-serif">Above Average ✓</text>
+
+          <!-- Ad Group table -->
+          <rect x="20" y="135" width="860" height="120" rx="7" fill="#252535"/>
+          <text x="440" y="155" text-anchor="middle" fill="#9090b0" font-size="11" font-family="sans-serif" font-weight="600">Ad Group Breakdown</text>
+          <rect x="20" y="160" width="860" height="20" fill="#1e1e30"/>
+          <text x="100" y="174" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">AD GROUP</text>
+          <text x="280" y="174" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">SPEND</text>
+          <text x="360" y="174" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CONV</text>
+          <text x="440" y="174" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CPA</text>
+          <text x="520" y="174" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">ROAS</text>
+          <text x="620" y="174" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">QS</text>
+          <text x="720" y="174" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">STATUS</text>
+
+          <text x="100" y="196" fill="#e4e4f0" font-size="10" font-family="sans-serif">Tax Consultant General</text>
+          <text x="280" y="196" fill="#e4e4f0" font-size="10" font-family="monospace">$540</text>
+          <text x="360" y="196" fill="#e4e4f0" font-size="10" font-family="monospace">30</text>
+          <text x="440" y="196" fill="#22d3a0" font-size="10" font-family="monospace">$18</text>
+          <text x="520" y="196" fill="#22d3a0" font-size="10" font-family="monospace">5.0×</text>
+          <text x="620" y="196" fill="#ff7fd6" font-size="10" font-family="monospace">9/10</text>
+          <rect x="710" y="188" width="55" height="14" rx="3" fill="rgba(31,214,160,.2)"/>
+          <text x="737" y="199" text-anchor="middle" fill="#22d3a0" font-size="9" font-family="sans-serif">SCALING ✓</text>
+
+          <text x="100" y="220" fill="#e4e4f0" font-size="10" font-family="sans-serif">Corporate Tax Planning</text>
+          <text x="280" y="220" fill="#e4e4f0" font-size="10" font-family="monospace">$320</text>
+          <text x="360" y="220" fill="#e4e4f0" font-size="10" font-family="monospace">18</text>
+          <text x="440" y="220" fill="#4dbfff" font-size="10" font-family="monospace">$17.8</text>
+          <text x="520" y="220" fill="#22d3a0" font-size="10" font-family="monospace">4.8×</text>
+          <text x="620" y="220" fill="#ffb347" font-size="10" font-family="monospace">7/10</text>
+          <rect x="710" y="212" width="55" height="14" rx="3" fill="rgba(77,191,255,.2)"/>
+          <text x="737" y="223" text-anchor="middle" fill="#4dbfff" font-size="9" font-family="sans-serif">MAINTAIN</text>
+
+          <text x="100" y="244" fill="#888" font-size="10" font-family="sans-serif">Tax Filing Service</text>
+          <text x="280" y="244" fill="#888" font-size="10" font-family="monospace">$220</text>
+          <text x="360" y="244" fill="#888" font-size="10" font-family="monospace">6</text>
+          <text x="440" y="244" fill="#ff5c7a" font-size="10" font-family="monospace">$36.7</text>
+          <text x="520" y="244" fill="#ffb347" font-size="10" font-family="monospace">2.8×</text>
+          <text x="620" y="244" fill="#ff5c7a" font-size="10" font-family="monospace">5/10</text>
+          <rect x="710" y="236" width="55" height="14" rx="3" fill="rgba(255,92,122,.2)"/>
+          <text x="737" y="247" text-anchor="middle" fill="#ff5c7a" font-size="9" font-family="sans-serif">OPTIMIZE!</text>
+
+          <!-- Search terms heatmap placeholder -->
+          <rect x="20" y="268" width="860" height="112" rx="7" fill="#252535"/>
+          <text x="440" y="288" text-anchor="middle" fill="#9090b0" font-size="11" font-family="sans-serif" font-weight="600">Top Search Terms — Last 30 Days</text>
+          <text x="35" y="310" fill="#22d3a0" font-size="10" font-family="sans-serif">tax consultant jakarta</text>
+          <rect x="210" y="301" width="180" height="12" rx="3" fill="rgba(31,214,160,.4)"/>
+          <text x="400" y="311" fill="#22d3a0" font-size="9" font-family="monospace">Conv: 18 | CPA: $18</text>
+
+          <text x="35" y="332" fill="#4dbfff" font-size="10" font-family="sans-serif">konsultan pajak terbaik</text>
+          <rect x="210" y="323" width="120" height="12" rx="3" fill="rgba(77,191,255,.4)"/>
+          <text x="340" y="333" fill="#4dbfff" font-size="9" font-family="monospace">Conv: 12 | CPA: $22</text>
+
+          <text x="35" y="354" fill="#ffb347" font-size="10" font-family="sans-serif">free tax tips</text>
+          <rect x="210" y="345" width="50" height="12" rx="3" fill="rgba(255,92,122,.3)"/>
+          <text x="270" y="355" fill="#ff5c7a" font-size="9" font-family="monospace">Conv: 0 | WASTE → ADD NEGATIVE!</text>
+
+          <text x="35" y="374" fill="#888" font-size="10" font-family="sans-serif">tax consultant salary</text>
+          <rect x="210" y="365" width="30" height="12" rx="3" fill="rgba(255,92,122,.2)"/>
+          <text x="250" y="375" fill="#ff5c7a" font-size="9" font-family="monospace">Conv: 0 | WASTE → NEGATIVE</text>
+        </svg>
+      </div>
+    </div>
+    <div class="blk" style="padding:18px">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:12px">💡 Cara Baca Halaman Campaign Detail</h3>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+        <li style="font-size:13.5px;color:var(--text2);padding-left:20px;position:relative"><span style="position:absolute;left:0;color:var(--green)">▸</span><strong style="color:var(--text)">KPI Cards atas</strong> — selalu compare ke target. Green = on track, Red = needs action.</li>
+        <li style="font-size:13.5px;color:var(--text2);padding-left:20px;position:relative"><span style="position:absolute;left:0;color:var(--green)">▸</span><strong style="color:var(--text)">Ad Group table</strong> — "Tax Consultant General" scaling karena CPA $18 + QS 9. "Tax Filing" perlu dioptimasi karena CPA $36.7 dan QS 5.</li>
+        <li style="font-size:13.5px;color:var(--text2);padding-left:20px;position:relative"><span style="position:absolute;left:0;color:var(--green)">▸</span><strong style="color:var(--text)">Search Terms bar</strong> — bar merah panjang = banyak wasted spend. "free tax tips" dan "tax consultant salary" langsung tambahkan sebagai negative keyword!</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- KEYWORD TAB -->
+  <div id="dp-keyword" class="dp-tab" style="display:none">
+    <div class="blk" style="padding:20px;margin-bottom:16px">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;color:var(--text)">🔑 Halaman Keyword Analysis — QS per Keyword</h3>
+      <p style="font-size:13px;color:var(--text3);margin-bottom:16px">Lihat Quality Score tiap keyword dan identifikasi mana yang perlu dihapus atau di-scale.</p>
+      <svg viewBox="0 0 900 340" style="width:100%;display:block;border-radius:10px" xmlns="http://www.w3.org/2000/svg">
+        <rect width="900" height="340" fill="#1a1a28" rx="10"/>
+        <text x="450" y="28" text-anchor="middle" fill="#9090b0" font-size="12" font-family="sans-serif" font-weight="600">Keyword Performance — Quality Score Breakdown</text>
+        <!-- Headers -->
+        <rect x="0" y="38" width="900" height="22" fill="#13131e"/>
+        <text x="30" y="53" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">KEYWORD</text>
+        <text x="230" y="53" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">QS</text>
+        <text x="310" y="53" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">AD RELEVANCE</text>
+        <text x="430" y="53" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">EXP CTR</text>
+        <text x="530" y="53" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">LP EXP</text>
+        <text x="630" y="53" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CPC</text>
+        <text x="700" y="53" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CONV</text>
+        <text x="770" y="53" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CPA</text>
+        <text x="840" y="53" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">TIER</text>
+        <!-- KW rows - data rows with QS colored bars -->
+        <!-- Row 1 - QS 9 GREEN -->
+        <rect x="0" y="60" width="900" height="36" fill="#1a2a1a"/>
+        <text x="30" y="84" fill="#e4e4f0" font-size="11" font-family="sans-serif">[tax consultant jakarta]</text>
+        <rect x="228" y="66" width="60" height="22" rx="4" fill="#22d3a0"/>
+        <text x="258" y="81" text-anchor="middle" fill="#0a1a0a" font-size="13" font-family="monospace" font-weight="700">9</text>
+        <text x="340" y="82" fill="#22d3a0" font-size="10" font-family="sans-serif">Above Avg ✓</text>
+        <text x="460" y="82" fill="#22d3a0" font-size="10" font-family="sans-serif">Above Avg ✓</text>
+        <text x="555" y="82" fill="#22d3a0" font-size="10" font-family="sans-serif">Above Avg ✓</text>
+        <text x="630" y="82" fill="#22d3a0" font-size="10" font-family="monospace">$3.20</text>
+        <text x="700" y="82" fill="#e4e4f0" font-size="10" font-family="monospace">18</text>
+        <text x="770" y="82" fill="#22d3a0" font-size="10" font-family="monospace">$18</text>
+        <rect x="832" y="66" width="55" height="22" rx="4" fill="rgba(31,214,160,.2)"/>
+        <text x="860" y="81" text-anchor="middle" fill="#22d3a0" font-size="9" font-family="sans-serif">SCALE ✦</text>
+        <!-- Row 2 - QS 7 AMBER -->
+        <rect x="0" y="96" width="900" height="36" fill="#1e1e28"/>
+        <text x="30" y="120" fill="#e4e4f0" font-size="11" font-family="sans-serif">[konsultan pajak terbaik]</text>
+        <rect x="228" y="102" width="60" height="22" rx="4" fill="#ffb347"/>
+        <text x="258" y="117" text-anchor="middle" fill="#0a0a0a" font-size="13" font-family="monospace" font-weight="700">7</text>
+        <text x="340" y="118" fill="#22d3a0" font-size="10" font-family="sans-serif">Above Avg ✓</text>
+        <text x="460" y="118" fill="#ffb347" font-size="10" font-family="sans-serif">Average —</text>
+        <text x="555" y="118" fill="#22d3a0" font-size="10" font-family="sans-serif">Above Avg ✓</text>
+        <text x="630" y="118" fill="#e4e4f0" font-size="10" font-family="monospace">$4.50</text>
+        <text x="700" y="118" fill="#e4e4f0" font-size="10" font-family="monospace">12</text>
+        <text x="770" y="118" fill="#4dbfff" font-size="10" font-family="monospace">$22</text>
+        <rect x="832" y="102" width="55" height="22" rx="4" fill="rgba(77,191,255,.2)"/>
+        <text x="860" y="117" text-anchor="middle" fill="#4dbfff" font-size="9" font-family="sans-serif">MAINTAIN</text>
+        <!-- Row 3 - QS 5 need fix -->
+        <rect x="0" y="132" width="900" height="36" fill="#201e20"/>
+        <text x="30" y="156" fill="#888" font-size="11" font-family="sans-serif">tax filing service jakarta</text>
+        <rect x="228" y="138" width="60" height="22" rx="4" fill="#ffb347" opacity="0.6"/>
+        <text x="258" y="153" text-anchor="middle" fill="#0a0a0a" font-size="13" font-family="monospace" font-weight="700">5</text>
+        <text x="340" y="154" fill="#ffb347" font-size="10" font-family="sans-serif">Average —</text>
+        <text x="460" y="154" fill="#ff5c7a" font-size="10" font-family="sans-serif">Below Avg ✗</text>
+        <text x="555" y="154" fill="#ffb347" font-size="10" font-family="sans-serif">Average —</text>
+        <text x="630" y="154" fill="#ff5c7a" font-size="10" font-family="monospace">$7.20</text>
+        <text x="700" y="154" fill="#888" font-size="10" font-family="monospace">4</text>
+        <text x="770" y="154" fill="#ff5c7a" font-size="10" font-family="monospace">$40</text>
+        <rect x="832" y="138" width="55" height="22" rx="4" fill="rgba(255,179,71,.15)"/>
+        <text x="860" y="153" text-anchor="middle" fill="#ffb347" font-size="9" font-family="sans-serif">FIX CTR!</text>
+        <!-- Row 4 - QS 3 DELETE -->
+        <rect x="0" y="168" width="900" height="36" fill="#201a1a"/>
+        <text x="30" y="192" fill="#666" font-size="11" font-family="sans-serif">tax advisor free</text>
+        <rect x="228" y="174" width="60" height="22" rx="4" fill="#ff5c7a" opacity="0.7"/>
+        <text x="258" y="189" text-anchor="middle" fill="white" font-size="13" font-family="monospace" font-weight="700">3</text>
+        <text x="340" y="190" fill="#ff5c7a" font-size="10" font-family="sans-serif">Below Avg ✗</text>
+        <text x="460" y="190" fill="#ff5c7a" font-size="10" font-family="sans-serif">Below Avg ✗</text>
+        <text x="555" y="190" fill="#ff5c7a" font-size="10" font-family="sans-serif">Below Avg ✗</text>
+        <text x="630" y="190" fill="#ff5c7a" font-size="10" font-family="monospace">$9.80</text>
+        <text x="700" y="190" fill="#666" font-size="10" font-family="monospace">0</text>
+        <text x="770" y="190" fill="#ff5c7a" font-size="10" font-family="monospace">—</text>
+        <rect x="832" y="174" width="55" height="22" rx="4" fill="rgba(255,92,122,.2)"/>
+        <text x="860" y="189" text-anchor="middle" fill="#ff5c7a" font-size="9" font-family="sans-serif">DELETE!</text>
+
+        <!-- QS Distribution Bar -->
+        <rect x="20" y="220" width="860" height="100" rx="7" fill="#252535"/>
+        <text x="440" y="240" text-anchor="middle" fill="#9090b0" font-size="11" font-family="sans-serif" font-weight="600">QS Distribution — Budget by Tier</text>
+        <!-- Horizontal stacked bar -->
+        <rect x="40" y="255" width="820" height="28" rx="5" fill="#1a1a28"/>
+        <rect x="40" y="255" width="246" height="28" rx="5" fill="#22d3a0"/>
+        <rect x="286" y="255" width="287" height="28" fill="#ffb347"/>
+        <rect x="573" y="255" width="164" height="28" fill="#ff5c7a"/>
+        <rect x="737" y="255" width="123" height="28" rx="0" fill="#ff5c7a" opacity="0.5"/>
+        <text x="163" y="274" text-anchor="middle" fill="#0a0a0a" font-size="10" font-family="sans-serif" font-weight="700">QS 8–10 (30%) SCALE</text>
+        <text x="430" y="274" text-anchor="middle" fill="#0a0a0a" font-size="10" font-family="sans-serif" font-weight="700">QS 6–7 (35%) MAINTAIN</text>
+        <text x="655" y="274" text-anchor="middle" fill="white" font-size="10" font-family="sans-serif" font-weight="700">QS 4–5 (20%) FIX</text>
+        <text x="800" y="274" text-anchor="middle" fill="white" font-size="10" font-family="sans-serif" font-weight="700">QS 1–3 DELETE</text>
+        <text x="163" y="300" text-anchor="middle" fill="#22d3a0" font-size="10" font-family="monospace">CPC avg $3.50</text>
+        <text x="430" y="300" text-anchor="middle" fill="#ffb347" font-size="10" font-family="monospace">CPC avg $5.00</text>
+        <text x="655" y="300" text-anchor="middle" fill="#ff5c7a" font-size="10" font-family="monospace">CPC avg $7.50</text>
+        <text x="800" y="300" text-anchor="middle" fill="#ff5c7a" font-size="9" font-family="monospace">Wasting!</text>
+      </svg>
+    </div>
+    <div class="hl">💡 <strong>Cara pakai:</strong> Lihat kolom QS. Merah (QS 1–3) = DELETE segera. Amber (4–5) = fix ad copy atau LP. Hijau (8–10) = scale budget ke sini!</div>
+  </div>
+
+  <!-- DEVICE & GEO TAB -->
+  <div id="dp-device" class="dp-tab" style="display:none">
+    <div class="blk" style="padding:20px;margin-bottom:16px">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;color:var(--text)">📱 Halaman Device & Geographic — Segmentasi</h3>
+      <p style="font-size:13px;color:var(--text3);margin-bottom:16px">Identifikasi segment paling profitable untuk bid adjustment.</p>
+      <svg viewBox="0 0 900 360" style="width:100%;display:block;border-radius:10px" xmlns="http://www.w3.org/2000/svg">
+        <rect width="900" height="360" fill="#1a1a28" rx="10"/>
+        <!-- Device section -->
+        <text x="210" y="28" text-anchor="middle" fill="#9090b0" font-size="11" font-family="sans-serif" font-weight="600">Performance by Device</text>
+        <!-- Desktop bar -->
+        <rect x="20" y="40" width="380" height="130" rx="7" fill="#252535"/>
+        <text x="40" y="62" fill="#e4e4f0" font-size="11" font-family="sans-serif" font-weight="600">🖥️ Desktop</text>
+        <text x="380" y="62" text-anchor="end" fill="#22d3a0" font-size="11" font-family="monospace" font-weight="600">CPA $15 ✓ BEST</text>
+        <!-- Desktop metrics -->
+        <text x="40" y="85" fill="#7070a0" font-size="9" font-family="sans-serif">Conv Rate</text>
+        <rect x="120" y="76" width="260" height="12" rx="3" fill="#1a1a28"/>
+        <rect x="120" y="76" width="208" height="12" rx="3" fill="#22d3a0"/>
+        <text x="390" y="86" text-anchor="end" fill="#22d3a0" font-size="9" font-family="monospace">16%</text>
+        <text x="40" y="107" fill="#7070a0" font-size="9" font-family="sans-serif">CTR</text>
+        <rect x="120" y="98" width="260" height="12" rx="3" fill="#1a1a28"/>
+        <rect x="120" y="98" width="182" height="12" rx="3" fill="#4dbfff"/>
+        <text x="390" y="108" text-anchor="end" fill="#4dbfff" font-size="9" font-family="monospace">7.8%</text>
+        <text x="40" y="129" fill="#7070a0" font-size="9" font-family="sans-serif">ROAS</text>
+        <rect x="120" y="120" width="260" height="12" rx="3" fill="#1a1a28"/>
+        <rect x="120" y="120" width="234" height="12" rx="3" fill="#908aff"/>
+        <text x="390" y="130" text-anchor="end" fill="#908aff" font-size="9" font-family="monospace">5.2×</text>
+        <rect x="20" y="155" width="380" height="24" rx="0 0 7 7" fill="#1e2e1e"/>
+        <text x="210" y="171" text-anchor="middle" fill="#22d3a0" font-size="10" font-family="sans-serif" font-weight="600">Bid Adjustment: +30% ↑ SCALE THIS!</text>
+
+        <!-- Mobile bar -->
+        <rect x="20" y="186" width="380" height="130" rx="7" fill="#252535"/>
+        <text x="40" y="208" fill="#888" font-size="11" font-family="sans-serif" font-weight="600">📱 Mobile</text>
+        <text x="380" y="208" text-anchor="end" fill="#ff5c7a" font-size="11" font-family="monospace" font-weight="600">CPA $48 ✗ HIGH</text>
+        <text x="40" y="231" fill="#7070a0" font-size="9" font-family="sans-serif">Conv Rate</text>
+        <rect x="120" y="222" width="260" height="12" rx="3" fill="#1a1a28"/>
+        <rect x="120" y="222" width="78" height="12" rx="3" fill="#ff5c7a" opacity="0.7"/>
+        <text x="390" y="232" text-anchor="end" fill="#ff5c7a" font-size="9" font-family="monospace">4.8% ✗ LOW</text>
+        <text x="40" y="253" fill="#7070a0" font-size="9" font-family="sans-serif">CTR</text>
+        <rect x="120" y="244" width="260" height="12" rx="3" fill="#1a1a28"/>
+        <rect x="120" y="244" width="104" height="12" rx="3" fill="#ffb347" opacity="0.7"/>
+        <text x="390" y="254" text-anchor="end" fill="#ffb347" font-size="9" font-family="monospace">3.2%</text>
+        <text x="40" y="275" fill="#7070a0" font-size="9" font-family="sans-serif">ROAS</text>
+        <rect x="120" y="266" width="260" height="12" rx="3" fill="#1a1a28"/>
+        <rect x="120" y="266" width="130" height="12" rx="3" fill="#ff5c7a" opacity="0.7"/>
+        <text x="390" y="276" text-anchor="end" fill="#ff5c7a" font-size="9" font-family="monospace">2.2× ✗</text>
+        <rect x="20" y="301" width="380" height="24" rx="0 0 7 7" fill="#2e1a1a"/>
+        <text x="210" y="317" text-anchor="middle" fill="#ffb347" font-size="10" font-family="sans-serif" font-weight="600">Bid: -30% | Fix mobile UX dulu!</text>
+
+        <!-- Geographic breakdown -->
+        <text x="660" y="28" text-anchor="middle" fill="#9090b0" font-size="11" font-family="sans-serif" font-weight="600">Performance by Location</text>
+        <rect x="430" y="40" width="450" height="280" rx="7" fill="#252535"/>
+        <!-- Location rows -->
+        <rect x="430" y="40" width="450" height="24" fill="#1e1e30" rx="7 7 0 0"/>
+        <text x="490" y="56" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">LOCATION</text>
+        <text x="600" y="56" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">SPEND %</text>
+        <text x="670" y="56" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CPA</text>
+        <text x="740" y="56" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">CONV</text>
+        <text x="810" y="56" fill="#6060a0" font-size="9" font-family="sans-serif" font-weight="700">ROAS</text>
+
+        <!-- Jakarta -->
+        <rect x="430" y="64" width="450" height="38" fill="#1e2820"/>
+        <text x="450" y="80" fill="#e4e4f0" font-size="11" font-family="sans-serif" font-weight="600">📍 Jakarta</text>
+        <rect x="590" y="70" width="60" height="8" rx="2" fill="#22d3a0"/>
+        <text x="655" y="78" fill="#22d3a0" font-size="9" font-family="monospace">58%</text>
+        <text x="670" y="88" fill="#22d3a0" font-size="11" font-family="monospace">$18</text>
+        <text x="740" y="88" fill="#e4e4f0" font-size="11" font-family="monospace">42</text>
+        <text x="810" y="88" fill="#22d3a0" font-size="11" font-family="monospace">5.0×</text>
+        <text x="450" y="95" fill="#22d3a0" font-size="8" font-family="sans-serif">Bid: +30% ▲ Best performer</text>
+
+        <!-- Bandung -->
+        <rect x="430" y="102" width="450" height="38" fill="#1e1e28"/>
+        <text x="450" y="118" fill="#e4e4f0" font-size="11" font-family="sans-serif" font-weight="600">📍 Bandung</text>
+        <rect x="590" y="108" width="35" height="8" rx="2" fill="#4dbfff"/>
+        <text x="655" y="116" fill="#4dbfff" font-size="9" font-family="monospace">25%</text>
+        <text x="670" y="126" fill="#4dbfff" font-size="11" font-family="monospace">$32</text>
+        <text x="740" y="126" fill="#e4e4f0" font-size="11" font-family="monospace">18</text>
+        <text x="810" y="126" fill="#ffb347" font-size="11" font-family="monospace">3.2×</text>
+        <text x="450" y="133" fill="#4dbfff" font-size="8" font-family="sans-serif">Bid: +10% ▲ Growth market</text>
+
+        <!-- Surabaya -->
+        <rect x="430" y="140" width="450" height="38" fill="#201e20"/>
+        <text x="450" y="156" fill="#888" font-size="11" font-family="sans-serif" font-weight="600">📍 Surabaya</text>
+        <rect x="590" y="146" width="15" height="8" rx="2" fill="#ffb347" opacity="0.6"/>
+        <text x="655" y="154" fill="#888" font-size="9" font-family="monospace">10%</text>
+        <text x="670" y="164" fill="#ffb347" font-size="11" font-family="monospace">$65</text>
+        <text x="740" y="164" fill="#888" font-size="11" font-family="monospace">5</text>
+        <text x="810" y="164" fill="#ffb347" font-size="11" font-family="monospace">1.8×</text>
+        <text x="450" y="171" fill="#ffb347" font-size="8" font-family="sans-serif">Bid: -40% ▼ Test only</text>
+
+        <!-- Others -->
+        <rect x="430" y="178" width="450" height="38" fill="#1e1a1a"/>
+        <text x="450" y="194" fill="#666" font-size="11" font-family="sans-serif" font-weight="600">📍 Others</text>
+        <rect x="590" y="184" width="8" height="8" rx="2" fill="#ff5c7a" opacity="0.5"/>
+        <text x="655" y="192" fill="#666" font-size="9" font-family="monospace">7%</text>
+        <text x="670" y="202" fill="#ff5c7a" font-size="11" font-family="monospace">$120+</text>
+        <text x="740" y="202" fill="#666" font-size="11" font-family="monospace">2</text>
+        <text x="810" y="202" fill="#ff5c7a" font-size="11" font-family="monospace">0.9×</text>
+        <text x="450" y="209" fill="#ff5c7a" font-size="8" font-family="sans-serif">EXCLUDE — rugi!</text>
+
+        <!-- Summary insight -->
+        <rect x="430" y="230" width="450" height="80" rx="0 0 7 7" fill="#1a1a20"/>
+        <text x="655" y="252" text-anchor="middle" fill="#9090b0" font-size="10" font-family="sans-serif" font-weight="600">Budget Reallocation Recommendation</text>
+        <text x="450" y="272" fill="#22d3a0" font-size="10" font-family="sans-serif">Jakarta 65% → +$117 revenue/month</text>
+        <text x="450" y="290" fill="#4dbfff" font-size="10" font-family="sans-serif">Bandung 28% → growth track</text>
+        <text x="450" y="308" fill="#ff5c7a" font-size="10" font-family="sans-serif">Others 7% → EXCLUDE (save $126/month)</text>
+      </svg>
+    </div>
+    <div class="hl">💡 <strong>Key Insight:</strong> Jakarta menghasilkan 58% dari total conversions dengan CPA $18. Others (kota selain Jakarta/Bandung/Surabaya) menghasilkan ROAS 0.9 — rugi! Exclude segera untuk hemat $126/bulan.</div>
+  </div>
+
+</div></div>
+
 <!-- ═══ COMPARISON TOOL ═══ -->
 <div class="page" id="page-compare"><div class="mod-page">
   <div class="mod-title">⚖️ Campaign Comparison Tool</div>
@@ -2694,6 +3303,7 @@ function go(id){
   if(nv)nv.classList.add('active');
   document.getElementById('mainEl').scrollTo({top:0});
   if(id==='glossary')setTimeout(buildGlossary,60);
+  if(id==='casestudy')setTimeout(()=>{if(typeof CASES!=='undefined'&&!document.getElementById('css0'))initCaseStudy();},80);
 }
 
 // ── LEVEL TABS ──
@@ -3433,16 +4043,232 @@ function insertChip(taId,text){
 function injectAllNoteBoxes(){
   ['m1','m2','m3','m4','m5','m6','m7','m8','m9'].forEach(mod=>{
     if(document.getElementById('notebox-'+mod))return;
-    const expSec=document.getElementById(mod+'-exp');
-    if(!expSec)return;
-    const doneBtn=expSec.querySelector('.done-btn');
-    if(!doneBtn)return;
+    // Inject at the END of the mod-page div, after all level sections
+    const modPage=document.querySelector('#page-'+mod+' .mod-page');
+    if(!modPage)return;
     const div=document.createElement('div');
     div.innerHTML=renderNoteBox(mod);
-    expSec.insertBefore(div.firstElementChild,doneBtn);
+    modPage.appendChild(div.firstElementChild);
   });
 }
-// ── END NOTE TAKING ──
+// ── DASHBOARD PREVIEW TABS ──
+function dpSwitch(tabId,el){
+  document.querySelectorAll('.dp-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#page-dashprev .lvl-tab').forEach(t=>t.classList.remove('active','beg','int','adv','exp'));
+  const tab=document.getElementById('dp-'+tabId);
+  if(tab)tab.classList.add('active');
+  if(el){
+    const classMap={overview:'beg',campaign:'int',keyword:'adv',device:'exp'};
+    el.classList.add('active', classMap[tabId]||'beg');
+  }
+}
+// activate overview tab on init
+document.getElementById('dp-overview').classList.add('active');
+
+// ══════════════════════════════════
+// ── CASE STUDY ENGINE ──
+// ══════════════════════════════════
+const CASES=[
+  {id:'cs1',icon:'📊',iconBg:'rgba(31,214,160,.15)',
+   title:'Skenario 1: "Angka Keliatan Oke, tapi Sesuatu Salah"',
+   subtitle:'Bulan 1 — Campaign baru berjalan 30 hari',
+   context:'Kamu adalah Campaign Manager baru untuk klien Tax &amp; Genset Jakarta. Klien senang karena total spend $1,800 dan dapat 78 leads. Tapi setelah drill down, ada yang mengganjal...',
+   data:[
+     {label:'Total Spend',value:'$1,800',sub:'Month 1'},
+     {label:'Total Leads',value:'78',sub:'conversions'},
+     {label:'Blended CPA',value:'$23',sub:'overall'},
+     {label:'Tax CPA',value:'$15',sub:'30 leads'},
+     {label:'Genset CPA',value:'$37.5',sub:'48 leads'},
+     {label:'Blended ROAS',value:'3.2×',sub:'overall'},
+   ],
+   question:'Klien lihat Blended CPA $23 dan berkata "bagus!" Kamu sebagai manager — apa yang dilakukan?',
+   options:[
+     {l:'A',text:'Setuju dengan klien — CPA $23 bagus, tidak perlu tindakan apapun.',correct:false},
+     {l:'B',text:'Drill down per campaign: Tax CPA $15 excellent, Genset CPA $37.5 perlu investigasi. Rekomendasikan realokasi budget ke Tax.',correct:true},
+     {l:'C',text:'Pause semua campaign karena ada yang underperform.',correct:false},
+     {l:'D',text:'Naikan budget Genset supaya dapat lebih banyak leads.',correct:false},
+   ],
+   outcomeOk:{title:'✅ Tepat! Kamu menghindari Blended CPA Trap.',
+     explain:'Blended CPA $23 menyembunyikan fakta Genset CPA $37.5 — 2.5× lebih mahal dari Tax. Drill down per campaign adalah langkah krusial.',
+     impact:'💰 Jika shift $300 dari Genset ke Tax: Tax menghasilkan ~92 leads (dari 30), Genset ~11 leads. Total 103 leads dari 78 — budget sama, +32% leads!'},
+   outcomeNg:{title:'❌ Terjebak Blended CPA Trap!',
+     explain:'CPA $23 terlihat oke tapi menyembunyikan masalah besar. Tanpa drill down, kamu kehilangan peluang optimasi yang sangat besar.',
+     impact:'📉 Kamu terus buang budget di Genset dengan efisiensi 2.5× lebih rendah dari Tax.'}
+  },
+  {id:'cs2',icon:'⭐',iconBg:'rgba(255,179,71,.15)',
+   title:'Skenario 2: "CPC Naik 40% dalam 2 Minggu"',
+   subtitle:'Bulan 2, Minggu 2 — Alert dari Google Ads',
+   context:'CPC Tax Consultant naik dari $4.20 → $5.90 dalam 2 minggu. Budget sama, dapat 29% lebih sedikit clicks. Leads turun dari 54 ke 38/bulan. Investigasi menunjukkan Quality Score keyword utama turun dari 7 ke 5, penyebab: Ad Relevance "Below Average".',
+   data:[
+     {label:'CPC Sebelum',value:'$4.20',sub:'2 minggu lalu'},
+     {label:'CPC Sekarang',value:'$5.90',sub:'+40% naik!'},
+     {label:'QS Turun',value:'7→5',sub:'keyword utama'},
+     {label:'Leads/bulan',value:'38',sub:'dari 54 (-30%)'},
+     {label:'Ad Relevance',value:'Below Avg',sub:'komponen lemah'},
+     {label:'Expected CTR',value:'Average',sub:'medium'},
+   ],
+   question:'QS turun dari 7 ke 5 karena Ad Relevance "Below Average". Langkah pertama yang tepat?',
+   options:[
+     {l:'A',text:'Naikan bid dari $5 ke $7 untuk maintain posisi dan compensate CPC yang mahal.',correct:false},
+     {l:'B',text:'Tulis ulang ad copy — pastikan headline mengandung keyword exact, match dengan search intent.',correct:true},
+     {l:'C',text:'Pause campaign 2 minggu sampai QS recovery sendiri.',correct:false},
+     {l:'D',text:'Tambah lebih banyak keywords broad match untuk naikkan volume.',correct:false},
+   ],
+   outcomeOk:{title:'✅ Tepat! Fix Ad Relevance adalah prioritas #1.',
+     explain:'QS turun karena Ad Relevance "Below Average" — ad copy tidak cukup relevan dengan keyword. Fix: tulis ulang headline dengan keyword exact dan benefit spesifik.',
+     impact:'📈 Setelah fix: QS kembali ke 7+ → CPC turun ke ~$4.50 → Budget $1,080 → 240 clicks (dari 183) → Leads kembali ke 50+/bulan. Savings ~$330/bulan!'},
+   outcomeNg:{title:'❌ Bukan solusinya!',
+     explain:'Naikan bid hanya membuat bayar lebih mahal untuk masalah yang sama. Root cause-nya adalah Ad Relevance — itulah yang harus di-fix.',
+     impact:'📉 Naikan bid saat QS rendah: posisi tetap rendah tapi bayar 67% lebih mahal. Masalah tidak selesai, budget lebih boros.'}
+  },
+  {id:'cs3',icon:'💸',iconBg:'rgba(255,92,122,.15)',
+   title:'Skenario 3: "Budget Habis jam 2 Siang"',
+   subtitle:'Bulan 2, Minggu 3 — Laporan harian',
+   context:'Budget harian $60 selalu habis jam 14.00 WIB. Peak hour conversion Tax Consultant adalah 09.00–17.00. Artinya 3 jam prime time (14–17) iklan tidak tayang! Lost IS (Budget): 35%. Lost IS (Rank): hanya 8%.',
+   data:[
+     {label:'Daily Budget',value:'$60',sub:'per campaign'},
+     {label:'Budget Habis',value:'14:00',sub:'jam 2 siang'},
+     {label:'Lost IS Budget',value:'35%',sub:'penyebab utama'},
+     {label:'Lost IS Rank',value:'8%',sub:'kecil'},
+     {label:'Peak Hour',value:'9–17 WIB',sub:'konversi tertinggi'},
+     {label:'Rev. Lost Est.',value:'~$840',sub:'per bulan'},
+   ],
+   question:'Budget habis jam 14.00, padahal peak conversion sampai 17.00. Strategi terbaik?',
+   options:[
+     {l:'A',text:'Biarkan saja — leads yang ada sudah cukup untuk klien.',correct:false},
+     {l:'B',text:'Naikan daily budget $60→$85 (+42%) DAN set Ad Schedule bid +40% untuk jam 09–17.',correct:true},
+     {l:'C',text:'Hanya naikan daily budget ke $80 tanpa ubah bid schedule.',correct:false},
+     {l:'D',text:'Kurangi bid supaya budget lebih hemat dan tahan lebih lama.',correct:false},
+   ],
+   outcomeOk:{title:'✅ Strategi optimal! Dua langkah sekaligus.',
+     explain:'Naikan budget mengizinkan iklan tayang lebih lama. Ad Schedule bid +40% jam 9–17 memastikan budget terkonsentrasi di jam paling profitable — bukan tersebar merata.',
+     impact:'📈 Proyeksi: 3 jam extra × 30 hari = 90 jam extra. Estimasi +18 leads/bulan. Revenue tambahan $2,700/bulan. Budget tambahan $750/bulan. ROI 3.6× — worth it!'},
+   outcomeNg:{title:'❌ Kurang optimal!',
+     explain:'Naikan budget tanpa ad schedule = budget tersebar di jam sepi. Kurangi bid = kalah posisi di peak hour. Biarkan saja = kehilangan revenue nyata.',
+     impact:'📉 Kehilangan estimasi $840/bulan dari leads yang seharusnya didapat di jam 14–17 WIB.'}
+  },
+  {id:'cs4',icon:'🔍',iconBg:'rgba(77,191,255,.15)',
+   title:'Skenario 4: "25% Budget ke Search Terms Tidak Berguna"',
+   subtitle:'Bulan 3 — Audit Bulanan',
+   context:'Audit search terms bulan ini: "free tax tips" ($180, 0 conv) + "tax consultant salary" ($112, 0 conv) + "cara menghindari pajak" ($88, 0 conv) + "tax accounting software" ($72, 0 conv). Total waste: $452 dari $1,800 budget = 25% terbuang!',
+   data:[
+     {label:'Total Budget',value:'$1,800',sub:'bulan ini'},
+     {label:'Wasted Spend',value:'$452',sub:'25% terbuang!'},
+     {label:'Waste Terms',value:'4',sub:'search terms'},
+     {label:'Conv dari Waste',value:'0',sub:'nol leads'},
+     {label:'Annual Waste',value:'$5,424',sub:'jika dibiarkan'},
+     {label:'Potential Leads',value:'+30',sub:'jika direalokasi'},
+   ],
+   question:'$452 terbuang ke search terms yang tidak convert. Tindakan paling komprehensif?',
+   options:[
+     {l:'A',text:'Add exact match negative untuk 4 specific terms tersebut saja.',correct:false},
+     {l:'B',text:'Add theme negatives: -free, -salary, -software, -"cara menghindari". Realokasi budget. PLUS jadwalkan review search terms setiap minggu.',correct:true},
+     {l:'C',text:'Pause campaign seminggu dan restart dengan keyword baru.',correct:false},
+     {l:'D',text:'Turunkan bid semua keywords supaya wasted spend berkurang.',correct:false},
+   ],
+   outcomeOk:{title:'✅ Excellent! Solusi komprehensif + sistem jangka panjang.',
+     explain:'Theme negatives (-free) mencegah SEMUA future searches dengan kata itu, bukan hanya exact match. Weekly review memastikan waste tidak menumpuk lagi.',
+     impact:'💰 Save $452/bulan = $5,424/tahun. Realokasi ke Tax: +30 leads/bulan extra. Revenue extra $4,500/bulan. Annual value dari satu audit ini: $59,000!'},
+   outcomeNg:{title:'❌ Solusi parsial atau kontraproduktif!',
+     explain:'Exact match negative hanya blocks kata persis itu — "free tax advice" tidak terblok. Pause buang data. Turunkan bid tidak fix masalah relevance.',
+     impact:'📉 Tanpa systematic approach, search terms waste akan kembali dalam 2–3 minggu.'}
+  },
+  {id:'cs5',icon:'🚀',iconBg:'rgba(108,99,255,.15)',
+   title:'Skenario 5: "Klien Minta Double Budget!"',
+   subtitle:'Bulan 4 — Review Quarterly',
+   context:'Setelah 3 bulan optimasi: Tax ROAS 5.2×, CPA $18, QS avg 8.5, IS 76%. Genset ROAS 3.4×, CPA $28, QS 7.0, IS 62%. Klien excited: "Saya mau double budget dari $1,800 ke $3,600 bulan depan!"',
+   data:[
+     {label:'Tax ROAS',value:'5.2×',sub:'excellent!'},
+     {label:'Genset ROAS',value:'3.4×',sub:'good'},
+     {label:'Current Budget',value:'$1,800',sub:'per bulan'},
+     {label:'Requested',value:'$3,600',sub:'double!'},
+     {label:'Tax IS',value:'76%',sub:'room to grow'},
+     {label:'Genset IS',value:'62%',sub:'more room'},
+   ],
+   question:'Klien minta double budget langsung ke $3,600. Rekomendasimu?',
+   options:[
+     {l:'A',text:'Setuju double langsung — ROAS bagus, ini saatnya gas full!',correct:false},
+     {l:'B',text:'Tolak sepenuhnya — terlalu berisiko, maintain $1,800 dulu.',correct:false},
+     {l:'C',text:'Rekomendasikan scale bertahap: +20%/minggu × 4 minggu ($1,800→$2,160→$2,592→$3,110→$3,600), monitor ROAS tiap step.',correct:true},
+     {l:'D',text:'Scale Tax saja ke $2,400 (karena ROAS lebih tinggi), Genset tetap $1,200.',correct:false},
+   ],
+   outcomeOk:{title:'✅ Strategi scaling profesional!',
+     explain:'Double budget langsung = risiko ROAS drop drastis karena audience saturation dan Smart Bidding butuh waktu recalibrate. Scale +20%/minggu memberi waktu algorithm beradaptasi.',
+     impact:'📈 Bertahap: ROAS tetap 4.5–5.0× → Revenue $16,200/bulan. Langsung double: ROAS bisa drop ke 3.0× → Revenue $10,800. Selisih $5,400/bulan! Stop jika ROAS turun di bawah 3.5.'},
+   outcomeNg:{title:'❌ Ada yang lebih baik!',
+     explain:'Double langsung sangat berisiko. Tolak sepenuhnya melewatkan opportunity nyata. Scale Tax saja juga tidak optimal — Genset IS 62% masih ada ruang.',
+     impact:'💡 Prinsip scaling: selalu incremental. Naik +20%/minggu, tunggu 7 hari, evaluasi ROAS. Jika ROAS drop >15% → hold.'}
+  },
+];
+
+let csState={current:0,scores:[],xpEarned:0};
+
+function initCaseStudy(){
+  csState={current:0,scores:[],xpEarned:0};
+  const stepsEl=document.getElementById('csSteps');
+  if(stepsEl){stepsEl.innerHTML='';CASES.forEach((_,i)=>{const d=document.createElement('div');d.className='mod-step';d.id='css'+i;stepsEl.appendChild(d);})}
+  document.getElementById('csContainer').style.display='block';
+  document.getElementById('csSummary').style.display='none';
+  renderCase(0);
+}
+
+function renderCase(idx){
+  const c=CASES[idx];if(!c)return;
+  document.getElementById('csProgLabel').textContent=idx+' / '+CASES.length+' kasus';
+  CASES.forEach((_,i)=>{const s=document.getElementById('css'+i);if(!s)return;s.classList.remove('done','cur');if(i<idx)s.classList.add('done');if(i===idx)s.classList.add('cur');});
+  const container=document.getElementById('csContainer');
+  container.innerHTML=`
+  <div class="cs-card">
+    <div class="cs-timeline">${CASES.map((cc,i)=>`<div class="cs-timeline-step"><div class="cs-timeline-dot ${i<idx?'done':i===idx?'active':''}">${i<idx?'✓':i+1}</div><div class="cs-timeline-label" style="color:${i===idx?'var(--text)':i<idx?'var(--green)':'var(--text3)'}">Kasus ${i+1}</div></div>`).join('')}</div>
+    <div class="cs-scenario-header"><div class="cs-icon" style="background:${c.iconBg}">${c.icon}</div><div><div class="cs-title">${c.title}</div><div class="cs-subtitle">${c.subtitle}</div></div></div>
+    <div class="cs-context">${c.context}</div>
+    <div class="cs-data-grid">${c.data.map(d=>`<div class="cs-data-card"><div class="cs-data-label">${d.label}</div><div class="cs-data-value">${d.value}</div><div class="cs-data-sub">${d.sub}</div></div>`).join('')}</div>
+    <div class="cs-question">
+      <div class="cs-question-text">❓ ${c.question}</div>
+      <div class="cs-options">${c.options.map(o=>`<div class="cs-option" data-l="${o.l}" data-correct="${o.correct}" onclick="answerCase(${idx},this,${o.correct})">${o.text}</div>`).join('')}</div>
+      <div class="cs-outcome" id="csOutcome${idx}"></div>
+      <button class="cs-next-btn" id="csNext${idx}" onclick="nextCase(${idx})">${idx<CASES.length-1?'Lanjut ke Kasus Berikutnya →':'Lihat Hasil Akhir 🏆'}</button>
+    </div>
+  </div>`;
+}
+
+function answerCase(idx,el,isCorrect){
+  const opts=document.querySelectorAll('#csContainer .cs-option');
+  if([...opts].some(o=>o.classList.contains('correct')||o.classList.contains('wrong')))return;
+  opts.forEach(o=>{o.style.pointerEvents='none';if(o===el)o.classList.add(isCorrect?'correct':'wrong');else if(o.getAttribute('data-correct')==='true')o.classList.add('reveal-correct');});
+  csState.scores[idx]=isCorrect;
+  const xp=isCorrect?40:10;csState.xpEarned+=xp;addXP(xp);
+  const c=CASES[idx];const out=isCorrect?c.outcomeOk:c.outcomeNg;
+  const outEl=document.getElementById('csOutcome'+idx);
+  outEl.className='cs-outcome show '+(isCorrect?'ok':'ng');
+  outEl.innerHTML=`<div class="cs-outcome-title">${out.title}</div><div style="font-size:13.5px;line-height:1.6">${out.explain}</div><div class="cs-impact">${out.impact}</div>`;
+  document.getElementById('csNext'+idx).style.display='inline-block';
+  const st=document.getElementById('css'+idx);if(st){st.classList.remove('cur');st.classList.add('done');}
+  document.getElementById('csProgLabel').textContent=(idx+1)+' / '+CASES.length+' kasus';
+}
+
+function nextCase(idx){
+  const next=idx+1;
+  if(next>=CASES.length){showCaseSummary();return;}
+  csState.current=next;
+  renderCase(next);
+  setTimeout(()=>document.getElementById('csContainer').scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+function showCaseSummary(){
+  document.getElementById('csContainer').style.display='none';
+  document.getElementById('csSummary').style.display='block';
+  const correct=csState.scores.filter(Boolean).length;
+  document.getElementById('csFinalScore').textContent=correct;
+  document.getElementById('csFinalXP').textContent=csState.xpEarned;
+  const grades=['Perlu Belajar Lagi 📖','Ada Peluang Belajar 👍','Lumayan Bagus! 😊','Sangat Bagus! 🔥','Expert Manager! 🏆','Perfect Score! 🎊'];
+  document.getElementById('csFinalGrade').textContent=grades[Math.min(correct,5)];
+  if(correct===5)showBadge('🎊','Case Study Perfect!','+200 XP Bonus!');
+  else showBadge('✅','Case Study Selesai!',csState.xpEarned+' XP earned');
+}
+
+function restartCaseStudy(){initCaseStudy();}
+// ── END CASE STUDY ENGINE ──
 
 // ══════════════════════════════════
 const GLOSSARY=[
