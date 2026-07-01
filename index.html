@@ -482,9 +482,68 @@ body.light .note-area{background:var(--bg3)}
   .scroll-top{left:12px}
 
   /* Generic guards: avoid horizontal overflow across the app */
-  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table tr{display:table;width:100%;table-layout:auto}
   pre,code{white-space:pre-wrap;word-break:break-word}
   img,svg{max-width:100%;height:auto}
+
+  /* Module / KB page shells */
+  .mod-page,.kb-page{padding:24px 16px}
+  .mod-title{font-size:22px}
+  .breadcrumb{flex-wrap:wrap}
+
+  /* Progress bar module */
+  .mod-prog{flex-wrap:wrap;padding:12px 14px}
+  .prog-lbl{font-size:11px}
+
+  /* Level tabs: horizontal scroll instead of squeeze */
+  .lvl-tabs{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .lvl-tab{white-space:nowrap;padding:6px 12px;font-size:12px}
+
+  /* Blocks / formula / analogy / highlight / banner / code */
+  .blk{padding:16px}
+  .fml{padding:14px 16px}
+  .fml-text{font-size:14.5px;word-break:break-word}
+  .anal{padding:14px}
+  .hl,.banner,.code{padding:11px 13px;font-size:13px}
+
+  /* Calculator */
+  .calc{padding:16px}
+  .calc-grid{grid-template-columns:1fr}
+  .calc-btn{width:100%}
+  .calc-res-val{font-size:19px;word-break:break-word}
+  .calc-res-msg{white-space:pre-wrap}
+
+  /* Grids that used auto-fill with wide minmax: force single column on phones */
+  .sc-grid,.flip-grid,.sim-grid,.cs-data-grid{grid-template-columns:1fr}
+
+  /* Tables (custom .tbl and kb-content tables): horizontal scroll wrapper behavior */
+  .tbl,.kb-content table{font-size:12px}
+  .tbl th,.tbl td,.kb-content th,.kb-content td{padding:7px 8px}
+
+  /* Quiz & case study options */
+  .quiz-opt,.cs-option{padding:10px 12px;font-size:13px}
+  .cs-scenario-header{flex-wrap:wrap}
+  .cs-data-label,.cs-data-value{word-break:break-word}
+
+  /* Nav buttons wrap instead of overflow */
+  .nav-btns{flex-wrap:wrap}
+  .nbtn{flex:1 1 auto;justify-content:center}
+
+  /* TOC box full width */
+  .toc-box{max-width:100%}
+
+  /* Badge popup: don't overflow screen edge */
+  .badge-pop{right:14px;left:14px;max-width:none}
+
+  /* Flip cards: shorter height on phones */
+  .flip{height:130px}
+
+  /* Utility: force any 2-column inline grid marked with this class to stack */
+  .mob-stack{grid-template-columns:1fr!important}
+
+  /* Dashboard preview annotation labels: allow wrap, avoid edge overflow */
+  #page-dashprev [style*="position:absolute"] div[style*="white-space:normal"]{font-size:10px!important}
 }
 </style>
 </head>
@@ -2529,22 +2588,22 @@ Next month priorities</pre>
           <text x="810" y="484" fill="#36e8d8" font-size="12" font-family="monospace">65%</text>
         </svg>
 
-        <!-- ANNOTATION OVERLAYS -->
-        <div style="position:absolute;top:68px;left:12px;pointer-events:none">
-          <div style="position:absolute;top:0;left:0;width:152px;height:84px;border:2px solid var(--green);border-radius:10px;box-shadow:0 0 12px rgba(31,214,160,.3)"></div>
-          <div style="position:absolute;top:-26px;left:0;background:var(--green);color:var(--bg);font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;font-family:'Syne',sans-serif">① ROAS — Revenue ÷ Spend</div>
+        <!-- ANNOTATION OVERLAYS (positions are % of the 900x520 viewBox so they stay aligned when the SVG scales down) -->
+        <div style="position:absolute;top:13.1%;left:1.3%;pointer-events:none">
+          <div style="position:absolute;top:0;left:0;width:16.9%;height:16.2%;border:2px solid var(--green);border-radius:10px;box-shadow:0 0 12px rgba(31,214,160,.3)"></div>
+          <div style="position:absolute;top:-22px;left:0;background:var(--green);color:var(--bg);font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:5px;max-width:118px;white-space:normal;line-height:1.25;font-family:\'Syne\',sans-serif">① ROAS — Revenue ÷ Spend</div>
         </div>
-        <div style="position:absolute;top:68px;left:170px;pointer-events:none">
-          <div style="position:absolute;top:0;left:0;width:152px;height:84px;border:2px solid var(--blue);border-radius:10px;box-shadow:0 0 12px rgba(77,191,255,.3)"></div>
-          <div style="position:absolute;top:-26px;left:0;background:var(--blue);color:var(--bg);font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;font-family:'Syne',sans-serif">② CPA — Spend ÷ Conversions</div>
+        <div style="position:absolute;top:13.1%;left:18.9%;pointer-events:none">
+          <div style="position:absolute;top:0;left:0;width:16.9%;height:16.2%;border:2px solid var(--blue);border-radius:10px;box-shadow:0 0 12px rgba(77,191,255,.3)"></div>
+          <div style="position:absolute;top:-22px;left:0;background:var(--blue);color:var(--bg);font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:5px;max-width:118px;white-space:normal;line-height:1.25;font-family:\'Syne\',sans-serif">② CPA — Spend ÷ Conversions</div>
         </div>
-        <div style="position:absolute;top:68px;left:328px;pointer-events:none">
-          <div style="position:absolute;top:0;left:0;width:152px;height:84px;border:2px solid var(--amber);border-radius:10px;box-shadow:0 0 12px rgba(255,179,71,.3)"></div>
-          <div style="position:absolute;top:-26px;left:0;background:var(--amber);color:var(--bg);font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;font-family:'Syne',sans-serif">③ CTR — Clicks ÷ Impressions</div>
+        <div style="position:absolute;top:13.1%;left:36.4%;pointer-events:none">
+          <div style="position:absolute;top:0;left:0;width:16.9%;height:16.2%;border:2px solid var(--amber);border-radius:10px;box-shadow:0 0 12px rgba(255,179,71,.3)"></div>
+          <div style="position:absolute;top:-22px;left:0;background:var(--amber);color:var(--bg);font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:5px;max-width:118px;white-space:normal;line-height:1.25;font-family:\'Syne\',sans-serif">③ CTR — Clicks ÷ Impressions</div>
         </div>
-        <div style="position:absolute;top:68px;left:486px;pointer-events:none">
-          <div style="position:absolute;top:0;left:0;width:152px;height:84px;border:2px solid var(--accent2);border-radius:10px;box-shadow:0 0 12px rgba(144,138,255,.3)"></div>
-          <div style="position:absolute;top:-26px;left:0;background:var(--accent2);color:var(--bg);font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;font-family:'Syne',sans-serif">④ Conv Rate — Conv ÷ Clicks</div>
+        <div style="position:absolute;top:13.1%;left:54%;pointer-events:none">
+          <div style="position:absolute;top:0;left:0;width:16.9%;height:16.2%;border:2px solid var(--accent2);border-radius:10px;box-shadow:0 0 12px rgba(144,138,255,.3)"></div>
+          <div style="position:absolute;top:-22px;left:0;background:var(--accent2);color:var(--bg);font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:5px;max-width:118px;white-space:normal;line-height:1.25;font-family:\'Syne\',sans-serif">④ Conv Rate — Conv ÷ Clicks</div>
         </div>
       </div>
     </div>
@@ -2911,7 +2970,7 @@ Next month priorities</pre>
   <div class="mod-sub">Bandingkan 2 campaign side-by-side — temukan mana yang lebih efisien</div>
 
   <!-- INPUT SECTION -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px" id="cmpInputGrid">
+  <div class="mob-stack" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px" id="cmpInputGrid">
 
     <!-- Campaign A -->
     <div class="blk" style="padding:20px;border-color:rgba(108,99,255,.35)">
@@ -3139,7 +3198,7 @@ Next month priorities</pre>
   </div>
 
   <!-- ROW 4: OPTIMIZATION ORDER + NEGATIVE KW -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+  <div class="mob-stack" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
     <div class="blk" style="padding:18px">
       <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">🔢 Urutan Optimasi yang Benar</div>
       <div style="display:flex;flex-direction:column;gap:8px">
