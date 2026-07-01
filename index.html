@@ -67,6 +67,25 @@ body.light .scroll-top{background:#f0f0f6}
   color:var(--text2);user-select:none;
 }
 .theme-toggle:hover{background:var(--bg4);border-color:var(--accent);color:var(--text)}
+
+/* HAMBURGER (mobile nav toggle) */
+.hamburger{
+  display:none;width:34px;height:34px;flex-shrink:0;border:1px solid var(--border2);
+  background:var(--bg3);border-radius:8px;cursor:pointer;
+  flex-direction:column;align-items:center;justify-content:center;gap:4px;
+}
+.hamburger span{display:block;width:16px;height:2px;background:var(--text2);border-radius:2px;transition:all .2s}
+.hamburger:hover{background:var(--bg4)}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* SIDEBAR OVERLAY (mobile) */
+.sidebar-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.sidebar-overlay.open{opacity:1;pointer-events:auto}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
@@ -429,13 +448,43 @@ body.light .note-area{background:var(--bg3)}
 /* RESPONSIVE */
 @media(max-width:768px){
   .shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .hero,.mod-page,.kb-page{padding:24px 18px}
-  .cards-grid{padding:20px 18px}
-  .stats-row{grid-template-columns:repeat(2,1fr);padding:20px 18px 6px}
-  .cards-title,.cards-sub{padding-left:18px;padding-right:18px}
-  .hero-title{font-size:26px}
+
+  /* Topbar: hamburger visible, search/xp compact, wraps gracefully */
+  .hamburger{display:flex}
+  .topbar{padding:0 10px;gap:8px}
+  .logo{font-size:14px;gap:6px}
+  .logo-text{display:none}
+  #searchWrap{flex:1;min-width:0}
+  .search-inp{width:100%;min-width:0;font-size:12.5px;padding:6px 10px}
+  .search-inp:focus{width:100%}
+  #searchDrop{width:100%!important;max-width:calc(100vw - 20px)}
+  .topbar-right{gap:6px}
+  .xp-pill{padding:4px 8px;font-size:11px}
+  .level-pill{display:none}
+  #saveInd{display:none!important}
+
+  /* Sidebar becomes an off-canvas drawer */
+  .sidebar{
+    display:block;position:fixed;top:0;left:0;height:100vh;width:78vw;max-width:300px;
+    transform:translateX(-100%);transition:transform .25s ease;z-index:200;
+    box-shadow:0 0 40px rgba(0,0,0,.4);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-overlay{display:block}
+
+  .main{grid-column:1/-1}
+  .hero,.mod-page,.kb-page{padding:24px 16px}
+  .cards-grid{padding:20px 16px;grid-template-columns:1fr!important}
+  .stats-row{grid-template-columns:repeat(2,1fr);padding:20px 16px 6px}
+  .cards-title,.cards-sub{padding-left:16px;padding-right:16px}
+  .hero-title{font-size:24px;line-height:1.2}
+  .hero-sub{font-size:14px}
   .scroll-top{left:12px}
+
+  /* Generic guards: avoid horizontal overflow across the app */
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  pre,code{white-space:pre-wrap;word-break:break-word}
+  img,svg{max-width:100%;height:auto}
 }
 </style>
 </head>
@@ -444,7 +493,10 @@ body.light .note-area{background:var(--bg3)}
 
 <!-- TOPBAR -->
 <header class="topbar">
-  <div class="logo"><div class="logo-icon">📊</div>Google Ads Academy</div>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Menu" title="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="logo"><div class="logo-icon">📊</div><span class="logo-text">Google Ads Academy</span></div>
   <div style="position:relative" id="searchWrap">
     <input class="search-inp" id="searchInp" placeholder="🔍 Cari materi..." autocomplete="off"
       oninput="handleSearch(this.value)" onkeydown="searchKeyNav(event)"
@@ -460,8 +512,11 @@ body.light .note-area{background:var(--bg3)}
   </div>
 </header>
 
+<!-- SIDEBAR OVERLAY (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
 <!-- SIDEBAR -->
-<nav class="sidebar">
+<nav class="sidebar" id="sidebarEl">
   <div class="nav-sec">
     <div class="nav-lbl">Menu Utama</div>
     <div class="nav-item active" id="nav-dash" onclick="go('dash')"><div class="nav-icon">🏠</div>Dashboard</div>
@@ -3304,7 +3359,22 @@ function go(id){
   document.getElementById('mainEl').scrollTo({top:0});
   if(id==='glossary')setTimeout(buildGlossary,60);
   if(id==='casestudy')setTimeout(()=>{if(typeof CASES!=='undefined'&&!document.getElementById('css0'))initCaseStudy();},80);
+  closeSidebar();
 }
+
+// ── MOBILE SIDEBAR DRAWER ──
+function toggleSidebar(){
+  document.getElementById('sidebarEl').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+  document.getElementById('hamburgerBtn').classList.toggle('open');
+}
+function closeSidebar(){
+  if(window.innerWidth>768)return;
+  document.getElementById('sidebarEl').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.getElementById('hamburgerBtn').classList.remove('open');
+}
+window.addEventListener('resize',()=>{if(window.innerWidth>768)closeSidebar()});
 
 // ── LEVEL TABS ──
 function setLevel(mod,lv,el){
